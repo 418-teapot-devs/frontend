@@ -24,9 +24,6 @@ export const loginAsync = createAsyncThunk(
       const body = await response.json()
       const cat = body[0]
 
-      console.log(response)
-      console.log(body)
-
       switch (response.status) {
         case 200:
           return { token: cat["url"] }
