@@ -1,5 +1,5 @@
-import React from "react";
-import { Login } from "./features/user/Login";
+import React from "react"
+import { Login } from "./features/user/Login"
 
 function App() {
   return (
@@ -7,7 +7,7 @@ function App() {
       <h1>PyRobots</h1>
       <Login />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

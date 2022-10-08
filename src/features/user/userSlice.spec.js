@@ -1,4 +1,4 @@
-import userReducer, { loginAsync, logout } from "./userSlice";
+import userReducer, { loginAsync, logout } from "./userSlice"
 
 describe("slice reducer", () => {
   const initialState = {
@@ -12,7 +12,7 @@ describe("slice reducer", () => {
       email: null,
       avatar_url: null,
     },
-  };
+  }
 
   const loggedInState = {
     token: "sometoken",
@@ -25,11 +25,11 @@ describe("slice reducer", () => {
       email: "someemail",
       avatar_url: "someavatarurl",
     },
-  };
+  }
 
   it("should handle initial state", () => {
-    expect(userReducer(undefined, { type: "unknown" })).toEqual(initialState);
-  });
+    expect(userReducer(undefined, { type: "unknown" })).toEqual(initialState)
+  })
 
   // TODO: Test asyncThunk with mocked API
   // it("should handle loginAsync", () => {
@@ -38,7 +38,7 @@ describe("slice reducer", () => {
   // });
 
   it("should handle logout", () => {
-    const actual = userReducer(loggedInState, logout());
-    expect(actual).toEqual(initialState);
-  });
-});
+    const actual = userReducer(loggedInState, logout())
+    expect(actual).toEqual(initialState)
+  })
+})

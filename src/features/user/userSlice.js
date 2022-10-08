@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { login } from "./api/login";
-import { USER_SLICE, USER_LOGIN_REQUEST } from "./consts";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { login } from "./api/login"
+import { USER_SLICE, USER_LOGIN_REQUEST } from "./consts"
 
 const initialState = {
   token: null,
@@ -13,35 +13,35 @@ const initialState = {
     email: null,
     avatar_url: null,
   },
-};
+}
 
 export const loginAsync = createAsyncThunk(
   USER_LOGIN_REQUEST,
   async (data, { rejectWithValue }) => {
     try {
-      const { username, password } = data;
-      const response = await login(username, password);
-      const body = await response.json();
-      const cat = body[0];
+      const { username, password } = data
+      const response = await login(username, password)
+      const body = await response.json()
+      const cat = body[0]
 
-      console.log(response);
-      console.log(body);
+      console.log(response)
+      console.log(body)
 
       switch (response.status) {
         case 200:
-          return { token: cat["url"] };
+          return { token: cat["url"] }
         case 400:
-          return rejectWithValue(cat["errors"]);
+          return rejectWithValue(cat["errors"])
         default:
           return rejectWithValue({
             extra: ["Server error, try again later..."],
-          });
+          })
       }
     } catch (err) {
-      return rejectWithValue({ extra: [`Unexpected error: ${err}`] });
+      return rejectWithValue({ extra: [`Unexpected error: ${err}`] })
     }
   }
-);
+)
 
 export const userSlice = createSlice({
   name: USER_SLICE,
@@ -52,27 +52,27 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginAsync.pending, (state) => {
-        state.login.loading = true;
-        state.login.errors = {};
-        state.token = null;
+        state.login.loading = true
+        state.login.errors = {}
+        state.token = null
       })
       .addCase(loginAsync.fulfilled, (state, action) => {
-        state.login.loading = false;
-        state.login.errors = {};
-        state.token = action.payload["token"];
+        state.login.loading = false
+        state.login.errors = {}
+        state.token = action.payload["token"]
       })
       .addCase(loginAsync.rejected, (state, action) => {
-        state.login.loading = false;
-        state.login.errors = action.payload;
-        state.token = null;
-      });
+        state.login.loading = false
+        state.login.errors = action.payload
+        state.token = null
+      })
   },
-});
+})
 
-export const { logout } = userSlice.actions;
+export const { logout } = userSlice.actions
 
-export const selectToken = (state) => state.user.token;
-export const selectLoginLoading = (state) => state.user.login.loading;
-export const selectLoginErrors = (state) => state.user.login.errors;
+export const selectToken = (state) => state.user.token
+export const selectLoginLoading = (state) => state.user.login.loading
+export const selectLoginErrors = (state) => state.user.login.errors
 
-export default userSlice.reducer;
+export default userSlice.reducer
