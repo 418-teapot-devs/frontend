@@ -27,7 +27,7 @@ export function Login() {
           Logout
         </button>
       </span>
-      {loading ? <p>Loading...</p> : <img src={token} height="500px" />}      
+      {loading ? <p>Loading...</p> : <img src={token} height="500px" />}
     </div>
   );
 }
