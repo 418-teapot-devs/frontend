@@ -5,7 +5,7 @@ describe("slice reducer", () => {
     token: null,
     login: {
       loading: false,
-      errors: {},
+      error: null,
     },
     profile: {
       username: null,
@@ -18,7 +18,7 @@ describe("slice reducer", () => {
     token: "sometoken",
     login: {
       loading: false,
-      errors: {},
+      error: null,
     },
     profile: {
       username: "someusername",

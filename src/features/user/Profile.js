@@ -7,30 +7,36 @@ import {
   CircularProgress,
   CardMedia,
 } from "@mui/material"
-import { selectLoginLoading, selectToken } from "./userSlice"
+import {
+  selectUserLoginLoading,
+  selectUserProfile,
+  selectUserToken,
+} from "./userSlice"
 
 export const Profile = () => {
-  const token = useSelector(selectToken)
-  const loading = useSelector(selectLoginLoading)
+  const token = useSelector(selectUserToken)
+  const loading = useSelector(selectUserLoginLoading)
+  const profile = useSelector(selectUserProfile)
 
   return (
     <Card>
-      <CardMedia
-        component="img"
-        height="280"
-        image={token}
-      />
+      <CardMedia component="img" height="280" image={profile.avatar_url} />
       <CardContent>
-        {
-          loading ? <CircularProgress /> : <React.Fragment>
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <React.Fragment>
             <Typography gutterBottom variant="h5" component="div">
-              Perfil
+              @{profile.username}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography noWrap variant="body2" color="text.secondary">
               Token: {token}
             </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Email: {profile.email}
+            </Typography>
           </React.Fragment>
-        }
+        )}
       </CardContent>
     </Card>
   )

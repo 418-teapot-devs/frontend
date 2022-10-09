@@ -9,17 +9,15 @@ import {
   CardContent,
   TextField,
   Typography,
-  Grid,
-  CircularProgress,
-  CardMedia,
-  Stack
+  Stack,
+  Alert,
 } from "@mui/material"
 import {
   loginAsync,
   logout,
-  selectToken,
-  selectLoginLoading,
-  selectLoginErrors,
+  selectUserToken,
+  selectUserLoginLoading,
+  selectUserLoginError,
 } from "./userSlice"
 
 const validationSchema = yup.object({
@@ -35,9 +33,9 @@ const validationSchema = yup.object({
 export const Login = () => {
   const dispatch = useDispatch()
 
-  const token = useSelector(selectToken)
-  const loading = useSelector(selectLoginLoading)
-  const errors = useSelector(selectLoginErrors)
+  const token = useSelector(selectUserToken)
+  const loading = useSelector(selectUserLoginLoading)
+  const error = useSelector(selectUserLoginError)
 
   const formik = useFormik({
     initialValues: {
@@ -46,60 +44,66 @@ export const Login = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      dispatch(loginAsync(values.username, values.password))
+      dispatch(loginAsync(values))
     },
   })
 
   return (
-        <Card variant="outlined">
-          <form onSubmit={formik.handleSubmit}>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div" textAlign="center">
-                Login
-              </Typography>
-              <Stack spacing={2}>
-                <TextField
-                  fullWidth
-                  id="username"
-                  name="username"
-                  label="Nombre de usuario"
-                  value={formik.values.username}
-                  onChange={formik.handleChange}
-                  error={formik.touched.username && Boolean(formik.errors.username)}
-                  helperText={formik.touched.username && formik.errors.username}
-                />
-                <TextField
-                  fullWidth
-                  id="password"
-                  name="password"
-                  label="Contraseña"
-                  type="password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  error={formik.touched.password && Boolean(formik.errors.password)}
-                  helperText={formik.touched.password && formik.errors.password}
-                />
-              </Stack>
-            </CardContent>
-            <CardActions sx={{ padding: 2 }}>
-              <Button
-                disabled={!Boolean(token) || loading}
-                variant="contained"
-                fullWidth
-                onClick={() => dispatch(logout())}
-              >
-                Logout
-              </Button>
-              <Button
-                disabled={Boolean(token) || loading}
-                type="submit"
-                fullWidth
-                variant="contained"
-              >
-                Login
-              </Button>
-            </CardActions>
-          </form>
-        </Card>
+    <Card variant="outlined">
+      <form onSubmit={formik.handleSubmit}>
+        <CardContent>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            textAlign="center"
+          >
+            Login
+          </Typography>
+          <Stack spacing={2}>
+            <TextField
+              fullWidth
+              id="username"
+              name="username"
+              label="Nombre de usuario"
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              error={formik.touched.username && Boolean(formik.errors.username)}
+              helperText={formik.touched.username && formik.errors.username}
+            />
+            <TextField
+              fullWidth
+              id="password"
+              name="password"
+              label="Contraseña"
+              type="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+            />
+            {Boolean(error) && <Alert severity="error">{error}</Alert>}
+          </Stack>
+        </CardContent>
+        <CardActions sx={{ padding: 2 }}>
+          <Button
+            disabled={!Boolean(token) || loading}
+            variant="contained"
+            fullWidth
+            onClick={() => dispatch(logout())}
+          >
+            Logout
+          </Button>
+          <Button
+            disabled={Boolean(token) || loading}
+            type="submit"
+            fullWidth
+            variant="contained"
+          >
+            Login
+          </Button>
+        </CardActions>
+      </form>
+    </Card>
   )
 }
