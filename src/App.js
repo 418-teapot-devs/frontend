@@ -4,6 +4,7 @@ import { Profile } from "./features/user/Profile"
 import { CreateMatch } from "./features/matches/CreateMatch"
 import { IniciatedMatches } from "./features/matches/IniciatedMatches"
 import { iniciated } from "./features/matches/api/iniciated"
+import { Register } from "./features/user/Register"
 
 var divStyle = {
   height: '30vw'
