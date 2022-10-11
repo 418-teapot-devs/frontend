@@ -1,6 +1,7 @@
-import React from "react"
+import React, {useState} from "react"
 import { useFormik } from "formik"
 import * as yup from "yup"
+import { creatematch } from "./api/creatematch"
 
 import {
   Button,
@@ -63,6 +64,7 @@ const cancelCreateMatch = () => {
 }
 
 export const CreateMatch = () => {
+  const [loading, setLoading] = useState(false)
 
   const formik = useFormik({
     initialValues: {
@@ -75,7 +77,19 @@ export const CreateMatch = () => {
       confirm_password: ""
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {},
+    onSubmit: async (values) => {
+        setLoading(true)
+        const response = await creatematch(values)
+        switch(response.status){
+          case(200): 
+            setLoading(false)
+            window.alert("Se creó la partida con éxito.")
+            break
+          default:
+            setLoading(false)
+            window.alert("No se pudo crear la partida.")
+        }
+    },
   })
 
   return (
