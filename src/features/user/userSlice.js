@@ -23,16 +23,18 @@ export const loginAsync = createAsyncThunk(
 
       switch (response.status) {
         case 200:
-          return response
-        case 400:
-          return rejectWithValue(response.message)
+          const body = await response.json()
+          console.log(body)
+          return body
+        case 401:
+          return rejectWithValue("El usuario no existe o la contraseña inválida")
         case 500:
-          return rejectWithValue(response.message)
+          return rejectWithValue("Error del servidor, intente más tarde")
         default:
-          return rejectWithValue(`Unknown error, code(${response.status})`)
+          return rejectWithValue(`Error desconocido, código(${response.status})`)
       }
     } catch (err) {
-      return rejectWithValue(`Unexpected error: ${err}`)
+      return rejectWithValue(`Error desconocido: ${err}`)
     }
   }
 )
@@ -55,9 +57,10 @@ export const userSlice = createSlice({
         state.login.error = null
         state.token = action.payload["token"]
 
-        state.profile.username = action.payload["profile"]["username"]
-        state.profile.email = action.payload["profile"]["email"]
-        state.profile.avatar_url = action.payload["profile"]["avatar_url"]
+        // TODO: Fill these fields once the endpoint provides them
+        // state.profile.username = action.payload["profile"]["username"]
+        // state.profile.email = action.payload["profile"]["email"]
+        // state.profile.avatar_url = action.payload["profile"]["avatar_url"]
       })
       .addCase(loginAsync.rejected, (state, action) => {
         state.login.loading = false
