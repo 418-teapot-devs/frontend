@@ -23,10 +23,12 @@ import {
 const validationSchema = yup.object({
   username: yup
     .string("Ingrese su nombre de usuario")
+    .max(32, "El nombre de usuario debe tener menos de 32 caracteres")
     .required("El nombre de usuario es requerido"),
   password: yup
     .string("Ingrese su contraseña")
     .min(8, "La contraseña debe tener al menos 8 caracteres")
+    .max(32, "La contraseña debe tener menos de 32 caracteres")
     .required("La contraseña es requerida"),
 })
 
