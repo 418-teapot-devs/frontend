@@ -28,10 +28,10 @@ const validationSchema = () => yup.object({
 
     code: yup
       .string("Adjunte el código de su robot")
-      .required("El código de su robot es requerido")
+      .required("El código de su robot es requerido"),
     //   .test("FILE_SIZE", "El archivo es demasiado grande.", value => value && value.size <= FILE_SIZE)
-      .test("FILE_FORMAT", "El archivo debe tener extensión .py.", 
-        value => value && ['py'].includes(value.type)),
+      // .test("FILE_FORMAT", "El archivo debe tener extensión .py.", 
+      //   value => value && ['py'].includes(value.type)),
 
     avatar: yup
       .string("Adjunte un avatar para su robot")
@@ -107,10 +107,18 @@ export const UploadBot = () => {
                     name="avatar"
                     type="file"
                     onChange={(event) => {
-                      formik.setFieldValue("file", event.currentTarget.files[0]);
+                      formik.setFieldValue("avatar", event.currentTarget.files[0]);
                     }}
                   />
                 </Button> 
+                <Typography
+                  gutterBottom
+                  variant="subtitle1"
+                  component="div"
+                  textAlign="center"
+                >
+                  {formik.values.avatar.name}
+                </Typography>
                 <Button 
                   variant="outlined" 
                   component="label"
@@ -128,6 +136,14 @@ export const UploadBot = () => {
                     }}
                   />
                 </Button>
+                <Typography
+                  gutterBottom
+                  variant="subtitle1"
+                  component="div"
+                  textAlign="center"
+                >
+                  {formik.values.code.name}
+                </Typography>
             </Stack>
           </CardContent>
           <CardActions sx={{ padding: 2 }}>
