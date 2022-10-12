@@ -11,57 +11,56 @@ import {
   TextField,
   Typography,
   Stack,
-  Alert,
 } from "@mui/material"
 
 const validationSchema = () => yup.object({
     name: yup
-      .string("Ingrese el nombre de la partida")
-      .required("El nombre de partida es requerido"),
+      .string()
+      .required("El nombre de partida es obligatorio")
+      .max(30 , "El nombre de la partida es demasiado largo"),
     
     min_players: yup
-      .number("Ingrese la cantidad mínima de jugadores")
-      .positive("La cantidad mínima de jugadores debe ser un entero positivo")
-      .integer("La cantidad mínima de jugadores debe ser un entero positivo")
+      .number()
+      .integer("La cantidad mínima de jugadores debe ser un entero")
       .min(2, "Las partidas deben incluir al menos 2 jugadores")
       .max(4, "Se permiten hasta 4 jugadores")
-      .required("La cantidad mínima de jugadores es requerida"),
+      .required("La cantidad mínima de jugadores es obligatoria"),
   
     max_players: yup
-      .number("Ingrese la cantidad máxima de jugadores")
-      .positive("La cantidad máxima de jugadores debe ser un entero positivo")
+      .number()
       .integer("La cantidad máxima de jugadores debe ser un entero positivo")
-      .required("La cantidad máxima de jugadores es requerida")
+      .required("La cantidad máxima de jugadores es obligatoria")
       .max(4, "Se permiten hasta 4 jugadores")
       .min(yup.ref("min_players"), "La cantidad máxima de jugadores no debe ser menor que la cantidad mínima"),
       
     games: yup
-      .number("Ingrese la cantidad de juegos")
+      .number()
       .positive("La cantidad de juegos debe ser un entero positivo")
       .integer("La cantidad de juegos debe ser un entero positivo")
       .max(200, "Se permiten hasta 200 juegos")
-      .required("La cantidad de juegos es requerida"),
+      .required("La cantidad de juegos es obligatoria"),
   
     rounds: yup
-      .number("Ingrese la cantidad de rondas por juego")
+      .number()
       .positive("La cantidad de rondas debe ser un entero positivo")
       .integer("La cantidad de rondas debe ser un entero positivo")
       .max(10000, "Se permiten hasta 10000 rondas")
-      .required("La cantidad de rondas es requerida"),
+      .required("La cantidad de rondas es obligatoria"),
   
     password: yup
-      .string("Ingrese la contraseña de la patida"),
+      .string(),
     
     confirm_password: yup
-      .string("Ingrese la confirmación de su contraseña")
+      .string()
       .oneOf([yup.ref("password"), null], 'Las contraseñas deben ser iguales'),
   })
 
 
 const cancelCreateMatch = () => {
     // FIXME: volver a la página principal
-    console.log("Cancelado")
+    console.log("Cancelado")   
 }
+
 
 export const CreateMatch = () => {
   const [loading, setLoading] = useState(false)
@@ -69,10 +68,10 @@ export const CreateMatch = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      min_players: null,
-      max_players: null,
-      games: null,
-      rounds: null,
+      min_players: "",
+      max_players: "",
+      games: "",
+      rounds: "",
       password: "",
       confirm_password: ""
     },
@@ -81,7 +80,7 @@ export const CreateMatch = () => {
         setLoading(true)
         const response = await creatematch(values)
         switch(response.status){
-          case(200): 
+          case(201): 
             setLoading(false)
             window.alert("Se creó la partida con éxito.")
             break
