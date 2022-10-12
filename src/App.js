@@ -1,8 +1,8 @@
-import { Stack } from "@mui/material"
+import { Grid } from "@mui/material"
 import React from "react"
 import { MatchBaseItem } from "./features/matches/MatchBaseItem"
 
-const mockMatches = [
+let mockMatches = [
   {
     name: "Partida #1",
     username: "profran",
@@ -41,21 +41,27 @@ const mockMatches = [
       {
         name: "Roboto",
         username: "ThermoTank45",
-        avatar_url: "https://lh3.googleusercontent.com/7iOhvq-MESm5mcvSXrW9EXqnKT2Y9w6mULmsOIeGYsVIqeteM6RbWhC-4xJM7p5SdoM7tWhbAqR4tbX3Fl8mR9hSKx6bNVsdlNLc"
+        avatar_url: "https://genspect.org/wp-content/uploads/Reddit.png"
       }
     ]
   }
 ]
 
+mockMatches = mockMatches.concat(mockMatches)
+mockMatches = mockMatches.concat(mockMatches)
+mockMatches = mockMatches.concat(mockMatches)
+
 function App() {
   return (
     <div>
       <h1>PyRobots</h1>
-      <Stack spacing={2}>
+      <Grid container spacing={2}>
         {mockMatches.map((match) => (
-          <MatchBaseItem {...match} />
+          <Grid item xs={12} md={6} lg={4} xl={3}>
+            <MatchBaseItem {...match} />
+          </Grid>
         ))}
-      </Stack>
+      </Grid>
     </div>
   )
 }
