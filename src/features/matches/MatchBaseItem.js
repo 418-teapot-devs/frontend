@@ -1,5 +1,5 @@
 import React from "react"
-import { Avatar, AvatarGroup, Card, CardContent, Grid, Tooltip, Typography } from "@mui/material"
+import { Avatar, AvatarGroup, Card, CardContent, Tooltip, Typography } from "@mui/material"
 import { Box, Stack } from "@mui/system"
 import { LockOutlined, PersonOutlined } from "@mui/icons-material"
 import { grey } from '@mui/material/colors';
@@ -15,7 +15,7 @@ export function MatchBaseItem(props) {
           <Stack direction="row" alignItems="flex-start" justifyContent="space-between">
             <Stack>
               <Stack direction="row" alignItems="center" spacing={1}>
-                {props.is_private && <LockOutlined color="disabled"/>}
+                {props.is_private && <LockOutlined color="disabled" />}
                 <Typography variant="h6" margin={0}>
                   {props.name}
                 </Typography>
@@ -30,9 +30,9 @@ export function MatchBaseItem(props) {
                   <Avatar key={robot.username} src={robot.avatar_url} />
                 </Tooltip>
               ))}
-              {Array.from({length: missing_robots}, (_, i) => (
+              {Array.from({ length: missing_robots }, (_, i) => (
                 <Avatar key={i} sx={{ bgcolor: "white", outline: "1.5px solid", outlineColor: grey[400], outlineOffset: "-4px" }}>
-                  <PersonOutlined sx={{ color: grey[400] }}/>
+                  <PersonOutlined sx={{ color: grey[400] }} />
                 </Avatar>
               ))}
             </AvatarGroup>
@@ -47,6 +47,7 @@ export function MatchBaseItem(props) {
           </Box>
         </Stack>
       </CardContent>
+      {props.children}
     </Card>
   )
 }

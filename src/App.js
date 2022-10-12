@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material"
+import { Button, CardActions, Grid } from "@mui/material"
 import React from "react"
 import { MatchBaseItem } from "./features/matches/MatchBaseItem"
 
@@ -31,10 +31,10 @@ let mockMatches = [
   },
   {
     name: "Partida #2",
-    username: "canon",
+    username: "profran",
     games: 100,
     rounds: 5000,
-    min_players: 1,
+    min_players: 2,
     max_players: 3,
     is_private: false,
     robots: [
@@ -51,14 +51,27 @@ mockMatches = mockMatches.concat(mockMatches)
 mockMatches = mockMatches.concat(mockMatches)
 mockMatches = mockMatches.concat(mockMatches)
 
+const callback = (name) => {
+  window.alert(name)
+}
+
 function App() {
   return (
     <div>
       <h1>PyRobots</h1>
-      <Grid container spacing={2}>
+      <Grid container spacing={1}>
         {mockMatches.map((match) => (
           <Grid item xs={12} md={6} lg={4} xl={3}>
-            <MatchBaseItem {...match} />
+            <MatchBaseItem {...match}>
+              <CardActions sx={{ justifyContent: "flex-end" }}>
+                <Button
+                  onClick={() => callback(match.name)}
+                  disabled={match.robots.length < match.min_players}
+                >
+                  Iniciar
+                </Button>
+              </CardActions>
+            </MatchBaseItem>
           </Grid>
         ))}
       </Grid>
