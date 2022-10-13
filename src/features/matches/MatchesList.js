@@ -31,7 +31,6 @@ let mockMatches = [
   },
   {
     name: "Partida #2",
-    username: "profran",
     games: 100,
     rounds: 5000,
     min_players: 2,

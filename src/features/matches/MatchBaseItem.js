@@ -20,9 +20,11 @@ export function MatchBaseItem(props) {
                   {props.name}
                 </Typography>
               </Stack>
-              <Typography color="text.secondary">
-                @{props.username}
-              </Typography>
+              {Boolean(props.username) && (
+                <Typography color="text.secondary">
+                  @{props.username}
+                </Typography>
+              )}
             </Stack>
             <AvatarGroup max={4}>
               {props.robots.map((robot) => (
