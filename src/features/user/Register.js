@@ -17,9 +17,8 @@ import {
 
 const FILE_SIZE = 4400000
 const SUPPORTED_IMG_FORMATS = [
-//  "image/jpg",
+  "image/jpg",
   "image/jpeg",
-  "image/gif",
   "image/png"
 ]
 
@@ -35,9 +34,6 @@ const validationSchema = () => yup.object({
     
     avatar: yup.mixed()
     .notRequired()
-    // .test("avatar", "El avatar de su robot debe ser un archivo .png", (value) => {
-    //   return value.endsWith(".png")
-    // }),
     .test(
       "fileSize", "El archivo es demasiado grande.", value => (value? (value && value.size <= FILE_SIZE) : true))
     .test(
@@ -126,6 +122,14 @@ export const Register = () => {
                   onChange={formik.handleChange}
                 >
                   {formik.touched.avatar && formik.errors.avatar}
+                </Typography>
+                <Typography
+                  gutterBottom
+                  variant="subtitle1"
+                  component="div"
+                  textAlign="center"
+                >
+                  {Boolean(formik.values.avatar) && formik.values.avatar.name}
                 </Typography>
               <TextField
                 fullWidth
