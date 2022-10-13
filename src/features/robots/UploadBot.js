@@ -6,8 +6,6 @@ import AddIcon from '@mui/icons-material/Add';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 
-//const FILE_SIZE = 1;
-
 import {
   Button,
   Card,
@@ -17,8 +15,16 @@ import {
   TextField,
   Typography,
   Stack,
-  Alert,
 } from "@mui/material"
+
+const FILE_SIZE = 4400000
+const SUPPORTED_FILE_FORMAT = ["file/py"]
+const SUPPORTED_IMG_FORMATS = [
+//  "image/jpg",
+  "image/jpeg",
+  "image/gif",
+  "image/png"
+]
 
 const validationSchema = () => yup.object({
     name: yup
@@ -27,19 +33,26 @@ const validationSchema = () => yup.object({
       // TODO: Add validation for the name using endpoint
 
     code: yup
-      .string("Adjunte el código de su robot")
-      .required("El código de su robot es requerido"),
-    //   .test("FILE_SIZE", "El archivo es demasiado grande.", value => value && value.size <= FILE_SIZE)
+      .string("Ingrese el código de su robot")
+      .required("El código de su robot es requerido")
+      .test(
+        "fileSize", "El archivo es demasiado grande.", value => (value && value.size <= FILE_SIZE))
       // .test("FILE_FORMAT", "El archivo debe tener extensión .py.", 
       //   value => value && ['py'].includes(value.type)),
+      .test(
+        "fileFormat", "Formato incorrecto", value => (value && SUPPORTED_FILE_FORMAT.includes(value.type))),      
 
     avatar: yup
-      .string("Adjunte un avatar para su robot")
+      .string("Ingrese el avatar de su robot")
       .notRequired() // TODO: Add in register form
       // .test("avatar", "El avatar de su robot debe ser un archivo .png", (value) => {
       //   return value.endsWith(".png")
       // }),
-  })
+      .test(
+        "fileSize", "El archivo es demasiado grande.", value => (value && value.size <= FILE_SIZE))
+      .test(
+        "fileFormat", "Formato incorrecto", value => (value && SUPPORTED_IMG_FORMATS.includes(value.type)))
+  });
 
 export const UploadBot = () => {
     const [loading, setLoading] = useState(false)
@@ -110,7 +123,17 @@ export const UploadBot = () => {
                       formik.setFieldValue("avatar", event.currentTarget.files[0]);
                     }}
                   />
-                </Button> 
+                </Button>
+                <Typography
+                  gutterBottom
+                  variant="subtitle1"
+                  component="div"
+                  textAlign="center"
+                  color="error"
+                  onChange={formik.handleChange}
+                >
+                  {formik.touched.avatar && formik.errors.avatar}
+                </Typography>
                 <Typography
                   gutterBottom
                   variant="subtitle1"
@@ -136,6 +159,16 @@ export const UploadBot = () => {
                     }}
                   />
                 </Button>
+                <Typography
+                  gutterBottom
+                  variant="subtitle1"
+                  component="div"
+                  textAlign="center"
+                  color="error"
+                  onChange={formik.handleChange}
+                >
+                  {formik.touched.code && formik.errors.code}
+                </Typography>
                 <Typography
                   gutterBottom
                   variant="subtitle1"
