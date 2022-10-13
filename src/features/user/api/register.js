@@ -1,31 +1,24 @@
-// A mock function to mimic making an async request for data
-export const register = (values) => {
-    if (values.username === "username") {
-      return new Promise((resolve) =>
-        setTimeout(
-          () =>
-            resolve({ status: 200 }), 500 )
-      )
-    } else if (values.username === "takenUsername") {
-      return new Promise((resolve) =>
-        setTimeout(
-          () =>
-            resolve({
-              message: "El correo electrónico o el nombre de usuario ya está en uso",
-              status: 422,
-            }), 500 )
-      )
-    }
-  
-    return new Promise((resolve) =>
-      setTimeout(
-        () =>
-          resolve({
-            message: "Error en el servidor, intente más tarde",
-            status: 500,
-          }),
-        500
-      )
-    )
+// // A mock function to mimic making an async request for data
+  export const register = (values) => {
+    const params = [
+      `username=${values.username}`,
+      `e_mail=${values.email}`,
+      `password=${values.password}`
+    ].join('&');
+
+    // return fetch('http://127.0.0.1:8000/users/?' + new URLSearchParams({
+    return fetch(`http://127.0.0.1:8000/users/?${params}`,
+    //({
+    //   username: values.username,
+    //   email: values.email,
+    //   password: values.password
+    // }), 
+    {
+      protocol: 'http:',
+      method: "POST",
+      headers: { 
+        "accept": "application/json", 
+        "Content-Type": "multipart/form-data" 
+      }
+    })
   }
-  

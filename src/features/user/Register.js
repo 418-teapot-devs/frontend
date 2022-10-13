@@ -3,6 +3,7 @@ import { useFormik } from "formik"
 import * as yup from "yup"
 import { register } from './api/register'
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import YupPassword from 'yup-password';
 
 import {
   Button,
@@ -14,6 +15,8 @@ import {
   Stack,
   Alert,
 } from "@mui/material"
+
+YupPassword(yup)
 
 const FILE_SIZE = 4400000
 const SUPPORTED_IMG_FORMATS = [
@@ -40,13 +43,15 @@ const validationSchema = () => yup.object({
       "fileFormat", "Formato incorrecto", value => (!value || (value && SUPPORTED_IMG_FORMATS.includes(value.type)))),
 
     password: yup
-      .string("Ingrese su contraseña")
+      .string()
+      .minLowercase(1, "La contraseña debe contener al menos una letra minúscula")
+      .minUppercase(1, "La contraseña debe contener al menos una letra mayúscula")
+      .minNumbers(1, "La contraseña debe contener al menos un número")
       .min(8, "La contraseña debe tener al menos 8 caracteres")
       .required("La contraseña es requerida"),
 
     confirmPassword: yup
-      .string("Reingrese su contraseña")
-      .min(8, "La contraseña debe tener al menos 8 caracteres")
+      .string()
       .required("La contraseña es requerida")
       .oneOf([yup.ref("password"), null], 'Las contraseñas deben ser iguales')
   })
@@ -64,10 +69,11 @@ export const Register = () => {
       },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
+        console.log(values)
         setLoading(true)
         const response = await register(values)
         switch(response.status) {
-            case(200):
+            case(201):
                 setLoading(false)
                 window.alert("Se registró el usuario con éxito.")
                 break
@@ -77,7 +83,7 @@ export const Register = () => {
                 break
             default:
                 setLoading(false)
-                window.alert("No se pudo registrar el usuario.")
+                window.alert("Error en el servidor. Intente más tarde")
         }
       },
       });
