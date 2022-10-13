@@ -18,7 +18,7 @@ import {
 } from "@mui/material"
 
 const FILE_SIZE = 4400000
-const SUPPORTED_FILE_FORMAT = ["file/py"]
+//const SUPPORTED_FILE_FORMAT = ["text"]
 const SUPPORTED_IMG_FORMATS = [
 //  "image/jpg",
   "image/jpeg",
@@ -32,26 +32,19 @@ const validationSchema = () => yup.object({
       .required("El nombre del robot es requerido"),
       // TODO: Add validation for the name using endpoint
 
-    code: yup
-      .string("Ingrese el código de su robot")
+    code: yup.mixed()
       .required("El código de su robot es requerido")
       .test(
-        "fileSize", "El archivo es demasiado grande.", value => (value && value.size <= FILE_SIZE))
-      // .test("FILE_FORMAT", "El archivo debe tener extensión .py.", 
-      //   value => value && ['py'].includes(value.type)),
-      .test(
-        "fileFormat", "Formato incorrecto", value => (value && SUPPORTED_FILE_FORMAT.includes(value.type))),      
+        "fileSize", "El archivo es demasiado grande.", value => (value && value.size <= FILE_SIZE)),
+      // .test(
+      //   "fileFormat", "Formato incorrecto", value => (value && SUPPORTED_FILE_FORMAT.includes(value.type))),    
 
-    avatar: yup
-      .string("Ingrese el avatar de su robot")
-      .notRequired() // TODO: Add in register form
-      // .test("avatar", "El avatar de su robot debe ser un archivo .png", (value) => {
-      //   return value.endsWith(".png")
-      // }),
+    avatar: yup.mixed()
+      .notRequired()
       .test(
-        "fileSize", "El archivo es demasiado grande.", value => (value && value.size <= FILE_SIZE))
+        "fileSize", "El archivo es demasiado grande.", value => (value? (value && value.size <= FILE_SIZE) : true))
       .test(
-        "fileFormat", "Formato incorrecto", value => (value && SUPPORTED_IMG_FORMATS.includes(value.type)))
+        "fileFormat", "Formato incorrecto", value => (value? (value && SUPPORTED_IMG_FORMATS.includes(value.type)) : true))
   });
 
 export const UploadBot = () => {
@@ -60,8 +53,8 @@ export const UploadBot = () => {
     const formik = useFormik({
       initialValues: {
         name: "",
-        code: "",
-        avatar: ""
+        code: null,
+        avatar: null
       },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
@@ -120,7 +113,8 @@ export const UploadBot = () => {
                     name="avatar"
                     type="file"
                     onChange={(event) => {
-                      formik.setFieldValue("avatar", event.currentTarget.files[0]);
+                      console.log(event.currentTarget.files[0])
+                      formik.setFieldValue("avatar", event.currentTarget.files[0])
                     }}
                   />
                 </Button>
@@ -140,7 +134,7 @@ export const UploadBot = () => {
                   component="div"
                   textAlign="center"
                 >
-                  {formik.values.avatar.name}
+                  {Boolean(formik.values.avatar) && formik.values.avatar.name}
                 </Typography>
                 <Button 
                   variant="outlined" 
@@ -150,7 +144,7 @@ export const UploadBot = () => {
                 >
                   Subir código
                   <input 
-                    hidden accept="file/*"
+                    hidden accept=".py"
                     id="code" 
                     name="code"
                     type="file"
@@ -175,7 +169,7 @@ export const UploadBot = () => {
                   component="div"
                   textAlign="center"
                 >
-                  {formik.values.code.name}
+                  {Boolean(formik.values.code) && formik.values.code.name}
                 </Typography>
             </Stack>
           </CardContent>
