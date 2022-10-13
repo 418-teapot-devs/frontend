@@ -1,11 +1,11 @@
 import React from "react"
 import { Button, CardActions, Grid } from "@mui/material"
-import { MatchBaseItem } from "./MatchBaseItem"
+import { MatchBaseItem } from "../MatchBaseItem"
+
 
 let mockMatches = [
   {
     name: "Partida #1",
-    username: "profran",
     games: 200,
     rounds: 10000,
     min_players: 1,
@@ -42,39 +42,35 @@ let mockMatches = [
       {
         name: "Roboto",
         username: "ThermoTank45",
-        avatar_url: "https://genspect.org/wp-content/uploads/Reddit.png",
-      },
-    ],
+        avatar_url: "https://genspect.org/wp-content/uploads/Reddit.png"
+      }
+    ]
   },
+
 ]
 
-mockMatches = mockMatches.concat(mockMatches)
-mockMatches = mockMatches.concat(mockMatches)
-mockMatches = mockMatches.concat(mockMatches)
+// FIXME: Hacer el pedido http
+const response = {status: 200, body: mockMatches}
 
-const callback = (name) => {
-  window.alert(name)
-}
-
-function MatchesList() {
-  return (
-    <Grid container spacing={1}>
-      {mockMatches.map((match) => (
-        <Grid item xs={12} md={6} lg={4} xl={3}>
-          <MatchBaseItem {...match}>
-            <CardActions sx={{ justifyContent: "flex-end" }}>
-              <Button
-                onClick={() => callback(match.name)}
-                disabled={match.robots.length < match.min_players}
-              >
-                Iniciar
-              </Button>
-            </CardActions>
-          </MatchBaseItem>
-        </Grid>
-      ))}
-    </Grid>
+export const listCreated = () => {
+  const list = response.body.map((match) => {return(
+  {
+      name: match.name,
+      username: null,
+      is_private: match.is_private,
+      max_players: match.max_players,
+      min_players: match.min_players,
+      robots: match.robots,
+      games: match.games,
+      rounds: match.rounds
+  })}
   )
+  return list
 }
 
-export default MatchesList
+
+// test; Jest, RTL(React Testing Library): los testing se hacen desde el punto de vista de usuario.
+
+// el componente se renderiza correctamente
+// que cada row se renderiza: 
+// front renderizado
