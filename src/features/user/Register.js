@@ -2,6 +2,7 @@ import { React, useState } from 'react'
 import { useFormik } from "formik"
 import * as yup from "yup"
 import { register } from './api/register'
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 
 import {
   Button,
@@ -14,6 +15,14 @@ import {
   Alert,
 } from "@mui/material"
 
+const FILE_SIZE = 4400000
+const SUPPORTED_IMG_FORMATS = [
+//  "image/jpg",
+  "image/jpeg",
+  "image/gif",
+  "image/png"
+]
+
 const validationSchema = () => yup.object({
     username: yup
       .string("Ingrese un nombre de usuario") 
@@ -23,6 +32,16 @@ const validationSchema = () => yup.object({
       .string("Ingrese su correo electrónico")
       .email("Ingrese un correo electrónico válido")
       .required("El correo electrónico es requerido"),
+    
+    avatar: yup.mixed()
+    .notRequired()
+    // .test("avatar", "El avatar de su robot debe ser un archivo .png", (value) => {
+    //   return value.endsWith(".png")
+    // }),
+    .test(
+      "fileSize", "El archivo es demasiado grande.", value => (value? (value && value.size <= FILE_SIZE) : true))
+    .test(
+      "fileFormat", "Formato incorrecto", value => (!value || (value && SUPPORTED_IMG_FORMATS.includes(value.type)))),
 
     password: yup
       .string("Ingrese su contraseña")
@@ -43,6 +62,7 @@ export const Register = () => {
       initialValues: {
         username: "",
         email: "",
+        avatar: null,
         password: "",
         confirmPassword: ""
       },
@@ -79,6 +99,34 @@ export const Register = () => {
               Registrarse
             </Typography>
             <Stack spacing={2}>
+            <Button 
+                  variant="outlined" 
+                  component="label"
+                  fullWidth
+                  startIcon={<CameraAltIcon />}
+                >
+                  Subir avatar
+                  <input 
+                    hidden accept="image/*"
+                    id="avatar" 
+                    name="avatar"
+                    type="file"
+                    onChange={(event) => {
+                      console.log(event.currentTarget.files[0]);
+                      formik.setFieldValue("avatar", event.currentTarget.files[0]);
+                    }}
+                />
+            </Button>
+                <Typography
+                  gutterBottom
+                  variant="subtitle1"
+                  component="div"
+                  textAlign="center"
+                  color="error"
+                  onChange={formik.handleChange}
+                >
+                  {formik.touched.avatar && formik.errors.avatar}
+                </Typography>
               <TextField
                 fullWidth
                 id="username"
