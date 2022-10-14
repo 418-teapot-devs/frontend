@@ -13,6 +13,7 @@ import {
   Select,
   MenuItem,
   Stack,
+  FormHelperText
 } from "@mui/material"
 
 const validationSchema = () => yup.object({
@@ -55,6 +56,9 @@ const validationSchema = () => yup.object({
     confirm_password: yup
       .string()
       .oneOf([yup.ref("password"), null], 'Las contraseñas deben ser iguales'),
+  
+    robot_name: yup
+      .string().required("Elegir un robot es obligatorio")
   })
 
 
@@ -77,7 +81,7 @@ export const CreateMatch = ({userRobots}) => {
       rounds: "",
       password: "",
       confirm_password: "",
-      robot_name: ''
+      robot_name: ""
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -185,23 +189,29 @@ export const CreateMatch = ({userRobots}) => {
               error={formik.touched.confirm_password && Boolean(formik.errors.confirm_password)}
               helperText={formik.touched.confirm_password && formik.errors.confirm_password}
             />
-
             <Select
-              displayEmpty
+              labelId="selectRobotLabel"
               value={formik.values.robot_name} 
+              label="Elegir Robot"
               onChange={formik.handleChange}
               inputProps={{
                 name: "robot_name",
                 id: "robot-s"
               }}
+              error={formik.touched.robot_name && Boolean(formik.errors.robot_name)}
+              helperText={formik.touched.robot_name && formik.errors.robot_name}
             >
-              <MenuItem value='' disabled><em>Elegir Robot</em></MenuItem>
                 {userRobots.map((robot) => (
                   <MenuItem value={robot.name} key={robot.name} {...robot}>
                     {robot.name}
                   </MenuItem>
                 ))}
               </Select>
+              { (formik.touched.robot_name  && formik.errors.robot_name &&
+                <FormHelperText error> {formik.errors.robot_name}</FormHelperText>
+              ) ||
+                <FormHelperText>Elegir Robot</FormHelperText>
+              }
           </Stack>
         </CardContent>
         <CardActions sx={{ padding: 2 }}>
