@@ -76,3 +76,18 @@ test("should not login", async () => {
 
   expect(screen.queryByText(/Token: tokenblablabla/i)).toBeNull()
 })
+
+test("should display errors", async () => {
+  const user = userEvent.setup()
+  renderWithProviders(
+    <React.Fragment>
+      <Login />
+      <Profile />
+    </React.Fragment>
+  )
+
+  await user.click(screen.getByRole("button", { name: "Login" }))
+
+  expect(await screen.findByText(/El nombre de usuario es requerido/i)).toBeInTheDocument()
+  expect(await screen.findByText(/La contraseña es requerida/i)).toBeInTheDocument()
+})
