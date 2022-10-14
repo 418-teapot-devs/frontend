@@ -10,6 +10,8 @@ import {
   CardContent,
   TextField,
   Typography,
+  Select,
+  MenuItem,
   Stack,
 } from "@mui/material"
 
@@ -62,9 +64,10 @@ const cancelCreateMatch = () => {
 }
 
 
-export const CreateMatch = () => {
-  const [loading, setLoading] = useState(false)
 
+export const CreateMatch = ({userRobots}) => {
+  userRobots.map( (r) => console.log(r.name))
+  const [loading, setLoading] = useState(false)
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -73,7 +76,8 @@ export const CreateMatch = () => {
       games: "",
       rounds: "",
       password: "",
-      confirm_password: ""
+      confirm_password: "",
+      robot_name: ''
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -83,6 +87,7 @@ export const CreateMatch = () => {
           case(201): 
             setLoading(false)
             window.alert("Se creó la partida con éxito.")
+            console.log(values)
             break
           default:
             setLoading(false)
@@ -180,6 +185,23 @@ export const CreateMatch = () => {
               error={formik.touched.confirm_password && Boolean(formik.errors.confirm_password)}
               helperText={formik.touched.confirm_password && formik.errors.confirm_password}
             />
+
+            <Select
+              displayEmpty
+              value={formik.values.robot_name} 
+              onChange={formik.handleChange}
+              inputProps={{
+                name: "robot_name",
+                id: "robot-s"
+              }}
+            >
+              <MenuItem value='' disabled><em>Elegir Robot</em></MenuItem>
+                {userRobots.map((robot) => (
+                  <MenuItem value={robot.name} key={robot.name} {...robot}>
+                    {robot.name}
+                  </MenuItem>
+                ))}
+              </Select>
           </Stack>
         </CardContent>
         <CardActions sx={{ padding: 2 }}>
