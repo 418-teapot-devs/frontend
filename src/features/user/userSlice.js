@@ -24,7 +24,6 @@ export const loginAsync = createAsyncThunk(
       switch (response.status) {
         case 200:
           const body = await response.json()
-          console.log(body)
           return body
         case 401:
           return rejectWithValue("El usuario no existe o la contraseña inválida")
