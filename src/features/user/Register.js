@@ -73,17 +73,17 @@ export const Register = () => {
         setLoading(true)
         const response = await register(values)
         switch(response.status) {
-            case(201):
-                setLoading(false)
-                window.alert("Se registró el usuario con éxito.")
-                break
-            case(422):
-                setLoading(false)
-                window.alert("El correo electrónico/nombre de usuario ya está en uso.")
-                break
-            default:
-                setLoading(false)
-                window.alert("Error en el servidor. Intente más tarde")
+          case(200):
+            setLoading(false)
+            window.alert("Se registró el usuario con éxito.")
+            break
+          case(422):
+            setLoading(false)
+            window.alert("El correo electrónico/nombre de usuario ya está en uso.")
+            break
+          default:
+            setLoading(false)
+            window.alert("Error en el servidor. Intente más tarde")
         }
       },
       });
