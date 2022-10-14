@@ -55,8 +55,11 @@ const validationSchema = () => yup.object({
     
     confirm_password: yup
       .string()
-      .oneOf([yup.ref("password"), null], 'Las contraseñas deben ser iguales'),
-  
+      .oneOf([yup.ref("password"), null], 'Las contraseñas deben ser iguales')
+      .when('password', {
+        is: (password) => password,
+        then: yup.string().required("Confirmar la contraseña ingresada")
+      }),
     robot_name: yup
       .string().required("Elegir un robot es obligatorio")
   })
