@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Stage, Layer, Rect, Circle, Image } from "react-konva"
 import useImage from "use-image"
 
@@ -10,7 +10,13 @@ let isMoving = false
 
 function Board() {
   const [image] = useImage("https://konvajs.org/assets/lion.png")
+  const [randomLocation, setRandomLocation] = useState({ x: 500 - 30 / 2, y: 500 - 30 / 2})
   const stageRef = React.useRef(null)
+  const rectRef = React.useRef(null)
+  useEffect(() => {
+    const rect = rectRef.current
+    rect.to({ ...randomLocation, duration: 0.5 })
+  });
 
 
   const handleOnWheel = (e) => {
@@ -48,7 +54,6 @@ function Board() {
   const handleOnMouseMove = (e) => {
     const stage = stageRef.current
 
-    let scale = stage.scaleX()
     let pointer = stage.getPointerPosition()
 
     console.log({
@@ -81,8 +86,8 @@ function Board() {
         x: pointer.x + delta.x,
         y: pointer.y + delta.y,
       }
-  
-      stage.position(newPos)        
+
+      stage.position(newPos)
     } else {
       isMoving = false
       delta.x = 0
@@ -91,17 +96,42 @@ function Board() {
   };
 
   return (
-    <Stage
-      ref={stageRef}
-      width={1000}
-      height={1000}
-      onWheel={handleOnWheel}
-      onMouseMove={handleOnMouseMove}
-    >
-      <Layer>
-        <Image width={50} height={50} image={image} />
-      </Layer>
-    </Stage>
+    <React.Fragment>
+      <button
+        onClick={() => {
+          setRandomLocation({
+            x: Math.random() * 1000,
+            y: Math.random() * 1000,
+          })
+        }}
+      >
+        Move rect to random location
+      </button>
+      <Stage
+        ref={stageRef}
+        width={1000}
+        height={1000}
+        onWheel={handleOnWheel}
+        onMouseMove={handleOnMouseMove}
+      >
+        <Layer>
+          <Rect
+            x={0}
+            y={0}
+            width={1000}
+            height={1000}
+            fill="grey"
+          />
+          <Image width={50} height={50} image={image} />
+          <Rect
+            ref={rectRef}
+            width={30}
+            height={30}
+            fill="red"
+          />
+        </Layer>
+      </Stage>
+    </React.Fragment>
   )
 }
 
