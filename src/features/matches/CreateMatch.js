@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import { useFormik } from "formik"
+import { useFormik, Formik } from "formik"
 import * as yup from "yup"
 import { creatematch } from "./api/creatematch"
 
@@ -10,10 +10,10 @@ import {
   CardContent,
   TextField,
   Typography,
-  Select,
   MenuItem,
   Stack,
-  FormHelperText
+  Alert,
+  AlertTitle
 } from "@mui/material"
 
 const validationSchema = () => yup.object({
@@ -65,16 +65,13 @@ const validationSchema = () => yup.object({
   })
 
 
-const cancelCreateMatch = () => {
-    // FIXME: volver a la página principal
-    console.log("Cancelado")   
-}
-
 
 
 export const CreateMatch = ({userRobots}) => {
-  userRobots.map( (r) => console.log(r.name))
   const [loading, setLoading] = useState(false)
+  const [success, setSucces] = useState(false)
+  const [failure, setFailure] = useState(false)
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -92,13 +89,14 @@ export const CreateMatch = ({userRobots}) => {
         const response = await creatematch(values)
         switch(response.status){
           case(201): 
-            setLoading(false)
-            window.alert("Se creó la partida con éxito.")
-            console.log(values)
+            setLoading(false);
+            setSucces(true);
+            setFailure(false);
             break
           default:
-            setLoading(false)
-            window.alert("No se pudo crear la partida.")
+            setLoading(false);
+            setSucces(false);
+            setFailure(true);
         }
     },
   })
@@ -192,9 +190,11 @@ export const CreateMatch = ({userRobots}) => {
               error={formik.touched.confirm_password && Boolean(formik.errors.confirm_password)}
               helperText={formik.touched.confirm_password && formik.errors.confirm_password}
             />
-            <Select
-              labelId="selectRobotLabel"
+            <TextField
+              select
               value={formik.values.robot_name} 
+              id="robot_name"
+              name="robot_name"
               label="Elegir Robot"
               onChange={formik.handleChange}
               inputProps={{
@@ -209,19 +209,20 @@ export const CreateMatch = ({userRobots}) => {
                     {robot.name}
                   </MenuItem>
                 ))}
-              </Select>
-              { (formik.touched.robot_name  && formik.errors.robot_name &&
-                <FormHelperText error> {formik.errors.robot_name}</FormHelperText>
-              ) ||
-                <FormHelperText>Elegir Robot</FormHelperText>
-              }
+              </TextField>
           </Stack>
         </CardContent>
         <CardActions sx={{ padding: 2 }}>
           <Button
             variant="contained"
             fullWidth
-            onClick={ () => cancelCreateMatch() }
+            onClick={ () =>{
+              setSucces(false);
+              setFailure(false);
+              setLoading(false);
+              formik.resetForm();
+            }
+          }
           >
             Cancelar
           </Button>
@@ -229,10 +230,24 @@ export const CreateMatch = ({userRobots}) => {
             type="submit"
             fullWidth
             variant="contained"
+            id="createMatchSubmitButton"
           >
             Crear
           </Button>
         </CardActions>
+        {success &&      
+          <Alert severity="success">
+              <AlertTitle>
+                Se creó la partida con éxito
+              </AlertTitle>
+            </Alert>}
+        {failure &&
+          <Alert severity="error">
+            <AlertTitle>
+              No se pudo crear la partida
+            </AlertTitle>
+          </Alert>
+        }
       </form>
     </Card>
   )
