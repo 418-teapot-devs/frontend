@@ -6,7 +6,12 @@ export const register = (values) => {
   ].join('&')
 
   const data = new FormData();
-  data.append("avatar", values.avatar)
+  if (values.avatar) {
+    data.append('avatar', values.avatar)
+  }
+  else {
+    data.append('avatar', "")
+  }
 
   return fetch(`http://localhost:8000/users/?${params}`,
     {

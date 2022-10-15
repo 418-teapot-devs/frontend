@@ -17,7 +17,7 @@ import {
   AlertTitle
 } from "@mui/material"
 
-YupPassword(yup)
+YupPassword(yup) // CHECK
 
 const FILE_SIZE = 4400000
 const SUPPORTED_IMG_FORMATS = [
@@ -72,6 +72,7 @@ export const Register = () => {
       },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
+        console.log(values)
         setLoading(true)
         const response = await register(values)
         switch(response.status) {
