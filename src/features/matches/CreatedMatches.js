@@ -15,7 +15,7 @@ const callback = (name) => {
 
 const GridCreatedMatches = ({matches}) => {
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={3}>
       {matches.map((match, index) => (
         <Grid item xs={12} md={6} lg={4} xl={3} key={index}>
           <MatchBaseItem {...match}>
@@ -35,26 +35,26 @@ const GridCreatedMatches = ({matches}) => {
 }
 
 var matchCardStyle = {
-  display: 'block',
-  transitionDuration: '0.3s',
-  height: '20vw',
+  height: "100%",
   overflow: 'scroll'
 }
 
 export const CreatedMatches = ({matches}) => {
   return(
-    <Card variant="outlined" style={matchCardStyle}>
-      <CardContent>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            textAlign="center"
-          >
-            Partidas creadas
-          </Typography>
-      <GridCreatedMatches matches={matches} />
-      </CardContent>
-    </Card>
+
+      <Card variant="outlined" style={matchCardStyle}>
+        <CardContent>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              textAlign="center"
+            >
+              Partidas creadas
+            </Typography>
+        <GridCreatedMatches matches={matches} />
+        </CardContent>
+      </Card>
+
   )
 }
