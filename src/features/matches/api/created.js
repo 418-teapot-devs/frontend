@@ -1,7 +1,3 @@
-import React from "react"
-import { Button, CardActions, Grid } from "@mui/material"
-import { MatchBaseItem } from "../MatchBaseItem"
-
 
 let mockMatches = [
   {
@@ -67,10 +63,3 @@ export const listCreated = () => {
   )
   return list
 }
-
-
-// test; Jest, RTL(React Testing Library): los testing se hacen desde el punto de vista de usuario.
-
-// el componente se renderiza correctamente
-// que cada row se renderiza: 
-// front renderizado
