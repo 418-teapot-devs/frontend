@@ -1,6 +1,5 @@
 import React from "react"
 import { MatchBaseItem } from "./MatchBaseItem"
-import { listCreated } from "./api/created"
 import {
   Button,
   Card,
@@ -14,11 +13,11 @@ const callback = (name) => {
   window.alert("Se iniciará la partida: " + name)
 }
 
-const GridCreatedMatches = () => {
+const GridCreatedMatches = ({matches}) => {
   return (
     <Grid container spacing={1}>
-      {listCreated().map((match) => (
-        <Grid item xs={12} md={6} lg={4} xl={3}>
+      {matches.map((match, index) => (
+        <Grid item xs={12} md={6} lg={4} xl={3} key={index}>
           <MatchBaseItem {...match}>
             <CardActions sx={{ justifyContent: "flex-end" }}>
               <Button
@@ -42,7 +41,7 @@ var matchCardStyle = {
   overflow: 'scroll'
 }
 
-export const CreatedMatches = () => {
+export const CreatedMatches = ({matches}) => {
   return(
     <Card variant="outlined" style={matchCardStyle}>
       <CardContent>
@@ -54,7 +53,7 @@ export const CreatedMatches = () => {
           >
             Partidas creadas
           </Typography>
-      <GridCreatedMatches  />
+      <GridCreatedMatches matches={matches} />
       </CardContent>
     </Card>
   )
