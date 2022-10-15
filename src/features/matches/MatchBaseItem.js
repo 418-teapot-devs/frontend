@@ -37,13 +37,9 @@ export function MatchBaseItem(props) {
               )}
             </Stack>
             <AvatarGroup max={4}>
-              {props.robots.map((robot) => (
-                <Tooltip
-                  title={`${robot.name}, @${robot.username}`}
-                  placement="top-start"
-                  arrow
-                >
-                  <Avatar key={robot.username} src={robot.avatar_url} />
+              {props.robots.map((robot, index) => (
+                <Tooltip title={`${robot.name}, @${robot.username}`} placement="top-start" arrow key={index}>
+                  <Avatar key={index} src={robot.avatar_url} />
                 </Tooltip>
               ))}
               {Array.from({ length: missing_robots }, (_, i) => (
