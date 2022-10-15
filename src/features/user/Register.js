@@ -14,6 +14,7 @@ import {
   Typography,
   Stack,
   Alert,
+  AlertTitle
 } from "@mui/material"
 
 YupPassword(yup)
@@ -58,6 +59,8 @@ const validationSchema = () => yup.object({
 
 export const Register = () => {
     const [loading, setLoading] = useState(false)
+    const [success, setSuccess] = useState(false)
+    const [error, setError] = useState(false)
   
     const formik = useFormik({
       initialValues: {
@@ -69,20 +72,23 @@ export const Register = () => {
       },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
-        console.log(values)
         setLoading(true)
         const response = await register(values)
         switch(response.status) {
           case(200):
             setLoading(false)
-            window.alert("Se registró el usuario con éxito.")
+            setSuccess(true)
+            setError(false)
             break
           case(409):
             setLoading(false)
-            window.alert("El correo electrónico/nombre de usuario ya está en uso.")
+            setSuccess(false)
+            setError(true)
             break
           default:
             setLoading(false)
+            setSuccess(false)
+            setError(true)
             window.alert("Error en el servidor. Intente más tarde")
         }
       },
@@ -190,6 +196,19 @@ export const Register = () => {
               Registrarse
             </Button>
           </CardActions>
+        {success &&      
+          <Alert severity="success">
+              <AlertTitle>
+                Se creó el usuario con éxito.
+              </AlertTitle>
+            </Alert>}
+        {error &&
+          <Alert severity="error">
+            <AlertTitle>
+              No se pudo crear el usuario.
+            </AlertTitle>
+          </Alert>
+        }
         </form>
       </Card>
     )

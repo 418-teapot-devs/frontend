@@ -5,8 +5,8 @@ export const register = (values) => {
     `password=${encodeURIComponent(values.password)}`
   ].join('&')
 
-  const data = new FormData()
-  data.append("avatar", "")
+  const data = new FormData();
+  data.append("avatar", values.avatar)
 
   return fetch(`http://localhost:8000/users/?${params}`,
     {
