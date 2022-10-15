@@ -1,4 +1,3 @@
-
 let mockMatches = [
   {
     name: "Partida #1",
@@ -38,19 +37,18 @@ let mockMatches = [
       {
         name: "Roboto",
         username: "ThermoTank45",
-        avatar_url: "https://genspect.org/wp-content/uploads/Reddit.png"
-      }
-    ]
+        avatar_url: "https://genspect.org/wp-content/uploads/Reddit.png",
+      },
+    ],
   },
-
 ]
 
 // FIXME: Hacer el pedido http
-const response = {status: 200, body: mockMatches}
+const response = { status: 200, body: mockMatches }
 
 export const listCreated = () => {
-  const list = response.body.map((match) => {return(
-  {
+  const list = response.body.map((match) => {
+    return {
       name: match.name,
       username: null,
       is_private: match.is_private,
@@ -58,8 +56,8 @@ export const listCreated = () => {
       min_players: match.min_players,
       robots: match.robots,
       games: match.games,
-      rounds: match.rounds
-  })}
-  )
+      rounds: match.rounds,
+    }
+  })
   return list
 }

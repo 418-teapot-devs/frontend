@@ -13,7 +13,7 @@ const callback = (name) => {
   window.alert("Se iniciará la partida: " + name)
 }
 
-const GridCreatedMatches = ({matches}) => {
+const GridCreatedMatches = ({ matches }) => {
   return (
     <Grid container spacing={3}>
       {matches.map((match, index) => (
@@ -36,25 +36,23 @@ const GridCreatedMatches = ({matches}) => {
 
 var matchCardStyle = {
   height: "100%",
-  overflow: 'scroll'
+  overflow: "scroll",
 }
 
-export const CreatedMatches = ({matches}) => {
-  return(
-
-      <Card variant="outlined" style={matchCardStyle}>
-        <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="div"
-              textAlign="center"
-            >
-              Partidas creadas
-            </Typography>
+export const CreatedMatches = ({ matches }) => {
+  return (
+    <Card variant="outlined" style={matchCardStyle}>
+      <CardContent>
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          textAlign="center"
+        >
+          Partidas creadas
+        </Typography>
         <GridCreatedMatches matches={matches} />
-        </CardContent>
-      </Card>
-
+      </CardContent>
+    </Card>
   )
 }
