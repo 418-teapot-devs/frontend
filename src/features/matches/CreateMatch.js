@@ -242,7 +242,7 @@ export const CreateMatch = ({userRobots}) => {
         {failure &&
           <Alert severity="error">
             <AlertTitle>
-              No se pudo crear la partida
+              No se pudo crear la partida por un error en el servidor
             </AlertTitle>
           </Alert>
         }
