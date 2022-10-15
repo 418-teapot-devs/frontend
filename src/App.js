@@ -1,19 +1,18 @@
 import React from "react"
-import { CreateMatch } from "./features/matches/CreateMatch"
+import { CreatedMatches } from "./features/matches/CreatedMatches"
+import { listCreated } from "./features/matches/api/created"
 
-const robots = [{name: "Robot"}, {name: "Robot1"}]
+var divStyle = {
+  height: '15vw'
+}
+
 function App() {
   return (
     <div>
       <h1>PyRobots</h1>
-      <Grid container justifyContent="center" spacing={2}>
-        <Grid item xs={12} md={6} lg={3}>
-          <CreateMatch userRobots={robots}/>
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-
-        </Grid>
-      </Grid>
+      <div style={divStyle}>
+      <CreatedMatches matches={listCreated()}/>
+      </div>
     </div>
   )
 }
