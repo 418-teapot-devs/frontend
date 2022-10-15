@@ -11,18 +11,15 @@ import {
   Card,
   CardActions,
   CardContent,
-  Icon,
   TextField,
   Typography,
   Stack,
 } from "@mui/material"
 
 const FILE_SIZE = 4400000
-//const SUPPORTED_FILE_FORMAT = ["text"]
 const SUPPORTED_IMG_FORMATS = [
-//  "image/jpg",
+  "image/jpg",
   "image/jpeg",
-  "image/gif",
   "image/png"
 ]
 
@@ -30,14 +27,11 @@ const validationSchema = () => yup.object({
     name: yup
       .string("Ingrese el nombre de su robot") 
       .required("El nombre del robot es requerido"),
-      // TODO: Add validation for the name using endpoint
 
     code: yup.mixed()
       .required("El código de su robot es requerido")
       .test(
-        "fileSize", "El archivo es demasiado grande.", value => (value && value.size <= FILE_SIZE)),
-      // .test(
-      //   "fileFormat", "Formato incorrecto", value => (value && SUPPORTED_FILE_FORMAT.includes(value.type))),    
+         "fileSize", "El archivo es demasiado grande.", value => (value && value.size <= FILE_SIZE)),
 
     avatar: yup.mixed()
       .notRequired()
@@ -62,11 +56,11 @@ export const UploadBot = () => {
         setLoading(true)
         const response = await uploadBot(values)
         switch(response.status) {
-            case(200):
+            case(200): //?
                 setLoading(false)
                 window.alert("Se subió el robot con éxito.")
                 break
-            case(422):
+            case(400):
                 setLoading(false)
                 window.alert("Ya cuentas con un robot con ese nombre.")
                 break

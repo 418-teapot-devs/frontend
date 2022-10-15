@@ -1,31 +1,23 @@
 // A mock function to mimic making an async request for data
 export const uploadBot = (values) => {
-    if (values.name === "robot") {
-      return new Promise((resolve) =>
-        setTimeout(
-          () =>
-            resolve({ status: 200 }), 500 )
-      )
-    } else if (values.name === "takenName") {
-      return new Promise((resolve) =>
-        setTimeout(
-          () =>
-            resolve({
-              message: "Ya cuentas con un robot con ese nombre",
-              status: 422,
-            }), 500 )
-      )
+  const params = [`name=${encodeURIComponent(values.name)}`]
+
+  const code = new FormData()
+  code.append('code', values.code)
+
+  const avatar = new FormData()
+  avatar.append('avatar', values.avatar)
+
+  return fetch(`http://localhost:8000/robots/?${params}`,
+    {
+      method: "POST",
+      headers: {
+        "accept": 'application/json',
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsb2dpbiIsInVzZXJuYW1lIjoibGVvdG9ycmVzIiwiZXhwIjoxNjY2NDcxMjI3fQ.tpVb6b7PSVJgSYiYuu8FwOYoBaoiwUEGvKI3h6u-3kQ"
+      },
+      // TODO: add token validation
+      body: {code, avatar}
     }
-  
-    return new Promise((resolve) =>
-      setTimeout(
-        () =>
-          resolve({
-            message: "Error en el servidor, intente más tarde",
-            status: 500,
-          }),
-        500
-      )
-    )
-  }
-  
+  )
+}
+
