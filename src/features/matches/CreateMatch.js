@@ -65,8 +65,6 @@ const validationSchema = () => yup.object({
   })
 
 
-
-
 export const CreateMatch = ({userRobots}) => {
   const [loading, setLoading] = useState(false)
   const [success, setSucces] = useState(false)
