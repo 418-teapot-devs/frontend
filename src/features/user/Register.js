@@ -77,7 +77,7 @@ export const Register = () => {
             setLoading(false)
             window.alert("Se registró el usuario con éxito.")
             break
-          case(422):
+          case(409):
             setLoading(false)
             window.alert("El correo electrónico/nombre de usuario ya está en uso.")
             break
