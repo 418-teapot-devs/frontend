@@ -9,6 +9,7 @@ import {
     Avatar,
     AvatarGroup,
     Tooltip,
+    CircularProgress,
 } from '@mui/material'
 import { LockOutlined } from "@mui/icons-material"
 import { styled } from '@mui/material/styles';
@@ -63,8 +64,14 @@ export const IniciatedMatches = (({matches}) => {
               <StyledTableCell >
                  {match.is_private && <LockOutlined color="disabled" />}
               </StyledTableCell>
-              <StyledTableCell >{match.ranking_position}</StyledTableCell>
-              <StyledTableCell >+ {match.MMR_won}</StyledTableCell>
+              <StyledTableCell >
+                {match.ranking_position ||
+                <CircularProgress sx={{animationDuration: '6500ms'}}/>}
+              </StyledTableCell>
+              <StyledTableCell >
+                 {(Boolean(match.MMR_won) && "+" + match.MMR_won)
+                 || <CircularProgress sx={{animationDuration: '6500ms'}}/>}
+              </StyledTableCell>
               <StyledTableCell >{match.username}</StyledTableCell>
               <StyledTableCell >{match.games}</StyledTableCell>
               <StyledTableCell >{match.rounds}</StyledTableCell>

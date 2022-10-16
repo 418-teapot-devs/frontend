@@ -48,8 +48,8 @@ export const iniciated = [
             avatar_url: "https://cdn-icons-png.flaticon.com/512/1126/1126923.png?w=826&t=st=1665874973~exp=1665875573~hmac=6263da3ef1c927843309331e9e6126237745576d300db8bd10e3bd3d433f5f2e.png"
           }
       ],
-      ranking_position: 1,
-      MMR_won: 300,
+      ranking_position: null,
+      MMR_won: null,
     },
     {
         name: "Partida #3",
@@ -76,8 +76,8 @@ export const iniciated = [
                 avatar_url: "https://cdn-icons-png.flaticon.com/512/1126/1126923.png?w=826&t=st=1665874973~exp=1665875573~hmac=6263da3ef1c927843309331e9e6126237745576d300db8bd10e3bd3d433f5f2e.png"
               }
         ],
-        ranking_position: 1,
-        MMR_won: 300,
+        ranking_position: null,
+        MMR_won: null,
     },
     {
         name: "Partida #4",
@@ -527,8 +527,8 @@ export const iniciated = [
                   avatar_url: "https://cdn-icons-png.flaticon.com/512/1126/1126923.png?w=826&t=st=1665874973~exp=1665875573~hmac=6263da3ef1c927843309331e9e6126237745576d300db8bd10e3bd3d433f5f2e.png"
               }
           ],
-          ranking_position: 1,
-          MMR_won: 300,
+          ranking_position: null,
+          MMR_won: null,
       },
   
 ]
