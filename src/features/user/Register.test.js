@@ -6,12 +6,6 @@ import userEvent from "@testing-library/user-event"
 import { Register } from "./Register"
 import React from "react"
 
-/* 
-req, an information about a matching request;
-res, a functional utility to create the mocked response;
-ctx, a group of functions that help to set a status code, headers, body, etc. of the mocked response.
-*/
-
 export const handlers = [
 
   rest.post("http://127.0.0.1:8000/users/", async (req, res, ctx) => {
@@ -86,7 +80,7 @@ test("taken username no avatar", async () => {
   await user.keyboard("takenUsername")
 
   await user.click(screen.getByLabelText("Correo electrónico"))
-  await user.keyboard("username@gmail.com")
+  await user.keyboard("takenemail@gmail.com")
 
   await user.click(screen.getByLabelText("Contraseña"))
   await user.keyboard("Password1")
@@ -96,7 +90,8 @@ test("taken username no avatar", async () => {
 
   await user.click(screen.getByRole("button", { name: /Registrarse/i }))
 
-  expect(await screen.findByText(/El correo electrónico o nombre de usuario ya está en uso/i)).toBeInTheDocument()
+  expect(await screen.findByText(/El nombre de usuario ya está en uso/i)).toBeInTheDocument()
+  expect(await screen.findByText(/El correo electrónico ya está en uso/i)).toBeInTheDocument()
 })
 
 // Incorrect inputs: wrong password

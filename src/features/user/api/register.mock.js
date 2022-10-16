@@ -6,11 +6,23 @@ export const register = (values) => {
           () =>
             resolve({ status: 200 }), 500 )
       )
-    } else if (values.username === "takenUsername" || values.email === "takenemail@gmail.com") {
+    } else if (values.username === "takenUsername" && values.email === "takenemail@gmail.com") {
       return new Promise((resolve) =>
         setTimeout(
           () =>
-            resolve({ status: 409 }), 500 )
+            resolve({ status: 409, detail: ['E-Mail was taken!', 'Username was taken!'] }), 500 )
+      )
+    }  else if (values.username === "takenUsername") {
+      return new Promise((resolve) =>
+        setTimeout(
+          () =>
+            resolve({ status: 409, detail: ['Username was taken!'] }), 500 )
+      )
+    }  else if (values.email === "takenemail@gmail.com") {
+      return new Promise((resolve) =>
+        setTimeout(
+          () =>
+            resolve({ status: 409, detail: ['E-Mail was taken!'] }), 500 )
       )
     } else {
       return new Promise((resolve) =>

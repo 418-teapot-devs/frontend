@@ -1,8 +1,8 @@
 import { React, useState } from 'react'
 import { useFormik } from "formik"
 import * as yup from "yup"
-//import { register } from './api/register.mock' // TESTING ONLY
-import { register } from './api/register' // CONNECTION W/BACKEND
+import { register } from './api/register.mock' // TESTING ONLY
+//import { register } from './api/register' // CONNECTION W/BACKEND
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import YupPassword from 'yup-password';
 
@@ -58,7 +58,8 @@ export const Register = () => {
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState(false)
-    const [duplicate, setDuplicate] = useState(false)
+    const [duplicateUsername, setDuplicateUsername] = useState(false)
+    const [duplicateEmail, setDuplicateEmail] = useState(false)
   
     const formik = useFormik({
       initialValues: {
@@ -72,24 +73,29 @@ export const Register = () => {
       onSubmit: async (values) => {
         setLoading(true)
         const response = await register(values)
+        //const detail = await response.json()
+        const detail = JSON.stringify(response)
         switch(response.status) {
           case(200):
             setLoading(false)
             setSuccess(true)
             setError(false)
-            setDuplicate(false)
+            setDuplicateEmail(false)
+            setDuplicateUsername(false)
             break
-          case(409): // TODO: DISTINGUISH EMAIL/USERNAME DUPLICATES
+          case(409):
             setLoading(false)
             setSuccess(false)
             setError(false)
-            setDuplicate(true)
+            setDuplicateEmail((detail).includes('E-Mail was taken!'))
+            setDuplicateUsername((detail).includes('Username was taken!'))
             break
           default:
             setLoading(false)
             setSuccess(false)
             setError(true)
-            setDuplicate(false)
+            setDuplicateEmail(false)
+            setDuplicateUsername(false)
         }
       },
       });
@@ -208,10 +214,16 @@ export const Register = () => {
               No se pudo crear el usuario.
             </AlertTitle>
           </Alert>}
-        {duplicate &&      
+        {duplicateEmail &&      
         <Alert severity="error">
             <AlertTitle>
-              El correo electrónico o nombre de usuario ya está en uso.
+              El correo electrónico ya está en uso.
+            </AlertTitle>
+          </Alert>}
+        {duplicateUsername &&      
+        <Alert severity="error">
+            <AlertTitle>
+              El nombre de usuario ya está en uso.
             </AlertTitle>
           </Alert>}
         </form>
