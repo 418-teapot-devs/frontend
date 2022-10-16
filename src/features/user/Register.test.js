@@ -24,7 +24,7 @@ export const handlers = [
     // };
 
     //const username = await req.params['username'];
-    return res(ctx.status(201), ctx.delay(150))})]
+    return res(ctx.status(200), ctx.delay(150))})]
     // if (username === "username") {
     //   return res(
     //     ctx.status(200),

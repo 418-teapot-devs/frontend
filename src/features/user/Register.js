@@ -1,8 +1,8 @@
 import { React, useState } from 'react'
 import { useFormik } from "formik"
 import * as yup from "yup"
-import { register } from './api/register.mock' // TESTING ONLY
-// import { register } from './api/register' // CONNECTION W/BACKEND
+//import { register } from './api/register.mock' // TESTING ONLY
+import { register } from './api/register' // CONNECTION W/BACKEND
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import YupPassword from 'yup-password';
 
@@ -73,7 +73,7 @@ export const Register = () => {
         setLoading(true)
         const response = await register(values)
         switch(response.status) {
-          case(201):
+          case(200):
             setLoading(false)
             setSuccess(true)
             setError(false)
