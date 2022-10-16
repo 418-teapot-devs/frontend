@@ -17,7 +17,7 @@ export const register = (values) => {
     {
       method: "POST",
       headers: {
-        "accept": 'application/json',
+        "accept": 'application/json'
       },
       body: data
     }

@@ -1,7 +1,8 @@
 import { React, useState } from 'react'
 import { useFormik } from "formik"
 import * as yup from "yup"
-import { register } from './api/register'
+import { register } from './api/register.mock' // TESTING ONLY
+// import { register } from './api/register' // CONNECTION W/BACKEND
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import YupPassword from 'yup-password';
 
@@ -45,22 +46,23 @@ const validationSchema = () => yup.object({
 
     password: yup
       .string()
-      .minLowercase(1, "La contraseña debe contener al menos una letra minúscula")
-      .minUppercase(1, "La contraseña debe contener al menos una letra mayúscula")
-      .minNumbers(1, "La contraseña debe contener al menos un número")
       .min(8, "La contraseña debe tener al menos 8 caracteres")
+      .minLowercase(1, "La contraseña debe tener al menos una letra minúscula")
+      .minUppercase(1, "La contraseña debe tener al menos una letra mayúscula")
+      .minNumbers(1, "La contraseña debe tener al menos un número")
       .required("La contraseña es requerida"),
 
     confirmPassword: yup
       .string()
       .required("La contraseña es requerida")
-      .oneOf([yup.ref("password"), null], 'Las contraseñas deben ser iguales')
+      .oneOf([yup.ref("password"), null], 'Las contraseñas no coinciden')
   })
 
 export const Register = () => {
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState(false)
+    const [duplicate, setDuplicate] = useState(false)
   
     const formik = useFormik({
       initialValues: {
@@ -72,7 +74,6 @@ export const Register = () => {
       },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
-        console.log(values)
         setLoading(true)
         const response = await register(values)
         switch(response.status) {
@@ -80,17 +81,19 @@ export const Register = () => {
             setLoading(false)
             setSuccess(true)
             setError(false)
+            setDuplicate(false)
             break
-          case(409):
+          case(409): // TODO: DISTINGUISH EMAIL/USERNAME DUPLICATES
             setLoading(false)
             setSuccess(false)
-            setError(true)
+            setError(false)
+            setDuplicate(true)
             break
           default:
             setLoading(false)
             setSuccess(false)
             setError(true)
-            window.alert("Error en el servidor. Intente más tarde")
+            setDuplicate(false)
         }
       },
       });
@@ -119,9 +122,9 @@ export const Register = () => {
                     hidden accept="image/*"
                     id="avatar" 
                     name="avatar"
+                    aria-label="avatar"
                     type="file"
                     onChange={(event) => {
-                      console.log(event.currentTarget.files[0]);
                       formik.setFieldValue("avatar", event.currentTarget.files[0]);
                     }}
                 />
@@ -189,7 +192,7 @@ export const Register = () => {
             </Stack>
           </CardContent>
           <CardActions sx={{ padding: 2 }}>
-            <Button
+            <Button 
               type="submit"
               fullWidth
               variant="contained"
@@ -208,8 +211,13 @@ export const Register = () => {
             <AlertTitle>
               No se pudo crear el usuario.
             </AlertTitle>
-          </Alert>
-        }
+          </Alert>}
+        {duplicate &&      
+        <Alert severity="error">
+            <AlertTitle>
+              El correo electrónico o nombre de usuario ya está en uso.
+            </AlertTitle>
+          </Alert>}
         </form>
       </Card>
     )
