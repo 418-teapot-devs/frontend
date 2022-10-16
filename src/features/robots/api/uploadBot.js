@@ -5,8 +5,13 @@ export const uploadBot = (values) => {
   const code = new FormData()
   code.append('code', values.code)
 
-  const avatar = new FormData()
-  avatar.append('avatar', values.avatar)
+  const avatar = new FormData();
+  if (values.avatar) {
+    avatar.append('avatar', values.avatar)
+  }
+  else {
+    avatar.append('avatar', "")
+  }
 
   return fetch(`http://localhost:8000/robots/?${params}`,
     {

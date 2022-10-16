@@ -1,7 +1,8 @@
 import { React, useState } from 'react'
 import { useFormik } from "formik"
 import * as yup from "yup"
-import { uploadBot } from './api/uploadBot';
+//import { uploadBot } from './api/uploadBot'; // CONNECTION W/BACKEND
+import { uploadBot } from './api/uploadBot.mock'; // TESTING ONLY
 import AddIcon from '@mui/icons-material/Add';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
@@ -12,16 +13,14 @@ import {
   CardActions,
   CardContent,
   TextField,
+  Alert,
+  AlertTitle,
   Typography,
   Stack,
 } from "@mui/material"
 
 const FILE_SIZE = 4400000
-const SUPPORTED_IMG_FORMATS = [
-  "image/jpg",
-  "image/jpeg",
-  "image/png"
-]
+const SUPPORTED_IMG_FORMATS = ["image/png"]
 
 const validationSchema = () => yup.object({
     name: yup
@@ -43,6 +42,9 @@ const validationSchema = () => yup.object({
 
 export const UploadBot = () => {
     const [loading, setLoading] = useState(false)
+    const [success, setSuccess] = useState(false)
+    const [error, setError] = useState(false)
+    const [duplicate, setDuplicate] = useState(false)
   
     const formik = useFormik({
       initialValues: {
@@ -52,21 +54,26 @@ export const UploadBot = () => {
       },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
-        console.log(values)
         setLoading(true)
         const response = await uploadBot(values)
         switch(response.status) {
-            case(200): //?
+            case(201):
                 setLoading(false)
-                window.alert("Se subió el robot con éxito.")
+                setSuccess(true)
+                setError(false)
+                setDuplicate(false)
                 break
-            case(400):
+            case(409):
                 setLoading(false)
-                window.alert("Ya cuentas con un robot con ese nombre.")
+                setSuccess(false)
+                setError(true)
+                setDuplicate(true)
                 break
             default:
                 setLoading(false)
-                window.alert("No se pudo subir el robot.")
+                setSuccess(false)
+                setError(true)
+                setDuplicate(false)
         }
       },
     });
@@ -97,6 +104,7 @@ export const UploadBot = () => {
                 <Button 
                   variant="outlined" 
                   component="label"
+                  aria-label="avatar"
                   fullWidth
                   startIcon={<CameraAltIcon />}
                 >
@@ -107,7 +115,6 @@ export const UploadBot = () => {
                     name="avatar"
                     type="file"
                     onChange={(event) => {
-                      console.log(event.currentTarget.files[0])
                       formik.setFieldValue("avatar", event.currentTarget.files[0])
                     }}
                   />
@@ -133,6 +140,7 @@ export const UploadBot = () => {
                 <Button 
                   variant="outlined" 
                   component="label"
+                  aria-label="code"
                   fullWidth
                   startIcon={<AddIcon />}
                 >
@@ -176,6 +184,24 @@ export const UploadBot = () => {
               Crear
             </Button>
           </CardActions>
+        {success &&      
+          <Alert severity="success">
+              <AlertTitle>
+                Se subió el robot con éxito.
+              </AlertTitle>
+            </Alert>}
+        {error && 
+          <Alert severity="error">
+            <AlertTitle>
+              No se pudo subir el robot.
+            </AlertTitle>
+          </Alert>}
+        {duplicate &&      
+          <Alert severity="error">
+              <AlertTitle>
+               Ya cuentas con un robot con ese nombre.
+              </AlertTitle>
+            </Alert>}
         </form>
       </Card>
     )
