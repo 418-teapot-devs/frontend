@@ -69,8 +69,8 @@ export const IniciatedMatches = (({matches}) => {
             
           }
           {matches.map((match, index) => (
-            <StyledTableRow key={index} >
-              <StyledTableCell>
+            <StyledTableRow key={index} data-testid="match-row" >
+              <StyledTableCell data-testid="match-name">
                {match.name}
               </StyledTableCell>
               <StyledTableCell >
