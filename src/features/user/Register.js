@@ -21,11 +21,7 @@ import {
 YupPassword(yup) // CHECK
 
 const FILE_SIZE = 4400000
-const SUPPORTED_IMG_FORMATS = [
-  "image/jpg",
-  "image/jpeg",
-  "image/png"
-]
+const SUPPORTED_IMG_FORMATS = ["image/png"]
 
 const validationSchema = () => yup.object({
     username: yup
@@ -77,7 +73,7 @@ export const Register = () => {
         setLoading(true)
         const response = await register(values)
         switch(response.status) {
-          case(200):
+          case(201):
             setLoading(false)
             setSuccess(true)
             setError(false)

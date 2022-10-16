@@ -4,7 +4,7 @@ export const register = (values) => {
       return new Promise((resolve) =>
         setTimeout(
           () =>
-            resolve({ status: 200 }), 500 )
+            resolve({ status: 201 }), 500 )
       )
     } else if (values.username === "takenUsername" || values.email === "takenemail@gmail.com") {
       return new Promise((resolve) =>

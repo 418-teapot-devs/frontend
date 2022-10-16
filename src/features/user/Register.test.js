@@ -14,7 +14,7 @@ ctx, a group of functions that help to set a status code, headers, body, etc. of
 
 export const handlers = [
 
-  rest.post("http://localhost:8000/users/", async (req, res, ctx) => {
+  rest.post("http://127.0.0.1:8000/users/", async (req, res, ctx) => {
 
     // const body = await req.body()
     // if (body.name === "avatar") {
@@ -23,26 +23,26 @@ export const handlers = [
     //   return res(ctx.status(500), ctx.delay(150))
     // };
 
-    const username = await req.params['username'];
-
-    if (username === "username") {
-      return res(
-        ctx.status(200),
-        ctx.delay(150)
-      )
-    } else if (username.username === "takenUsername") {
-      return res(
-        ctx.status(409),
-        ctx.delay(150)
-      )
-    } else {
-      return res(
-        ctx.status(500),
-        ctx.delay(150)
-      )
-    }
-  })
-]
+    //const username = await req.params['username'];
+    return res(ctx.status(201), ctx.delay(150))})]
+    // if (username === "username") {
+    //   return res(
+    //     ctx.status(200),
+    //     ctx.delay(150)
+    //   )
+    // } else if (username.username === "takenUsername") {
+    //   return res(
+    //     ctx.status(409),
+    //     ctx.delay(150)
+    //   )
+    // } else {
+    //   return res(
+    //     ctx.status(500),
+    //     ctx.delay(150)
+    //   )
+//     }
+//   })
+// ]
 
 const server = setupServer(...handlers)
 
@@ -125,20 +125,17 @@ test("wrong password fixes should register", async () => {
   expect(await screen.findByText(/La contraseña debe tener al menos 8 caracteres/i)).toBeInTheDocument()
 
   await user.click(screen.getByLabelText("Contraseña"))
-  await user.keyboard("Password")
+  await user.keyboard("word")
 
   expect(await screen.findByText(/La contraseña debe tener al menos un número/i)).toBeInTheDocument()
 
   await user.click(screen.getByLabelText("Contraseña"))
-  await user.keyboard("Password1")
-
-  await user.click(screen.getByLabelText("Reingrese la contraseña"))
-  await user.keyboard("Password2")
+  await user.keyboard("1")
 
   expect(await screen.findByText(/Las contraseñas no coinciden/i)).toBeInTheDocument()
 
   await user.click(screen.getByLabelText("Reingrese la contraseña"))
-  await user.keyboard("Password1")
+  await user.keyboard("word1")
 
   await user.click(screen.getByRole("button", { name: /Registrarse/i }))
 
