@@ -38,7 +38,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export const IniciatedMatches = (({matches}) => {
   return (
-    <Paper sx={{height: '100%', width: '100%', overflow: 'hidden' }}>
+    <Paper sx={{height: '100%', width: '100%', overflow: 'hidden' }}
+    data-testid='iniciated-matches'>
       <TableContainer sx={{ height: '100%' }} >
         <Table
           stickyHeader
