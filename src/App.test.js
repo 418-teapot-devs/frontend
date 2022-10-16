@@ -10,8 +10,6 @@ test("renders titles and buttons", () => {
   )
 
   expect(screen.getByText(/PyRobots/i)).toBeInTheDocument()
-  expect(screen.getByText(/Crear Partida/i)).toBeInTheDocument()
-  expect(screen.getByRole("button", { name: "Crear" })).toBeInTheDocument()
-  expect(screen.getByRole("button", { name: "Cancelar" })).toBeInTheDocument()
+  expect(screen.getByText(/Mis Partidas/i)).toBeInTheDocument()
 
 })

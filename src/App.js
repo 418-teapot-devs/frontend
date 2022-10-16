@@ -1,9 +1,9 @@
 import React from "react"
-import { CreatedMatches } from "./features/matches/CreatedMatches"
-import { listCreated } from "./features/matches/api/created"
+import { joined } from "./features/matches/api/joined"
+import { JoinedMatches } from "./features/matches/JoinedMatches"
 
 var divStyle = {
-  height: '15vw'
+  height: '30vw'
 }
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
     <div>
     <h1>PyRobots</h1>
     <div style={divStyle}>
-      <CreatedMatches matches={listCreated()}/>
+      <JoinedMatches matches={joined}/>
       </div>
     </div>
   )
