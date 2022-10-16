@@ -25,8 +25,8 @@ export const iniciated = [
           avatar_url: "https://is5-ssl.mzstatic.com/image/thumb/Purple126/v4/eb/8c/dc/eb8cdc29-5f64-7257-0937-b8bad0691c94/source/256x256bb.jpg"
         }
       ],
-      ranking_position: "3",
-      MMR_won: "100",
+      ranking_position: 3,
+      MMR_won: 100,
     },
     {
       name: "Partida #2",
@@ -104,8 +104,8 @@ export const iniciated = [
             avatar_url: "https://is5-ssl.mzstatic.com/image/thumb/Purple126/v4/eb/8c/dc/eb8cdc29-5f64-7257-0937-b8bad0691c94/source/256x256bb.jpg"
           }
         ],
-        ranking_position: "3",
-        MMR_won: "100",
+        ranking_position: 3,
+        MMR_won: 100,
       },
       {
         name: "Partida #5",
@@ -183,8 +183,8 @@ export const iniciated = [
             avatar_url: "https://is5-ssl.mzstatic.com/image/thumb/Purple126/v4/eb/8c/dc/eb8cdc29-5f64-7257-0937-b8bad0691c94/source/256x256bb.jpg"
           }
         ],
-        ranking_position: "3",
-        MMR_won: "100",
+        ranking_position: 3,
+        MMR_won: 100,
     },
     {
         name: "Partida #8",
@@ -290,8 +290,8 @@ export const iniciated = [
             avatar_url: "https://is5-ssl.mzstatic.com/image/thumb/Purple126/v4/eb/8c/dc/eb8cdc29-5f64-7257-0937-b8bad0691c94/source/256x256bb.jpg"
           }
         ],
-        ranking_position: "3",
-        MMR_won: "100",
+        ranking_position: 3,
+        MMR_won: 100,
       },
       {
         name: "Partida #2",
@@ -369,8 +369,8 @@ export const iniciated = [
               avatar_url: "https://is5-ssl.mzstatic.com/image/thumb/Purple126/v4/eb/8c/dc/eb8cdc29-5f64-7257-0937-b8bad0691c94/source/256x256bb.jpg"
             }
           ],
-          ranking_position: "3",
-          MMR_won: "100",
+          ranking_position: 3,
+          MMR_won: 100,
         },
         {
           name: "Partida #5",
@@ -448,8 +448,8 @@ export const iniciated = [
               avatar_url: "https://is5-ssl.mzstatic.com/image/thumb/Purple126/v4/eb/8c/dc/eb8cdc29-5f64-7257-0937-b8bad0691c94/source/256x256bb.jpg"
             }
           ],
-          ranking_position: "3",
-          MMR_won: "100",
+          ranking_position: 3,
+          MMR_won: 100,
       },
       {
           name: "Partida #8",

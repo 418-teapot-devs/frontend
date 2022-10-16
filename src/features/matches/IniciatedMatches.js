@@ -73,24 +73,25 @@ export const IniciatedMatches = (({matches}) => {
               <StyledTableCell data-testid="match-name">
                {match.name}
               </StyledTableCell>
-              <StyledTableCell >
-                 {match.is_private && <LockOutlined color="disabled" />}
+              <StyledTableCell data-testid='match-isprivate'>
+                 {match.is_private &&
+                 <LockOutlined data-testid='match-private' color="disabled" />}
               </StyledTableCell>
-              <StyledTableCell >
+              <StyledTableCell data-testid='match-rank' >
                 {match.ranking_position ||
                 <CircularProgress sx={{animationDuration: '6500ms'}}/>}
               </StyledTableCell>
-              <StyledTableCell >
+              <StyledTableCell data-testid='match-mmrwon'>
                  {(Boolean(match.MMR_won) && "+" + match.MMR_won)
                  || <CircularProgress sx={{animationDuration: '6500ms'}}/>}
               </StyledTableCell>
-              <StyledTableCell >{match.username}</StyledTableCell>
-              <StyledTableCell >{match.games}</StyledTableCell>
-              <StyledTableCell >{match.rounds}</StyledTableCell>
-              <StyledTableCell >
+              <StyledTableCell data-testid="match-username">{match.username}</StyledTableCell>
+              <StyledTableCell data-testid="match-games">{match.games}</StyledTableCell>
+              <StyledTableCell data-testid="match-rounds">{match.rounds}</StyledTableCell>
+              <StyledTableCell data-testid="match-players">
                 <AvatarGroup max={4}>
                 {match.robots.map((robot, index) => (
-                    <Tooltip 
+                    <Tooltip data-testid="match-robot"
                       arrow
                       title={`${robot.name},@${robot.username}`}
                       placement="top-start"
