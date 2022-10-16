@@ -9,8 +9,8 @@ var divStyle = {
 function App() {
   return (
     <div>
-      <h1>PyRobots</h1>
-      <div style={divStyle}>
+    <h1>PyRobots</h1>
+    <div style={divStyle}>
       <CreatedMatches matches={listCreated()}/>
       </div>
     </div>
