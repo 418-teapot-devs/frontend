@@ -1,18 +1,16 @@
 import React from "react"
-import { CreatedMatches } from "./features/matches/CreatedMatches"
-import { listCreated } from "./features/matches/api/created"
+import { IniciatedMatches } from "./features/matches/IniciatedMatches"
+import { iniciated } from "./features/matches/api/iniciated"
 
 var divStyle = {
-  height: '15vw'
+  height: '30vw'
 }
 
 function App() {
   return (
-    <div>
+    <div style={divStyle}>
       <h1>PyRobots</h1>
-      <div style={divStyle}>
-      <CreatedMatches matches={listCreated()}/>
-      </div>
+      <IniciatedMatches matches={iniciated}/>
     </div>
   )
 }
