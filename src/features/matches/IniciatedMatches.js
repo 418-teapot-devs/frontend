@@ -39,13 +39,14 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 export const IniciatedMatches = (({matches}) => {
   return (
     <Paper sx={{height: '100%', width: '100%', overflow: 'hidden' }}>
-    <TableContainer sx={{ height: '100%' }} component={Paper}>
+    <TableContainer sx={{ height: '100%' }} >
       <Table
         stickyHeader
         aria-label="customized table"
 
       >
         <TableHead >
+        <StyledTableRow>
             <StyledTableCell>Partida</StyledTableCell>
             <StyledTableCell></StyledTableCell>
             <StyledTableCell>Puesto</StyledTableCell>
@@ -54,10 +55,11 @@ export const IniciatedMatches = (({matches}) => {
             <StyledTableCell>Juegos</StyledTableCell>
             <StyledTableCell>Rondas</StyledTableCell>
             <StyledTableCell align="right">Jugadores</StyledTableCell>
+        </StyledTableRow>
         </TableHead>
         <TableBody>
           {
-            (matches.length == 0 || !matches) &&
+            (matches.length === 0 ) &&
               <StyledTableRow>
                 <StyledTableCell colSpan={8} align='center'>
                   Parece que todavía no has jugado ninguna partida...
