@@ -1,8 +1,8 @@
 import { React, useState } from 'react'
 import { useFormik } from "formik"
 import * as yup from "yup"
-//import { uploadBot } from './api/uploadBot'; // CONNECTION W/BACKEND
-import { uploadBot } from './api/uploadBot.mock'; // TESTING ONLY
+import { uploadBot } from './api/uploadBot'; // CONNECTION W/BACKEND
+//import { uploadBot } from './api/uploadBot.mock'; // TESTING ONLY
 import AddIcon from '@mui/icons-material/Add';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
