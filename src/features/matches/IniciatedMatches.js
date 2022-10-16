@@ -39,55 +39,57 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 export const IniciatedMatches = (({matches}) => {
   return (
     <Paper sx={{height: '100%', width: '100%', overflow: 'hidden' }}>
-    <TableContainer sx={{ height: '100%' }} >
-      <Table
-        stickyHeader
-        aria-label="customized table"
-
-      >
+      <TableContainer sx={{ height: '100%' }} >
+        <Table
+          stickyHeader
+          aria-label="customized table"
+        >
         <TableHead >
-        <StyledTableRow>
-            <StyledTableCell>Partida</StyledTableCell>
-            <StyledTableCell></StyledTableCell>
-            <StyledTableCell>Puesto</StyledTableCell>
-            <StyledTableCell>MMR ganado</StyledTableCell>
-            <StyledTableCell>Creador</StyledTableCell>
-            <StyledTableCell>Juegos</StyledTableCell>
-            <StyledTableCell>Rondas</StyledTableCell>
-            <StyledTableCell align="right">Jugadores</StyledTableCell>
-        </StyledTableRow>
+          <StyledTableRow>
+              <StyledTableCell>Partida</StyledTableCell>
+              <StyledTableCell></StyledTableCell>
+              <StyledTableCell>Puesto</StyledTableCell>
+              <StyledTableCell>MMR ganado</StyledTableCell>
+              <StyledTableCell>Creador</StyledTableCell>
+              <StyledTableCell>Juegos</StyledTableCell>
+              <StyledTableCell>Rondas</StyledTableCell>
+              <StyledTableCell align="right">Jugadores</StyledTableCell>
+          </StyledTableRow>
         </TableHead>
         <TableBody>
-          {
-            (matches.length === 0 ) &&
-              <StyledTableRow>
-                <StyledTableCell colSpan={8} align='center'>
-                  Parece que todavía no has jugado ninguna partida...
-
-                </StyledTableCell>
-                </StyledTableRow>
-            
+          {(matches.length === 0 ) &&
+            <StyledTableRow>
+              <StyledTableCell colSpan={8} align='center'>
+                Parece que todavía no has jugado ninguna partida...
+              </StyledTableCell>
+            </StyledTableRow>
           }
           {matches.map((match, index) => (
             <StyledTableRow key={index} data-testid="match-row" >
               <StyledTableCell data-testid="match-name">
-               {match.name}
+                {match.name}
               </StyledTableCell>
               <StyledTableCell data-testid='match-isprivate'>
-                 {match.is_private &&
-                 <LockOutlined data-testid='match-private' color="disabled" />}
+                  {match.is_private &&
+                  <LockOutlined data-testid='match-private' color="disabled" />}
               </StyledTableCell>
               <StyledTableCell data-testid='match-rank' >
                 {match.ranking_position ||
                 <CircularProgress sx={{animationDuration: '6500ms'}}/>}
               </StyledTableCell>
               <StyledTableCell data-testid='match-mmrwon'>
-                 {(Boolean(match.MMR_won) && "+" + match.MMR_won)
-                 || <CircularProgress sx={{animationDuration: '6500ms'}}/>}
+                  {(Boolean(match.MMR_won) && "+" + match.MMR_won)
+                  || <CircularProgress sx={{animationDuration: '6500ms'}}/>}
               </StyledTableCell>
-              <StyledTableCell data-testid="match-username">{match.username}</StyledTableCell>
-              <StyledTableCell data-testid="match-games">{match.games}</StyledTableCell>
-              <StyledTableCell data-testid="match-rounds">{match.rounds}</StyledTableCell>
+              <StyledTableCell data-testid="match-username">
+                {match.username}
+              </StyledTableCell>
+              <StyledTableCell data-testid="match-games">
+                {match.games}
+              </StyledTableCell>
+              <StyledTableCell data-testid="match-rounds">
+                {match.rounds}
+              </StyledTableCell>
               <StyledTableCell data-testid="match-players">
                 <AvatarGroup max={4}>
                 {match.robots.map((robot, index) => (
@@ -103,9 +105,9 @@ export const IniciatedMatches = (({matches}) => {
               </StyledTableCell>
             </StyledTableRow>
           ))}
-        </TableBody>
-      </Table>
-    </TableContainer> 
-  </Paper>
+          </TableBody>
+        </Table>
+      </TableContainer> 
+    </Paper>
   );
 })
