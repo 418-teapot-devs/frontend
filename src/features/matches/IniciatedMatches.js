@@ -56,6 +56,16 @@ export const IniciatedMatches = (({matches}) => {
             <StyledTableCell align="right">Jugadores</StyledTableCell>
         </TableHead>
         <TableBody>
+          {
+            (matches.length == 0 || !matches) &&
+              <StyledTableRow>
+                <StyledTableCell colSpan={8} align='center'>
+                  Parece que todavía no has jugado ninguna partida...
+
+                </StyledTableCell>
+                </StyledTableRow>
+            
+          }
           {matches.map((match, index) => (
             <StyledTableRow key={index} >
               <StyledTableCell>
