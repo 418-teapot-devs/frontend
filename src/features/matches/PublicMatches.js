@@ -56,7 +56,7 @@ export const PublicMatches = (({matches}) => {
               <StyledTableCell>Juegos</StyledTableCell>
               <StyledTableCell>Rondas</StyledTableCell>
               <StyledTableCell align="right">Jugadores</StyledTableCell>
-              <StyledTableCell align="legt">Min/Max</StyledTableCell>
+              <StyledTableCell align="left">Min/Max</StyledTableCell>
 
               <StyledTableCell></StyledTableCell>
           </StyledTableRow>
@@ -70,27 +70,27 @@ export const PublicMatches = (({matches}) => {
             </StyledTableRow>
           }
           {matches.map((match, index) => (
-            <StyledTableRow key={index} data-testid="match-row" >
-              <StyledTableCell data-testid="match-name">
+            <StyledTableRow key={index} data-testid="public-match-row" >
+              <StyledTableCell data-testid="public-match-name">
                 {match.name}
               </StyledTableCell>
-              <StyledTableCell data-testid='match-isprivate'>
+              <StyledTableCell data-testid="public-match-isprivate">
                   {match.is_private &&
-                  <LockOutlined data-testid='match-private' color="disabled" />}
+                  <LockOutlined data-testid="public-match-private" color="disabled" />}
               </StyledTableCell>
-              <StyledTableCell data-testid="match-username">
+              <StyledTableCell data-testid="public-match-username">
                 {match.username}
               </StyledTableCell>
-              <StyledTableCell data-testid="match-games">
+              <StyledTableCell data-testid="public-match-games">
                 {match.games}
               </StyledTableCell>
-              <StyledTableCell data-testid="match-rounds">
+              <StyledTableCell data-testid="public-match-rounds">
                 {match.rounds}
               </StyledTableCell>
-              <StyledTableCell data-testid="match-players">
+              <StyledTableCell data-testid="public-match-players">
                 <AvatarGroup max={4}>
                 {match.robots.map((robot, index) => (
-                    <Tooltip data-testid="match-robot"
+                    <Tooltip data-testid="public-match-robot"
                       arrow
                       title={`${robot.name},@${robot.username}`}
                       placement="top-start"
