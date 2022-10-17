@@ -3,6 +3,7 @@ import { useFormik, Formik } from "formik"
 import * as yup from "yup"
 //import { creatematch } from './api/creatematch.mock' // TESTING ONLY
 import { creatematch } from "./api/creatematch" // CONNECTION W/BACKEND
+import { useAuth } from "../../hooks/useAuth"
 
 import {
   Button,
@@ -72,6 +73,8 @@ export const CreateMatch = ({ userRobots }) => {
   const [success, setSucces] = useState(false)
   const [failure, setFailure] = useState(false)
 
+  const { user } = useAuth()
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -86,8 +89,7 @@ export const CreateMatch = ({ userRobots }) => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       setLoading(true)
-      const response = await creatematch(values)
-      //const detail = await response.json()
+      const response = await creatematch(values, user.token)
       const detail = JSON.stringify(response)
       switch (response.status) {
         case 201:

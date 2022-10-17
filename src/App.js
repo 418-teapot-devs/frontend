@@ -4,6 +4,7 @@ import { Login } from "./features/user/Login"
 import { Root } from "./routes/Root"
 import { ProtectedRoute } from "./routes/ProtectedRoute"
 import { CreateMatch } from "./features/matches/CreateMatch"
+import { AvailableRobots } from "../src/features/matches/api/creatematch"
 
 const App = () => {
   const routes = useRoutes([
@@ -39,7 +40,7 @@ const App = () => {
     },
     {
       path: "/creatematch",
-      element: <CreateMatch userRobots={[{ name: "Robot1" }]} />,
+      element: <CreateMatch userRobots={AvailableRobots()} />,
     },
   ])
 

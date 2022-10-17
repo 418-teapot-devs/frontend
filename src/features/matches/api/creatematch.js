@@ -1,11 +1,37 @@
-export const creatematch = (values) => {
+import { useState, useEffect } from "react"
+import { IniciatedMatches } from "../IniciatedMatches" //?
+import { useAuth } from "../../../hooks/useAuth"
+import { appendOwnerState } from "@mui/base"
+
+export function AvailableRobots() {
+  
+  const { user } = useAuth()
+
+  function loadAvailableRobots() {
+    fetch("http://127.0.0.1:8000/robots/", {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        token: user.token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setRobots(data))
+  }
+
+  const [robots, setRobots] = useState([])
+  useEffect(() => {loadAvailableRobots()}, [])
+
+  return robots
+}
+
+export const creatematch = (values, token) => {
   return fetch("http://127.0.0.1:8000/matches/created", {
     method: "POST",
     headers: {
       accept: "application/json",
       "Content-Type": "application/json",
-      token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsb2dpbiIsInVzZXJuYW1lIjoibHVlbWUiLCJleHAiOjE2NjY2NDUxMzF9.t2gVGcd9Ha-9rEpUZGfFoixbZ99ultxWqupc6w_8jb0",
+      token: token,
     },
     body: JSON.stringify({
       name: values.name,
