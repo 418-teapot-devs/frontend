@@ -12,15 +12,18 @@ import {
   ListItemText,
   ListSubheader,
   ListItemAvatar,
-  Avatar
+  Avatar,
+  Button
 } from "@mui/material"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
-  return <IconButton {...other} />;
+  return <Button {...other}
+    data-testid='details-button'
+    aria-label='show-more'
+    />;
 })(({ theme, expand }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
   marginLeft: 'auto',
@@ -39,18 +42,18 @@ const JoinedMatch = ({match}) => {
 
   return(
   <MatchBaseItem {...match}>
-    <CardActions sx={{ justifyContent: "flex-end" }}>
+    <CardActions sx={{ justifyContent: "flex-end" }} data-testid='match-card'>
+      
       <ExpandMore
         expand={expanded}
         onClick={handleExpandClick}
         aria-expanded={expanded}
-        aria-label="show more"
       >
         <ExpandMoreIcon />
       </ExpandMore>
     </CardActions>
-    <Collapse in={expanded} timeout="auto" unmountOnExit {...match}>
-        <CardContent>
+    <Collapse in={expanded} unmountOnExit>
+        <CardContent data-testid='match-card-content'>
           {(match.min_players - match.robots.length)!== 0 && 
             <Typography>
               @{match.username} podrá iniciar la partida cuando lleguen {match.min_players - match.robots.length} robots más...
@@ -61,20 +64,20 @@ const JoinedMatch = ({match}) => {
               Esperando a que @{match.username} inicie la partida...
             </Typography>
           }
-          <List dense="true">
+          <List dense={true}>
 
             <ListSubheader>
               Robots Unidos
             </ListSubheader>
-            {match.robots.map((robot) => 
-                <ListItem>
+            {match.robots.map((robot, index) => 
+                <ListItem key={index} data-testid='match-player'>
                 <ListItemAvatar>
                   <Avatar
                     src={robot.avatar_url}
                   />
                 </ListItemAvatar>
 
-                  <ListItemText
+                  <ListItemText data-testid='robot-data'
                     primary={robot.name}
                     secondary={"@" + robot.username}
                   />
@@ -89,7 +92,7 @@ const JoinedMatch = ({match}) => {
 
 const GridJoinedMatches = ({ matches }) => {
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} data-testid='match-grid'>
       {matches.map((match, index) => (
         <Grid item xs={12} md={6} lg={4} xl={3} key={index}>
           <JoinedMatch match={match}/>
