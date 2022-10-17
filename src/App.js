@@ -13,6 +13,24 @@ const App = () => {
           <Root />
         </ProtectedRoute>
       ),
+      children: [
+        {
+          path: "/",
+          element: <h1>Home</h1>,
+        },
+        {
+          path: "/robots",
+          element: <h1>Robots</h1>,
+        },
+        {
+          path: "/matches",
+          element: <h1>Mis Partidas</h1>,
+        },
+        {
+          path: "/profile",
+          element: <h1>Perfil</h1>,
+        },
+      ],
     },
     {
       path: "/login",
