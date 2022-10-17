@@ -1,29 +1,26 @@
 import React from "react"
+import { useRoutes } from "react-router-dom"
 import { Login } from "./features/user/Login"
-import { Profile } from "./features/user/Profile"
-import { CreateMatch } from "./features/matches/CreateMatch"
-import { IniciatedMatches } from "./features/matches/IniciatedMatches"
-import { iniciated } from "./features/matches/api/iniciated"
-import { Register } from "./features/user/Register"
+import { Root } from "./routes/Root"
+import { ProtectedRoute } from "./routes/ProtectedRoute"
 
-var divStyle = {
-  height: '30vw'
-}
+const App = () => {
+  const routes = useRoutes([
+    {
+      path: "/",
+      element: (
+        <ProtectedRoute>
+          <Root />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+  ])
 
-function App() {
-  return (
-    <div style={divStyle}>
-      <h1>PyRobots</h1>
-      <Grid container justifyContent="center" spacing={2}>
-        <Grid item xs={12} md={6} lg={3}>
-          <Login />
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Profile />
-        </Grid>
-      </Grid>
-    </div>
-  )
+  return routes
 }
 
 export default App
