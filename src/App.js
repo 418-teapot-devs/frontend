@@ -1,49 +1,20 @@
 import React from "react"
-import { useRoutes } from "react-router-dom"
-import { Login } from "./features/user/Login"
-import { Root } from "./routes/Root"
-import { ProtectedRoute } from "./routes/ProtectedRoute"
-import { CreateMatch } from "./features/matches/CreateMatch"
+import { ListPublic } from "./features/matches/api/public"
 
-const App = () => {
-  const routes = useRoutes([
-    {
-      path: "/",
-      element: (
-        <ProtectedRoute>
-          <Root />
-        </ProtectedRoute>
-      ),
-      children: [
-        {
-          path: "/",
-          element: <h1>Home</h1>,
-        },
-        {
-          path: "/robots",
-          element: <h1>Robots</h1>,
-        },
-        {
-          path: "/matches",
-          element: <h1>Mis Partidas</h1>,
-        },
-        {
-          path: "/profile",
-          element: <h1>Perfil</h1>,
-        },
-      ],
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/creatematch",
-      element: <CreateMatch userRobots={[{ name: "Robot1" }]} />,
-    },
-  ])
+var divStyle = {
+  height: '15vw'
+}
 
-  return routes
+function App() {
+
+  return (
+    <div>
+      <h1>PyRobots</h1>
+      <div style={divStyle}>
+        {ListPublic()}
+      </div>
+    </div>
+  )
 }
 
 export default App

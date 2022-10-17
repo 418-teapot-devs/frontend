@@ -1,25 +1,25 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { PublicMatches } from "../PublicMatches"
+import { useAuth } from "../../../hooks/useAuth"
 
 export function ListPublic() {
-  function loadListPublic() {
-    fetch("http://127.0.0.1:8000/matchs/public", {
-      //?????
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        // CHANGE TOKEN OR WONT WORK
-        token:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsb2dpbiIsInVzZXJuYW1lIjoibG9yYXMyMiIsImV4cCI6MTY2NjU4MzUxMX0.3JgTbi95Gomb_CZyf4eu-X09rp5RU0OdDdXzhuarClY",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => setMatches(data))
-  }
 
-  const [matches, setMatches] = useState([])
-  //useEffect(() => { loadListCreated() })
-  loadListPublic()
+    const { user } = useAuth()
 
-  return <PublicMatches matches={matches} />
+    function loadListPublic() {
+        fetch("http://127.0.0.1:8000/matches/public", {
+             method: "GET",
+             headers: {
+                 "accept": "application/json",
+                 "token": user.token
+             }
+        })
+        .then(response => response.json())
+        .then(data => setMatches(data))
+    }
+
+    const [matches, setMatches] = useState([])
+    useEffect(() => { loadListPublic() })
+
+    return <PublicMatches matches={matches}/>
 }
