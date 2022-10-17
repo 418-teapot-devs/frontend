@@ -73,7 +73,6 @@ export const Register = () => {
       onSubmit: async (values) => {
         setLoading(true)
         const response = await register(values)
-        //const detail = await response.json()
         const detail = JSON.stringify(response)
         switch(response.status) {
           case(200):
