@@ -6,6 +6,7 @@ import { uploadBot } from './api/uploadBot'; // CONNECTION W/BACKEND
 import AddIcon from '@mui/icons-material/Add';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
+import { useAuth } from '../../hooks/useAuth';
 
 import {
   Button,
@@ -45,6 +46,8 @@ export const UploadBot = () => {
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState(false)
     const [duplicate, setDuplicate] = useState(false)
+
+    const { user } = useAuth()
   
     const formik = useFormik({
       initialValues: {
@@ -56,7 +59,7 @@ export const UploadBot = () => {
       onSubmit: async (values) => {
         console.log(values)
         setLoading(true)
-        const response = await uploadBot(values)
+        const response = await uploadBot(values, user.token)
         switch(response.status) {
             case(201):
                 setLoading(false)
