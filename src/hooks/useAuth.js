@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo } from "react"
+import { createContext, useContext, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import { useLocalStorage } from "./useLocalStorage"
 import { login as loginAPI } from "../api/login"
@@ -24,10 +24,10 @@ export const AuthProvider = ({ children }) => {
     return error
   }
 
-  const logout = useCallback(() => {
+  const logout = () => {
     setUser({ token: null })
     navigate("/login", { replace: true })
-  }, [setUser, navigate])
+  }
 
   const value = useMemo(
     () => ({
@@ -35,7 +35,9 @@ export const AuthProvider = ({ children }) => {
       login,
       logout,
     }),
-    [user, login, logout]
+    // TODO: Read more about useMemo and useCallback
+    // eslint-disable-next-line
+    [user]
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
