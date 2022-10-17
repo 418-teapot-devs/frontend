@@ -27,20 +27,6 @@ const validationSchema = () => yup.object({
     username: yup
       .string("Ingrese un nombre de usuario") 
       .required("El nombre de usuario es requerido"),
-    //   .test('Nombre de usuario único', 'El nombre de usuario ya está en uso',
-    //     function (value) {
-    //             return new Promise((resolve, reject) => {
-    //                 axios.get(`http://localhost:3000/api/users/${username}`)
-    //                     .then((res) => {
-    //                         resolve(true)
-    //                     })
-    //                     .catch((error) => {
-    //                         if (error.response.data.content === "El nombre de usuario ya está en uso.") {
-    //                             resolve(false);
-    //                         }
-    //                     })
-    //             })
-    //     }),
 
     email: yup
       .string("Ingrese su correo electrónico")
@@ -87,7 +73,6 @@ export const Register = () => {
       onSubmit: async (values) => {
         setLoading(true)
         const response = await register(values)
-        //const detail = await response.json()
         const detail = JSON.stringify(response)
         switch(response.status) {
           case(200):
