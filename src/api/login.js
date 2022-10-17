@@ -5,13 +5,13 @@ export const login = async (username, password) => {
     const response = await fetch("http://127.0.0.1:8000/users/login", {
       method: "POST",
       headers: {
-        "accept": "application/json",
-        "Content-Type": "application/json"
+        accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         username: username,
-        password: password
-      })
+        password: password,
+      }),
     })
 
     switch (response.status) {
@@ -25,7 +25,7 @@ export const login = async (username, password) => {
       case 500:
         error = "Error del servidor, intente más tarde"
         break
-        default:
+      default:
         error = `Error desconocido, código(${response.status})`
         break
     }

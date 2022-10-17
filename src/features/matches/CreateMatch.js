@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useFormik, Formik } from "formik"
 import * as yup from "yup"
 //import { creatematch } from './api/creatematch.mock' // TESTING ONLY
-import { creatematch } from './api/creatematch' // CONNECTION W/BACKEND
+import { creatematch } from "./api/creatematch" // CONNECTION W/BACKEND
 
 import {
   Button,
@@ -88,9 +88,9 @@ export const CreateMatch = ({ userRobots }) => {
       setLoading(true)
       const response = await creatematch(values)
       //const detail = await response.json()
-       const detail = JSON.stringify(response);
+      const detail = JSON.stringify(response)
       switch (response.status) {
-        case (201):
+        case 201:
           setLoading(false)
           setSucces(true)
           setFailure(false)

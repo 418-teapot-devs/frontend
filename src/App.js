@@ -39,10 +39,10 @@ const App = () => {
     },
     {
       path: "/creatematch",
-      element: <CreateMatch userRobots={[{name: "Robot1"}]}/>,
+      element: <CreateMatch userRobots={[{ name: "Robot1" }]} />,
     },
   ])
-  
+
   return routes
 }
 
