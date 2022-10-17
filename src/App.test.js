@@ -1,15 +1,15 @@
-import React from "react"
-import App from "./App"
-import { render,  screen  } from "@testing-library/react"
-import userEvent from '@testing-library/user-event';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { store } from './app/store';
+import App from './App';
 
-
-test("renders titles and buttons", () => {
+test('renders learn react link', () => {
   const { getByText } = render(
+    <Provider store={store}>
       <App />
-  )
+    </Provider>
+  );
 
-  expect(screen.getByText(/PyRobots/i)).toBeInTheDocument()
-  expect(screen.getByText(/Mis Partidas/i)).toBeInTheDocument()
-
-})
+  expect(getByText(/learn/i)).toBeInTheDocument();
+});
