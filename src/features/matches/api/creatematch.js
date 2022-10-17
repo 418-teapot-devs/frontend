@@ -1,19 +1,22 @@
-// A mock function to mimic making an async request for data
 export const creatematch = (values) => {
+
   console.log(values)
-  if (values.name === "error") {
-    return new Promise((resolve) =>
-      setTimeout(
-        () =>
-          resolve({
-            message: "Error en el servidor, intente más tarde",
-            status: 500,
-          }),
-        500
-      )
-    )
-  }
-  return new Promise((resolve) =>
-    setTimeout(() => resolve({ status: 201 }), 500)
-  )
+
+  return fetch(`http://localhost:8000/matches/created/`,
+    {
+      method: "POST",
+      headers: {
+        "accept": 'application/json',
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsb2dpbiIsInVzZXJuYW1lIjoibGFyYWFpbWVyaSIsImV4cCI6MTY2NjYyOTEyN30.fAQmfzLNEhVLKIErDs-Gs5u1SMRwlHB7iiHjdYApuWg"
+      },
+      body: JSON.stringify({
+          "name": values.name,
+          "max_players": values.max_players,
+          "min_players": values.min_players,
+          "rounds": values.rounds,
+          "games": values.games,
+          "password": values.password,
+          "robot_name": values.robot
+      })
+    })
 }
