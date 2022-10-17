@@ -54,6 +54,7 @@ export const UploadBot = () => {
       },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
+        console.log(values)
         setLoading(true)
         const response = await uploadBot(values)
         switch(response.status) {
