@@ -13,7 +13,7 @@ export const uploadBot = async (values) => {
       method: "POST",
       headers: {
         "accept": 'application/json',
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsb2dpbiIsInVzZXJuYW1lIjoicGF1bGFiZXJjb2ZmZiIsImV4cCI6MTY2NjU3OTAyOH0.UI3fWKQRPG3mEJO-lwvPqIx3PvCcYGq37LX4Htu7vzE"
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsb2dpbiIsInVzZXJuYW1lIjoic3VzYW5hIiwiZXhwIjoxNjY2NjMwNzEwfQ.zL7TjJVEOYH4drSrgXy8vHj4AvbdCQjaB0HWxRDodAo"
       },
       // TODO: add token validation
       body: data
