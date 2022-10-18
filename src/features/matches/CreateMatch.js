@@ -22,6 +22,7 @@ export const CreateMatch = () => {
         setLoading(false)
         setSucces(false)
         setFailure(true)
+        break
     }
   }
 
