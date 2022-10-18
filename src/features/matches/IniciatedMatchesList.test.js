@@ -1,73 +1,60 @@
 import React from "react"
-import { getAllByTestId, render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
-import { IniciatedMatches } from "./IniciatedMatches"
-import { rest } from "msw"
+import { screen } from "@testing-library/react"
 import { setupServer } from "msw/node"
-import { iniciated } from "./api/iniciated"
-import { string } from "yup"
+import { renderWithProviders } from "../../utils/testUtils"
+import { IniciatedMatchesList } from "./IniciatedMatchesList"
+import { joined } from "./api/joined"
 
-export const handlers = [
-  rest.get("http://127.0.0.1:8000/matches/created", async (req, res, ctx) => {
-    const body = await req.json()
-    return res(ctx.status(200), ctx.delay(150))
-  }),
-]
+const iniciatedMatches = [...joined]
 
-const server = setupServer(...handlers)
-
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
-
-test("Render message when there are no mathces", async () => {
-  render(<IniciatedMatches matches={[]} />)
+test("Render message when there are no matches", async () => {
+  renderWithProviders(<IniciatedMatchesList matches={[]} />)
   expect(
     screen.getByText(/Parece que todavía no has jugado ninguna partida.../i)
   ).toBeInTheDocument()
 })
 
 test("Renders all matches' names", async () => {
-  const { getAllByTestId } = render(<IniciatedMatches matches={iniciated} />)
+  const { getAllByTestId } = renderWithProviders(<IniciatedMatchesList matches={iniciatedMatches} />)
   const matches_names = getAllByTestId("match-name").map(
     (cell) => cell.textContent
   )
-  const iniciated_names = iniciated.map((match) => match.name)
+  const iniciated_names = iniciatedMatches.map((match) => match.name)
   expect(matches_names).toEqual(iniciated_names)
 })
 
 test("Renders all matches' creators", async () => {
-  const { getAllByTestId } = render(<IniciatedMatches matches={iniciated} />)
+  const { getAllByTestId } = renderWithProviders(<IniciatedMatchesList matches={iniciatedMatches} />)
   const matches_creators = getAllByTestId("match-username").map(
     (cell) => cell.textContent
   )
-  const iniciated_creators = iniciated.map((match) => match.username)
+  const iniciated_creators = iniciatedMatches.map((match) => match.username)
   expect(matches_creators).toEqual(iniciated_creators)
 })
 
 test("Renders all matches' games", async () => {
-  const { getAllByTestId } = render(<IniciatedMatches matches={iniciated} />)
+  const { getAllByTestId } = renderWithProviders(<IniciatedMatchesList matches={iniciatedMatches} />)
   const matches_games = getAllByTestId("match-games").map(
     (cell) => cell.textContent
   )
-  const iniciated_games = iniciated.map((match) => String(match.games))
+  const iniciated_games = iniciatedMatches.map((match) => String(match.games))
   expect(matches_games).toEqual(iniciated_games)
 })
 test("Renders all matches' rounds", async () => {
-  const { getAllByTestId } = render(<IniciatedMatches matches={iniciated} />)
+  const { getAllByTestId } = renderWithProviders(<IniciatedMatchesList matches={iniciatedMatches} />)
   const matches_rounds = getAllByTestId("match-rounds").map(
     (cell) => cell.textContent
   )
-  const iniciated_rounds = iniciated.map((match) => String(match.rounds))
+  const iniciated_rounds = iniciatedMatches.map((match) => String(match.rounds))
   expect(matches_rounds).toEqual(iniciated_rounds)
 })
 
 test("Renders results when there are ready", async () => {
-  const { getAllByTestId } = render(<IniciatedMatches matches={iniciated} />)
+  const { getAllByTestId } = renderWithProviders(<IniciatedMatchesList matches={iniciatedMatches} />)
   const matches_rank = getAllByTestId("match-rank").map(
     (cell) => cell.textContent
   )
-  const iniciated_rank = iniciated.map((match) => {
+  const iniciated_rank = iniciatedMatches.map((match) => {
     if (match.ranking_position == null) {
       return ""
     } else {
@@ -79,7 +66,7 @@ test("Renders results when there are ready", async () => {
   const matches_mmrwon = getAllByTestId("match-mmrwon").map(
     (cell) => cell.textContent
   )
-  const iniciated_mmrwon = iniciated.map((match) => {
+  const iniciated_mmrwon = iniciatedMatches.map((match) => {
     if (match.MMR_won == null) {
       return ""
     } else {
@@ -90,9 +77,9 @@ test("Renders results when there are ready", async () => {
 })
 
 test("Renders all robots", async () => {
-  const { getAllByTestId } = render(<IniciatedMatches matches={iniciated} />)
+  const { getAllByTestId } = renderWithProviders(<IniciatedMatchesList matches={iniciatedMatches} />)
   const matches_robots = getAllByTestId("match-robot").length
-  const expected_robots = iniciated.reduce(
+  const expected_robots = iniciatedMatches.reduce(
     (a, match) => a + match.robots.length,
     0
   )
@@ -100,9 +87,9 @@ test("Renders all robots", async () => {
 })
 
 test("Renders locks if match is private", async () => {
-  const { getAllByTestId } = render(<IniciatedMatches matches={iniciated} />)
+  const { getAllByTestId } = renderWithProviders(<IniciatedMatchesList matches={iniciatedMatches} />)
   const matches_isprivate = getAllByTestId("match-private").length
-  const expected_isprivate = iniciated.reduce(
+  const expected_isprivate = iniciatedMatches.reduce(
     (a, match) => a + (match.is_private ? 1 : 0),
     0
   )
