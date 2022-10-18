@@ -1,10 +1,11 @@
+import { Button } from "@mui/material"
 import React, { useState } from "react"
 import Board from "./Board"
 
 const mockedRobots = [
   {
-    x: [0.0, 100.0, 300.0],
-    y: [0.0, 100.0, 300.0],
+    x: [0.0, 50.0, 100.0, 100.0, 150.0, 200.0, 800.0],
+    y: [0.0, 50.0, 100.0, 200.0, 300.0, 500.0, 800.0],
   },
 ]
 
@@ -18,8 +19,8 @@ const BoardManager = () => {
 
   return (
     <React.Fragment>
-      <button onClick={() => setIndex(index - 1)}>-</button>
-      <button onClick={() => setIndex(index + 1)}>+</button>
+      <Button onClick={() => setIndex((index - 1) % 7)}>-</Button>
+      <Button onClick={() => setIndex((index + 1) % 7)}>+</Button>
       <Board robots={robots} />
     </React.Fragment>
   )
