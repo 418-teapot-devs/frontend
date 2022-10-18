@@ -8,35 +8,20 @@ import React from "react"
 
 export const handlers = [
   rest.post("http://127.0.0.1:8000/users/", async (req, res, ctx) => {
-    // const body = await req.body()
-    // if (body.name === "avatar") {
-    //   return res(ctx.status(200), ctx.delay(150))
-    // } else {
-    //   return res(ctx.status(500), ctx.delay(150))
-    // };
+    const username = req.url.searchParams.get("username")
 
-    //const username = await req.params['username'];
-    return res(ctx.status(200), ctx.delay(150))
+    if (username === "username") {
+      return res(ctx.status(200), ctx.delay(150))
+    } else if (username === "takenUsername") {
+      return res(
+        ctx.status(409),
+        ctx.delay(150),
+        ctx.json({ detail: ["E-Mail was taken!", "Username was taken!"] })
+      )
+    }
+    return res(ctx.status(500), ctx.delay(150))
   }),
 ]
-// if (username === "username") {
-//   return res(
-//     ctx.status(200),
-//     ctx.delay(150)
-//   )
-// } else if (username.username === "takenUsername") {
-//   return res(
-//     ctx.status(409),
-//     ctx.delay(150)
-//   )
-// } else {
-//   return res(
-//     ctx.status(500),
-//     ctx.delay(150)
-//   )
-//     }
-//   })
-// ]
 
 const server = setupServer(...handlers)
 
@@ -113,7 +98,6 @@ test("wrong password fixes should register", async () => {
     screen.getByLabelText("avatar"),
     new File(["(⌐□_□)"], "image.png", { type: "image/png" })
   )
-  // how to test if image is uploaded?
 
   await user.click(screen.getByLabelText("Nombre de usuario"))
   await user.keyboard("username")
@@ -167,7 +151,6 @@ test("unknown error", async () => {
     screen.getByLabelText("avatar"),
     new File(["(⌐□_□)"], "image.png", { type: "image/png" })
   )
-  // how to test if the image is uploaded?
 
   await user.click(screen.getByLabelText("Nombre de usuario"))
   await user.keyboard("error")

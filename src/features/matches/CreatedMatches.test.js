@@ -1,15 +1,15 @@
 import React from "react"
-import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { screen } from "@testing-library/react"
 import { CreatedMatches } from "./CreatedMatches"
 import { rest } from "msw"
 import { setupServer } from "msw/node"
-import { listCreated } from "./api/created"
+import { renderWithProviders } from "../../utils/testUtils"
+
+const createdMatches = []
 
 export const handlers = [
   rest.get("http://127.0.0.1:8000/matches/created", async (req, res, ctx) => {
-    const body = await req.json()
-    return res(ctx.status(200), ctx.delay(150))
+    return res(ctx.status(200), ctx.delay(150), ctx.json(createdMatches))
   }),
 ]
 
@@ -20,9 +20,8 @@ afterEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 test("Should render all matches", async () => {
-  const user = userEvent.setup()
-  render(<CreatedMatches matches={listCreated()} />)
-  listCreated().map((match) => {
+  renderWithProviders(<CreatedMatches />)
+  createdMatches.map((match) => {
     expect(screen.queryByText(match.name)).toBeInTheDocument()
   })
 })

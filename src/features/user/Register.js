@@ -80,7 +80,6 @@ export const Register = () => {
     onSubmit: async (values) => {
       setLoading(true)
       const response = await register(values)
-      const detail = JSON.stringify(response)
       switch (response.status) {
         case 200:
           setLoading(false)
@@ -93,8 +92,9 @@ export const Register = () => {
           setLoading(false)
           setSuccess(false)
           setError(false)
-          setDuplicateEmail(detail.includes("E-Mail was taken!"))
-          setDuplicateUsername(detail.includes("Username was taken!"))
+          const body = await response.json()
+          setDuplicateEmail(body["detail"].toString().includes("E-Mail was taken!"))
+          setDuplicateUsername(body["detail"].toString().includes("Username was taken!"))
           break
         default:
           setLoading(false)

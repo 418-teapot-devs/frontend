@@ -8,7 +8,6 @@ export const Root = () => {
       <Box sx={{ height: "100vh", padding: 1 }}>
         <SideBar />
       </Box>
-      
       <Box sx={{ padding: 1, width:'70%'}}>
         <Outlet />
       </Box>

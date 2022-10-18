@@ -12,7 +12,7 @@ export const register = (values) => {
     data.append("avatar", "")
   }
 
-  return fetch(`http://localhost:8000/users/?${params}`, {
+  return fetch(`http://127.0.0.1:8000/users/?${params}`, {
     method: "POST",
     headers: {
       accept: "application/json",

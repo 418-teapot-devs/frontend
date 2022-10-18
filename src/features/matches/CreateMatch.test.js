@@ -1,9 +1,10 @@
 import React from "react"
-import { render, screen } from "@testing-library/react"
+import { screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { CreateMatch } from "./CreateMatch"
 import { rest } from "msw"
 import { setupServer } from "msw/node"
+import { renderWithProviders } from "../../utils/testUtils"
 
 const robots = [{ name: "Robot" }, { name: "Robot1" }]
 
@@ -11,10 +12,13 @@ export const handlers = [
   rest.post("http://127.0.0.1:8000/matches/created", async (req, res, ctx) => {
     const body = await req.json()
     if (body.name === "Nombre de Partida") {
-      return res(ctx.status(200), ctx.delay(150))
+      return res(ctx.status(201), ctx.delay(150))
     } else {
       return res(ctx.status(400), ctx.delay(150))
     }
+  }),
+  rest.get("http://127.0.0.1:8000/robots", async (req, res, ctx) => {
+    return res(ctx.status(200), ctx.delay(150), ctx.json([...robots]))
   }),
 ]
 
@@ -29,7 +33,8 @@ afterAll(() => server.close())
 // Case where all inputs are correct
 test("Should create match", async () => {
   const user = userEvent.setup()
-  render(<CreateMatch userRobots={robots} />)
+
+  renderWithProviders(<CreateMatch />)
 
   await user.click(screen.getByLabelText("Nombre de la partida"))
   await user.keyboard("Nombre de Partida")
@@ -65,7 +70,8 @@ test("Should create match", async () => {
 // Cases where all inputs are incorrect
 test("Should display error mesages. (1)", async () => {
   const user = userEvent.setup()
-  render(<CreateMatch userRobots={robots} />)
+
+  renderWithProviders(<CreateMatch />)
 
   await user.click(screen.getByLabelText("Nombre de la partida"))
   await user.keyboard("This is a match name that has to many characters")
@@ -118,7 +124,8 @@ test("Should display error mesages. (1)", async () => {
 
 test("Should display error messages (2)", async () => {
   const user = userEvent.setup()
-  render(<CreateMatch userRobots={robots} />)
+
+  renderWithProviders(<CreateMatch />)
 
   await user.click(screen.getByLabelText("Cantidad mínima de jugadores"))
   await user.keyboard("4")
@@ -165,7 +172,8 @@ test("Should display error messages (2)", async () => {
 
 test("Should inform if there was a server error", async () => {
   const user = userEvent.setup()
-  render(<CreateMatch userRobots={robots} />)
+
+  renderWithProviders(<CreateMatch />)
 
   await user.click(screen.getByLabelText("Nombre de la partida"))
   await user.keyboard("error")
