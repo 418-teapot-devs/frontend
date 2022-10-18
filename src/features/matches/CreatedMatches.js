@@ -19,7 +19,7 @@ export const CreatedMatches = () => {
       .then((data) => setMatches(data))
     }
     loadListCreated()
-  }, [])
+  }, [user.token])
 
   return <CreatedMatchesList matches={matches} />
 }

@@ -1,5 +1,5 @@
 import { CreateMatch } from "../features/matches/CreateMatch"
-import { Box, Grid } from "@mui/material"
+import { Grid } from "@mui/material"
 import { CreatedMatches } from "../features/matches/CreatedMatches"
 import React from "react"
 

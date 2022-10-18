@@ -62,7 +62,6 @@ const validationSchema = () =>
   })
 
 export const Register = () => {
-  const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
   const [duplicateUsername, setDuplicateUsername] = useState(false)
@@ -78,18 +77,15 @@ export const Register = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      setLoading(true)
       const response = await register(values)
       switch (response.status) {
         case 200:
-          setLoading(false)
           setSuccess(true)
           setError(false)
           setDuplicateEmail(false)
           setDuplicateUsername(false)
           break
         case 409:
-          setLoading(false)
           setSuccess(false)
           setError(false)
           const body = await response.json()
@@ -97,7 +93,6 @@ export const Register = () => {
           setDuplicateUsername(body["detail"].toString().includes("Username was taken!"))
           break
         default:
-          setLoading(false)
           setSuccess(false)
           setError(true)
           setDuplicateEmail(false)
