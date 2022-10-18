@@ -1,58 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react"
+import { useRoutes } from "react-router-dom"
+import { Root } from "./routes/Root"
+import { ProtectedRoute } from "./routes/ProtectedRoute"
+import  LoginAndRegister  from "./routes/LoginAndRegister"
+import { Matches } from "./routes/Matches"
+import { Profile } from "./features/user/Profile"
+import { UploadBot } from "./features/robots/UploadBot"
+import BoardManager from "./features/simulation/BoardManager"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+const App = () => {
+  const routes = useRoutes([
+    {
+      path: "/",
+      element: (
+        <ProtectedRoute>
+          <Root />
+        </ProtectedRoute>
+      ),
+      children: [
+        {
+          path: "/",
+          element: <h1>Home</h1>,
+        },
+        {
+          path: "/robots",
+          element: <UploadBot />,
+        },
+        {
+          path: "/matches",
+          element: <Matches />,
+        },
+        {
+          path: "/profile",
+          element: <Profile />,
+        },
+        {
+          path: "/simulation",
+          element: <BoardManager />,
+        },
+      ],
+    },
+    {
+      path: "/login",
+      element: <LoginAndRegister />,
+    },
+  ])
+
+  return routes
 }
 
-export default App;
+export default App
