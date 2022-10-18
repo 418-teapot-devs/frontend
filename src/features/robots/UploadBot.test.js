@@ -1,15 +1,23 @@
 import { rest } from "msw"
 import { setupServer } from "msw/node"
-import { render, screen } from "@testing-library/react"
+import { screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
 import { UploadBot } from "./UploadBot"
 import React from "react"
+import { renderWithProviders } from "../../utils/testUtils"
 
 export const handlers = [
   rest.post("http://127.0.0.1:8000/robots/", async (req, res, ctx) => {
-    //const username = await req.params['username'];
-    return res(ctx.status(200), ctx.delay(150))
+    const name = req.url.searchParams.get("name")
+
+    if (name === "error") {
+      return res(ctx.status(500), ctx.delay(150))
+    } else if (name === "takenName") {
+      return res(ctx.status(409), ctx.delay(150))
+    }
+
+    return res(ctx.status(201), ctx.delay(150))
   }),
 ]
 
@@ -24,7 +32,7 @@ afterAll(() => server.close())
 // All inputs are correct
 test("should upload", async () => {
   const user = userEvent.setup()
-  render(<UploadBot />)
+  renderWithProviders(<UploadBot />)
 
   await user.click(screen.getByRole("button", { name: "avatar" }))
   await user.upload(
@@ -51,7 +59,7 @@ test("should upload", async () => {
 // Incorrect inputs: taken name, no avatar
 test("should not upload", async () => {
   const user = userEvent.setup()
-  render(<UploadBot />)
+  renderWithProviders(<UploadBot />)
 
   await user.click(screen.getByLabelText("Nombre"))
   await user.keyboard("takenName")
@@ -72,7 +80,7 @@ test("should not upload", async () => {
 // Incorrect inputs: no code
 test("no code, should not upload", async () => {
   const user = userEvent.setup()
-  render(<UploadBot />)
+  renderWithProviders(<UploadBot />)
 
   await user.click(screen.getByLabelText("Nombre"))
   await user.keyboard("robot")
@@ -99,7 +107,7 @@ test("no code, should not upload", async () => {
 // unknown error
 test("unknown error, should not upload", async () => {
   const user = userEvent.setup()
-  render(<UploadBot />)
+  renderWithProviders(<UploadBot />)
 
   await user.click(screen.getByLabelText("Nombre"))
   await user.keyboard("error")

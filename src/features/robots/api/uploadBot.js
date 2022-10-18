@@ -8,7 +8,7 @@ export const uploadBot = async (values, token) => {
     data.append("avatar", values.avatar)
   }
 
-  return fetch(`http://localhost:8000/robots/?${params}`, {
+  return fetch(`http://127.0.0.1:8000/robots/?${params}`, {
     method: "POST",
     headers: {
       accept: "application/json",
