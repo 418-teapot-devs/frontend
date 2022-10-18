@@ -4,10 +4,8 @@ import { Root } from "./routes/Root"
 import { ProtectedRoute } from "./routes/ProtectedRoute"
 import  LoginAndRegister  from "./routes/LoginAndRegister"
 import { Matches } from "./routes/Matches"
-import { CreateMatch } from "./features/matches/CreateMatch"
 import { Profile } from "./features/user/Profile"
 import { UploadBot } from "./features/robots/UploadBot"
-import Board  from "./features/simulation/Board"
 import BoardManager from "./features/simulation/BoardManager"
 
 const App = () => {

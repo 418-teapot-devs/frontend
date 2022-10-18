@@ -1,4 +1,4 @@
-import { Box, Grid, Stack } from "@mui/material"
+import { Box, Stack } from "@mui/material"
 import { Outlet } from "react-router-dom"
 import SideBar from "./SideBar"
 
