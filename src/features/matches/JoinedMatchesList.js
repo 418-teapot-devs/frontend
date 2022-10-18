@@ -101,7 +101,7 @@ var matchCardStyle = {
   overflow: "scroll",
 }
 
-export const JoinedMatches = ({ matches }) => {
+export const JoinedMatchesList = ({ matches }) => {
   return (
     <Card variant="outlined" style={matchCardStyle}>
       <CardContent>
