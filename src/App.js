@@ -25,7 +25,7 @@ const App = () => {
         },
         {
           path: "/matches",
-          element: <h1>Mis Partidas</h1>,
+          element: <CreateMatch />,
         },
         {
           path: "/profile",
