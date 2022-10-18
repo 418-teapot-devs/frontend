@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useLocalStorage } from "./useLocalStorage"
 import { login as loginAPI } from "../api/login"
 
-const AuthContext = createContext()
+export const AuthContext = createContext()
 
 const INITIAL_USER = {
   token: null,
