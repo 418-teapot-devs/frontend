@@ -46,14 +46,7 @@ const App = () => {
     },
   ])
 
-  return (
-    <div>
-      <h1>PyRobots</h1>
-      <div style={divStyle}>
-        {ListPublic()}
-      </div>
-    </div>
-  )
+  return routes
 }
 
 export default App

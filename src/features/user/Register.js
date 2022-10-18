@@ -18,7 +18,7 @@ import {
   AlertTitle,
 } from "@mui/material"
 
-YupPassword(yup) // CHECK
+YupPassword(yup)
 
 const FILE_SIZE = 4400000
 const SUPPORTED_IMG_FORMATS = ["image/png"]
