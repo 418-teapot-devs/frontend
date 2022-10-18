@@ -2,8 +2,12 @@ import React from "react"
 import { useRoutes } from "react-router-dom"
 import { Root } from "./routes/Root"
 import { ProtectedRoute } from "./routes/ProtectedRoute"
-import { CreateMatch } from "./features/matches/CreateMatch"
 import  LoginAndRegister  from "./routes/LoginAndRegister"
+import { Matches } from "./routes/Matches"
+import { CreateMatch } from "./features/matches/CreateMatch"
+import { Profile } from "./features/user/Profile"
+import { UploadBot } from "./features/robots/UploadBot"
+import Board  from "./features/simulation/Board"
 
 const App = () => {
   const routes = useRoutes([
@@ -21,15 +25,19 @@ const App = () => {
         },
         {
           path: "/robots",
-          element: <h1>Robots</h1>,
+          element: <UploadBot />,
         },
         {
           path: "/matches",
-          element: <h1>Mis Partidas</h1>,
+          element: <Matches />,
         },
         {
           path: "/profile",
-          element: <h1>Perfil</h1>,
+          element: <Profile />,
+        },
+        {
+          path: "/simulation",
+          element: <Board robots={[]}/>,
         },
       ],
     },

@@ -2,7 +2,8 @@ import { useState, useEffect } from "react"
 import { CreatedMatches } from "../CreatedMatches"
 import { useAuth } from "../../../hooks/useAuth"
 
-export function ListCreated() {
+
+export const ListCreated = () => {
   const { user } = useAuth()
 
   function loadListCreated() {
