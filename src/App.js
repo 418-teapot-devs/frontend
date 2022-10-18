@@ -8,6 +8,7 @@ import { CreateMatch } from "./features/matches/CreateMatch"
 import { Profile } from "./features/user/Profile"
 import { UploadBot } from "./features/robots/UploadBot"
 import Board  from "./features/simulation/Board"
+import BoardManager from "./features/simulation/BoardManager"
 
 const App = () => {
   const routes = useRoutes([
@@ -37,7 +38,7 @@ const App = () => {
         },
         {
           path: "/simulation",
-          element: <Board robots={[]}/>,
+          element: <BoardManager />,
         },
       ],
     },
