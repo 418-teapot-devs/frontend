@@ -1,58 +1,26 @@
-import React from "react"
-import { MatchBaseItem } from "./MatchBaseItem"
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Typography,
-  Grid,
-} from "@mui/material"
+import { useState, useEffect } from "react"
+import { CreatedMatchesList } from "./CreatedMatchesList"
+import { useAuth } from "../../hooks/useAuth"
 
-const callback = (name) => {
-  window.alert("Se iniciará la partida: " + name)
-}
+export const CreatedMatches = () => {
+  const { user } = useAuth()
 
-const GridCreatedMatches = ({ matches }) => {
-  return (
-    <Grid container spacing={3}>
-      {matches.map((match, index) => (
-        <Grid item xs={12} md={6} lg={4} xl={3} key={index}>
-          <MatchBaseItem {...match}>
-            <CardActions sx={{ justifyContent: "flex-end" }}>
-              <Button
-                onClick={() => callback(match.name)}
-                disabled={match.robots.length < match.min_players}
-              >
-                Iniciar
-              </Button>
-            </CardActions>
-          </MatchBaseItem>
-        </Grid>
-      ))}
-    </Grid>
-  )
-}
+  function loadListCreated() {
+    fetch("http://127.0.0.1:8000/matches/created", {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        token: user.token,
+      },
+    })
+    .then((response) => response.json())
+    .then((data) => setMatches(data))
+  }
 
-var matchCardStyle = {
-  height: "100%",
-  overflow: "scroll",
-}
+  const [matches, setMatches] = useState([])
+  useEffect(() => {
+    loadListCreated()
+  })
 
-export const CreatedMatches = ({ matches }) => {
-  return (
-    <Card variant="outlined" style={matchCardStyle}>
-      <CardContent>
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="div"
-          textAlign="center"
-        >
-          Partidas creadas
-        </Typography>
-        <GridCreatedMatches matches={matches} />
-      </CardContent>
-    </Card>
-  )
+  return <CreatedMatchesList matches={matches} />
 }
