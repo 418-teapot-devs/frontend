@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react"
-import { PublicMatchesList } from "./PublicMatchesList"
+import { JoinedMatches } from "./JoinedMatchesList"
 import { useAuth } from "../../hooks/useAuth"
 
-export const PublicMatches = () => {
+export const JoinedMatches = () => {
   const { user } = useAuth()
 
-  function loadListPublic() {
-    fetch("http://127.0.0.1:8000/matches/public", {
+  function loadListJoined() {
+    fetch("http://127.0.0.1:8000/matches/joined", {
       method: "GET",
       headers: {
         accept: "application/json",
@@ -19,8 +19,8 @@ export const PublicMatches = () => {
 
   const [matches, setMatches] = useState([])
   useEffect(() => {
-    loadListPublic()
+    loadListJoined()
   })
 
-  return <PublicMatches matches={matches} />
+  return <JoinedMatches matches={matches} />
 }
