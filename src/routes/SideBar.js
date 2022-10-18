@@ -12,6 +12,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"
 import PlayCircleOutlineOutlinedIcon from "@mui/icons-material/PlayCircleOutlineOutlined"
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined"
+import GridOnOutlinedIcon from '@mui/icons-material/GridOnOutlined';
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth"
 
@@ -31,6 +32,11 @@ const mainOptions = [
     to: "matches",
     icon: <PlayCircleOutlineOutlinedIcon />,
   },
+  {
+    title: "Simulación",
+    to: "simulation",
+    icon: <GridOnOutlinedIcon/>
+  }
 ]
 
 const extraOptions = [
