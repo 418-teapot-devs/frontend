@@ -17,7 +17,7 @@ const GridCreatedMatches = ({ matches }) => {
   return (
     <Grid container spacing={3}>
       {matches.map((match, index) => (
-        <Grid item xs={12} md={6} lg={4} xl={3} key={index}>
+        <Grid item xs={6} key={index}>
           <MatchBaseItem {...match}>
             <CardActions sx={{ justifyContent: "flex-end" }}>
               <Button
