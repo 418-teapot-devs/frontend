@@ -2,6 +2,7 @@ import { CreateMatch } from "../features/matches/CreateMatch"
 import { Grid } from "@mui/material"
 import { CreatedMatches } from "../features/matches/CreatedMatches"
 import React from "react"
+import { PublicMatches } from "../features/matches/PublicMatches"
 
 export const Matches = () => {
   return (
@@ -13,6 +14,9 @@ export const Matches = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <CreatedMatches />
+        </Grid>
+        <Grid item xs={12}>
+          <PublicMatches />
         </Grid>
       </Grid>
     </React.Fragment>
