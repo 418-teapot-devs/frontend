@@ -42,16 +42,16 @@ test("should register", async () => {
     new File(["(⌐□_□)"], "chucknorris.png", { type: "image/png" })
   )
 
-  await user.click(screen.getByLabelText("Nombre de usuario"))
+  await user.click(screen.getByLabelText("Nombre de usuario *"))
   await user.keyboard("username")
 
-  await user.click(screen.getByLabelText("Correo electrónico"))
+  await user.click(screen.getByLabelText("Correo electrónico *"))
   await user.keyboard("username@gmail.com")
 
-  await user.click(screen.getByLabelText("Contraseña"))
+  await user.click(screen.getByLabelText("Contraseña *"))
   await user.keyboard("Password1")
 
-  await user.click(screen.getByLabelText("Reingrese la contraseña"))
+  await user.click(screen.getByLabelText("Reingrese la contraseña *"))
   await user.keyboard("Password1")
 
   await user.click(screen.getByRole("button", { name: /Registrarse/i }))

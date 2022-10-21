@@ -16,7 +16,9 @@ import {
   Stack,
   Alert,
   AlertTitle,
+  Avatar,
 } from "@mui/material"
+import { Box } from "@mui/system"
 
 YupPassword(yup)
 
@@ -114,25 +116,32 @@ export const Register = () => {
             Registrarse
           </Typography>
           <Stack spacing={2}>
-            <Button
-              variant="outlined"
-              component="label"
-              fullWidth
-              startIcon={<CameraAltIcon />}
-            >
-              Subir avatar
-              <input
-                hidden
-                accept="image/*"
-                id="avatar"
-                name="avatar"
-                aria-label="avatar"
-                type="file"
-                onChange={(event) => {
-                  formik.setFieldValue("avatar", event.currentTarget.files[0])
-                }}
-              />
-            </Button>
+            <Avatar 
+              src="/avatar.png"
+              sx={{ width: 80, height: 80, margin: "auto" }}
+              alignItems="center"
+            />
+            <Box textAlign="center">
+              <Button
+                variant="outlined"
+                component="label"
+                sx={{ width: 160, height: 40 }}
+                startIcon={<CameraAltIcon />}
+              >
+                Subir avatar
+                <input
+                  hidden
+                  accept="image/*"
+                  id="avatar"
+                  name="avatar"
+                  aria-label="avatar"
+                  type="file"
+                  onChange={(event) => {
+                    formik.setFieldValue("avatar", event.currentTarget.files[0])
+                  }}
+                />
+              </Button>
+            </Box>
             <Typography
               gutterBottom
               variant="subtitle1"
@@ -155,7 +164,7 @@ export const Register = () => {
               fullWidth
               id="username"
               name="username"
-              label="Nombre de usuario"
+              label="Nombre de usuario *"
               value={formik.values.username}
               onChange={formik.handleChange}
               error={formik.touched.username && Boolean(formik.errors.username)}
@@ -165,7 +174,7 @@ export const Register = () => {
               fullWidth
               id="email"
               name="email"
-              label="Correo electrónico"
+              label="Correo electrónico *"
               value={formik.values.email}
               onChange={formik.handleChange}
               error={formik.touched.email && Boolean(formik.errors.email)}
@@ -175,7 +184,7 @@ export const Register = () => {
               fullWidth
               id="password"
               name="password"
-              label="Contraseña"
+              label="Contraseña *"
               type="password"
               value={formik.values.password}
               onChange={formik.handleChange}
@@ -186,7 +195,7 @@ export const Register = () => {
               fullWidth
               id="confirmPassword"
               name="confirmPassword"
-              label="Reingrese la contraseña"
+              label="Reingrese la contraseña *"
               type="password"
               value={formik.values.confirmPassword}
               onChange={formik.handleChange}
