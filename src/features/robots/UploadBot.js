@@ -10,10 +10,12 @@ import { useAuth } from "../../hooks/useAuth"
 
 import {
   Button,
+  Box,
   Card,
   CardActions,
   CardContent,
   TextField,
+  Avatar,
   Alert,
   AlertTitle,
   Typography,
@@ -103,16 +105,13 @@ export const UploadBot = () => {
             Crear robot <SmartToyIcon />
           </Typography>
           <Stack spacing={2}>
-            <TextField
-              fullWidth
-              id="name"
-              name="name"
-              label="Nombre"
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              error={formik.touched.name && Boolean(formik.errors.name)}
-              helperText={formik.touched.name && formik.errors.name}
-            />
+            <Box alignItems="center">
+              <Avatar 
+                src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png"}
+                sx={{ width: 80, height: 80, margin: "auto" }}
+                alignItems="center"
+              />
+            </Box>
             <Button
               variant="outlined"
               component="label"
@@ -142,14 +141,16 @@ export const UploadBot = () => {
             >
               {formik.touched.avatar && formik.errors.avatar}
             </Typography>
-            <Typography
-              gutterBottom
-              variant="subtitle1"
-              component="div"
-              textAlign="center"
-            >
-              {Boolean(formik.values.avatar) && formik.values.avatar.name}
-            </Typography>
+            <TextField
+              fullWidth
+              id="name"
+              name="name"
+              label="Nombre *"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+            />
             <Button
               variant="outlined"
               component="label"
@@ -157,7 +158,7 @@ export const UploadBot = () => {
               fullWidth
               startIcon={<AddIcon />}
             >
-              Subir código
+              Subir código *
               <input
                 hidden
                 accept=".py"
@@ -196,17 +197,17 @@ export const UploadBot = () => {
         </CardActions>
         {success && (
           <Alert severity="success">
-            <AlertTitle>Se subió el robot con éxito.</AlertTitle>
+            <AlertTitle>Se subió el robot con éxito</AlertTitle>
           </Alert>
         )}
         {error && (
           <Alert severity="error">
-            <AlertTitle>No se pudo subir el robot.</AlertTitle>
+            <AlertTitle>No se pudo subir el robot</AlertTitle>
           </Alert>
         )}
         {duplicate && (
           <Alert severity="error">
-            <AlertTitle>Ya cuentas con un robot con ese nombre.</AlertTitle>
+            <AlertTitle>Ya cuentas con un robot con ese nombre</AlertTitle>
           </Alert>
         )}
       </form>

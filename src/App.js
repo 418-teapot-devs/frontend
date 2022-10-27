@@ -5,8 +5,9 @@ import { ProtectedRoute } from "./routes/ProtectedRoute"
 import  LoginAndRegister  from "./routes/LoginAndRegister"
 import { Matches } from "./routes/Matches"
 import { Profile } from "./features/user/Profile"
-import { UploadBot } from "./features/robots/UploadBot"
 import BoardManager from "./features/simulation/BoardManager"
+import { UploadBot } from "./features/robots/UploadBot"
+import { RobotsList } from "./features/robots/RobotsList"
 
 const App = () => {
   const routes = useRoutes([
@@ -24,6 +25,10 @@ const App = () => {
         },
         {
           path: "/robots",
+          element: <RobotsList />,
+        },
+        {
+          path: "/uploadbot",
           element: <UploadBot />,
         },
         {
