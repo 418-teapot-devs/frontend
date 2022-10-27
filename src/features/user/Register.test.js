@@ -11,7 +11,7 @@ export const handlers = [
     const username = req.url.searchParams.get("username")
 
     if (username === "username") {
-      return res(ctx.status(200), ctx.delay(150))
+      return res(ctx.status(201), ctx.delay(150))
     } else if (username === "takenUsername") {
       return res(
         ctx.status(409),

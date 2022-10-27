@@ -10,6 +10,7 @@ import { useAuth } from "../../hooks/useAuth"
 
 import {
   Button,
+  Box,
   Card,
   CardActions,
   CardContent,
@@ -18,6 +19,7 @@ import {
   AlertTitle,
   Typography,
   Stack,
+  Grid,
 } from "@mui/material"
 
 const FILE_SIZE = 4400000
@@ -102,12 +104,12 @@ export const UploadBot = () => {
           >
             Crear robot <SmartToyIcon />
           </Typography>
-          <Stack spacing={2}>
-            <TextField
-              fullWidth
+          <Stack spacing={2} sx={{justifyContent:"center", alignItems:"center", display:"flex"}}>
+            <TextField 
+              sx={{ width: 400, height: 40 }}
               id="name"
               name="name"
-              label="Nombre"
+              label="Nombre *"
               value={formik.values.name}
               onChange={formik.handleChange}
               error={formik.touched.name && Boolean(formik.errors.name)}
@@ -117,7 +119,7 @@ export const UploadBot = () => {
               variant="outlined"
               component="label"
               aria-label="avatar"
-              fullWidth
+              // sx={{ width: 160, height: 40 }}
               startIcon={<CameraAltIcon />}
             >
               Subir avatar
@@ -154,10 +156,10 @@ export const UploadBot = () => {
               variant="outlined"
               component="label"
               aria-label="code"
-              fullWidth
+              sx={{ width: 280, height: 40 }}
               startIcon={<AddIcon />}
             >
-              Subir código
+              Subir código * (máx. 4MB)
               <input
                 hidden
                 accept=".py"
@@ -190,9 +192,11 @@ export const UploadBot = () => {
           </Stack>
         </CardContent>
         <CardActions sx={{ padding: 2 }}>
-          <Button type="submit" fullWidth variant="contained">
-            Crear
-          </Button>
+          <Box textAlign="center">
+            <Button type="submit" fullWidth variant="contained">
+              Crear
+            </Button>
+          </Box>
         </CardActions>
         {success && (
           <Alert severity="success">

@@ -7,6 +7,7 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt"
 import YupPassword from "yup-password"
 
 import {
+  Avatar,
   Button,
   Card,
   CardActions,
@@ -16,9 +17,7 @@ import {
   Stack,
   Alert,
   AlertTitle,
-  Avatar,
 } from "@mui/material"
-import { Box } from "@mui/system"
 
 YupPassword(yup)
 
@@ -81,7 +80,7 @@ export const Register = () => {
     onSubmit: async (values) => {
       const response = await register(values)
       switch (response.status) {
-        case 200:
+        case 201:
           setSuccess(true)
           setError(false)
           setDuplicateEmail(false)
@@ -121,27 +120,25 @@ export const Register = () => {
               sx={{ width: 80, height: 80, margin: "auto" }}
               alignItems="center"
             />
-            <Box textAlign="center">
-              <Button
-                variant="outlined"
-                component="label"
-                sx={{ width: 160, height: 40 }}
-                startIcon={<CameraAltIcon />}
-              >
-                Subir avatar
-                <input
-                  hidden
-                  accept="image/*"
-                  id="avatar"
-                  name="avatar"
-                  aria-label="avatar"
-                  type="file"
-                  onChange={(event) => {
-                    formik.setFieldValue("avatar", event.currentTarget.files[0])
-                  }}
-                />
-              </Button>
-            </Box>
+            <Button
+              variant="outlined"
+              component="label"
+              fullWidth
+              startIcon={<CameraAltIcon />}
+            >
+              Subir avatar
+              <input
+                hidden
+                accept="image/*"
+                id="avatar"
+                name="avatar"
+                aria-label="avatar"
+                type="file"
+                onChange={(event) => {
+                  formik.setFieldValue("avatar", event.currentTarget.files[0])
+                }}
+              />
+            </Button>
             <Typography
               gutterBottom
               variant="subtitle1"
@@ -216,22 +213,22 @@ export const Register = () => {
         </CardActions>
         {success && (
           <Alert severity="success">
-            <AlertTitle>Se creó el usuario con éxito.</AlertTitle>
+            <AlertTitle>Se creó el usuario con éxito</AlertTitle>
           </Alert>
         )}
         {error && (
           <Alert severity="error">
-            <AlertTitle>No se pudo crear el usuario.</AlertTitle>
+            <AlertTitle>No se pudo crear el usuario</AlertTitle>
           </Alert>
         )}
         {duplicateEmail && (
           <Alert severity="error">
-            <AlertTitle>El correo electrónico ya está en uso.</AlertTitle>
+            <AlertTitle>El correo electrónico ya está en uso</AlertTitle>
           </Alert>
         )}
         {duplicateUsername && (
           <Alert severity="error">
-            <AlertTitle>El nombre de usuario ya está en uso.</AlertTitle>
+            <AlertTitle>El nombre de usuario ya está en uso</AlertTitle>
           </Alert>
         )}
       </form>

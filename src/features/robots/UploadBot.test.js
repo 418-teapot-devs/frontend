@@ -40,7 +40,7 @@ test("should upload", async () => {
     new File(["(⌐□_□)"], "image.png", { type: "image/png" })
   )
 
-  await user.click(screen.getByLabelText("Nombre"))
+  await user.click(screen.getByLabelText("Nombre *"))
   await user.keyboard("robot")
 
   await user.click(screen.getByRole("button", { name: "code" }))
@@ -61,7 +61,7 @@ test("should not upload", async () => {
   const user = userEvent.setup()
   renderWithProviders(<UploadBot />)
 
-  await user.click(screen.getByLabelText("Nombre"))
+  await user.click(screen.getByLabelText("Nombre *"))
   await user.keyboard("takenName")
 
   await user.click(screen.getByRole("button", { name: "code" }))
@@ -82,7 +82,7 @@ test("no code, should not upload", async () => {
   const user = userEvent.setup()
   renderWithProviders(<UploadBot />)
 
-  await user.click(screen.getByLabelText("Nombre"))
+  await user.click(screen.getByLabelText("Nombre *"))
   await user.keyboard("robot")
 
   await user.click(screen.getByRole("button", { name: /Crear/i }))
@@ -109,7 +109,7 @@ test("unknown error, should not upload", async () => {
   const user = userEvent.setup()
   renderWithProviders(<UploadBot />)
 
-  await user.click(screen.getByLabelText("Nombre"))
+  await user.click(screen.getByLabelText("Nombre *"))
   await user.keyboard("error")
 
   await user.click(screen.getByRole("button", { name: "code" }))
