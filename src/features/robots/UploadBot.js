@@ -15,11 +15,11 @@ import {
   CardActions,
   CardContent,
   TextField,
+  Avatar,
   Alert,
   AlertTitle,
   Typography,
   Stack,
-  Grid,
 } from "@mui/material"
 
 const FILE_SIZE = 4400000
@@ -104,22 +104,19 @@ export const UploadBot = () => {
           >
             Crear robot <SmartToyIcon />
           </Typography>
-          <Stack spacing={2} sx={{justifyContent:"center", alignItems:"center", display:"flex"}}>
-            <TextField 
-              sx={{ width: 400, height: 40 }}
-              id="name"
-              name="name"
-              label="Nombre *"
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              error={formik.touched.name && Boolean(formik.errors.name)}
-              helperText={formik.touched.name && formik.errors.name}
-            />
+          <Stack spacing={2}>
+            <Box alignItems="center">
+              <Avatar 
+                src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png"}
+                sx={{ width: 80, height: 80, margin: "auto" }}
+                alignItems="center"
+              />
+            </Box>
             <Button
               variant="outlined"
               component="label"
               aria-label="avatar"
-              // sx={{ width: 160, height: 40 }}
+              fullWidth
               startIcon={<CameraAltIcon />}
             >
               Subir avatar
@@ -144,22 +141,24 @@ export const UploadBot = () => {
             >
               {formik.touched.avatar && formik.errors.avatar}
             </Typography>
-            <Typography
-              gutterBottom
-              variant="subtitle1"
-              component="div"
-              textAlign="center"
-            >
-              {Boolean(formik.values.avatar) && formik.values.avatar.name}
-            </Typography>
+            <TextField
+              fullWidth
+              id="name"
+              name="name"
+              label="Nombre *"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+            />
             <Button
               variant="outlined"
               component="label"
               aria-label="code"
-              sx={{ width: 280, height: 40 }}
+              fullWidth
               startIcon={<AddIcon />}
             >
-              Subir código * (máx. 4MB)
+              Subir código *
               <input
                 hidden
                 accept=".py"
@@ -192,11 +191,9 @@ export const UploadBot = () => {
           </Stack>
         </CardContent>
         <CardActions sx={{ padding: 2 }}>
-          <Box textAlign="center">
-            <Button type="submit" fullWidth variant="contained">
-              Crear
-            </Button>
-          </Box>
+          <Button type="submit" fullWidth variant="contained">
+            Crear
+          </Button>
         </CardActions>
         {success && (
           <Alert severity="success">

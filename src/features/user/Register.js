@@ -116,7 +116,7 @@ export const Register = () => {
           </Typography>
           <Stack spacing={2}>
             <Avatar 
-              src="/avatar.png"
+              src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png"}
               sx={{ width: 80, height: 80, margin: "auto" }}
               alignItems="center"
             />
@@ -148,14 +148,6 @@ export const Register = () => {
               onChange={formik.handleChange}
             >
               {formik.touched.avatar && formik.errors.avatar}
-            </Typography>
-            <Typography
-              gutterBottom
-              variant="subtitle1"
-              component="div"
-              textAlign="center"
-            >
-              {Boolean(formik.values.avatar) && formik.values.avatar.name}
             </Typography>
             <TextField
               fullWidth
