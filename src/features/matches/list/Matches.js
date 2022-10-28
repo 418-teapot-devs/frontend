@@ -31,6 +31,7 @@ const Matches = (props) => {
   return(
     <Box alignItems="center">
     <MatchesList data-testid="matches-list">
+      {/* FIXME: mockpublic es para tests, para conexión con back usar matches */}
       {mockpublic.length === 0 && (
       <TableRow>
         <TableCell colSpan={8} align="center">
@@ -39,7 +40,8 @@ const Matches = (props) => {
       </TableRow>
       )}
 
-      {mockpublic.map((match) => {
+      {/* FIXME */}
+      {mockpublic.map((match) => { 
         return (
           <MatchListItem
             match={match}
