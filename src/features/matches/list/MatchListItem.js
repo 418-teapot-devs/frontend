@@ -10,7 +10,6 @@ import { LockOutlined } from "@mui/icons-material"
 import TableCell from "@mui/material/TableCell"
 
 export const MatchListItem = (props) => {
-  console.log(props.match)
   return(
     <TableRow data-testid="public-match-row">
       <TableCell data-testid="public-match-name">
@@ -52,7 +51,12 @@ export const MatchListItem = (props) => {
         {props.match.min_players}-{props.match.max_players}
       </TableCell>
       <TableCell align="right">
-        <Button onClick={props.onClick}>{props.buttontext}</Button>
+        <Button 
+          variant="outlined"
+          fullWidth
+          onClick={props.onClick}>
+            {props.buttontext}
+        </Button>
       </TableCell>
     </TableRow>
   )

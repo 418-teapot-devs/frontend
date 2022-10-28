@@ -29,7 +29,7 @@ beforeAll(() => server.listen())
 afterEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
-// Case where all inputs are correct FIXME
+// Case where all inputs are correct
 test("Should create match", async () => {
   const user = userEvent.setup()
 
@@ -57,7 +57,7 @@ test("Should create match", async () => {
   await user.keyboard("secret password")
 
   await user.click(screen.getByLabelText("Elegir Robot"))
-  await user.click(screen.getByText("Robot1")) // FIXME
+  await user.click(screen.getByText("Robot1"))
 
   await user.click(screen.getByRole("button", { name: "Crear" }))
 

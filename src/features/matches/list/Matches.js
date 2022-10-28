@@ -6,12 +6,12 @@ import { TableRow, Box } from "@mui/material"
 import TableCell from "@mui/material/TableCell"
 import { mockpublic } from "./mockpublic"
 
-const Matches = (filter, onClick, buttontext) => {
+const Matches = (props) => {
 
   const [matches, setMatches] = useState([])
   const { user } = useAuth()
 
-  const endpoint = `http://127.0.0.1:8000/matches/?filter=${filter}`
+  const endpoint = `http://127.0.0.1:8000/matches/?match_type=${props.matchType}`
 
   useEffect(() => {
     const loadList = async () => {
@@ -30,7 +30,7 @@ const Matches = (filter, onClick, buttontext) => {
 
   return(
     <Box alignItems="center">
-    <MatchesList >
+    <MatchesList data-testid="matches-list">
       {mockpublic.length === 0 && (
       <TableRow>
         <TableCell colSpan={8} align="center">
@@ -43,8 +43,8 @@ const Matches = (filter, onClick, buttontext) => {
         return (
           <MatchListItem
             match={match}
-            onClick={onClick}
-            buttontext={buttontext}
+            onClick={props.onClick}
+            buttontext={props.buttontext}
             key={match.id}
           />
         )
@@ -55,17 +55,46 @@ const Matches = (filter, onClick, buttontext) => {
 }
 
 export const PublicMatches = () => {
-  return (<Matches filter="public" onClick={()=> {console.log("Public")}} buttontext="Unirme"/>)
+  return (
+    <Matches
+      matchType="public"
+      onClick={()=> {}}
+      buttontext="Unirme"
+      data-testid="public-matches"
+    />
+  )
 };
 
 export const CreatedMatches = () => {
-  return (<Matches filter="created" onClick={() =>{console.log("Created")}} buttontext="Iniciar"/>)
+  return (
+    <Matches
+      matchType="created"
+      onClick={() =>{}}
+      buttontext="Iniciar"
+      data-testid="created-matches"
+    />
+  )
+
 }
 
 export const JoinedMatches = () => {
-  return (<Matches filter="joined" onClick={() => {console.log("Joined")}} buttontext="Detalles"/>)
+  return (
+    <Matches
+      matchType="joined"
+      onClick={() => {}}
+      buttontext="Detalles"
+      data-testid="joined-matches"
+    />
+  )
 }
 
 export const StartedMatches = () => {
-  return (<Matches filter="started" onClick={() =>{console.log("Started")}} buttontext="Detalles"/>)
+  return (
+    <Matches
+      matchType="started"
+      onClick={() =>{}}
+      buttontext="Detalles"
+      data-testid="started-matches"
+    />
+  )
 }
