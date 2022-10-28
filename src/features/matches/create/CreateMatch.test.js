@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event"
 import { CreateMatch } from "./CreateMatch"
 import { rest } from "msw"
 import { setupServer } from "msw/node"
-import { renderWithProviders } from "../../utils/testUtils"
+import { renderWithProviders } from "../../../utils/testUtils"
 
 
 export const handlers = [
@@ -18,6 +18,7 @@ export const handlers = [
   }),
 
   rest.get("http://127.0.0.1:8000/robots/", async (req, res, ctx) => {
+    const robots = [{name: "Robot1", id: "1"}, {name: "Robot2", id: "2"}]
     return res(ctx.status(200), ctx.delay(150), ctx.json([...robots]))
   }),
 ]
