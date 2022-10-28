@@ -1,11 +1,10 @@
 import React from "react"
 import { screen } from "@testing-library/react"
-import { PublicMatchesList } from "./PublicMatchesList"
-import { mockpublic } from "./api/mockpublic"
+import { PublicMatchesList } from "./MatchesList"
 import { renderWithProviders } from "../../utils/testUtils"
 
 
-test("Render message when there are no mathces", async () => {
+test("Render message when there are no matches", async () => {
   renderWithProviders(<PublicMatchesList matches={[]} />)
   expect(
     screen.getByText(/Parece que todavía no hay ninguna partida.../i)

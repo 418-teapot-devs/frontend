@@ -2,7 +2,10 @@ export const mockpublic = [
   {
     id: 1,
     name: "Partida #1",
-    username: "lueme",
+    host: {
+      username: "lueme",
+      avatar_url: ""
+    },
     min_players: 4,
     max_players: 4,
     games: 200,
@@ -31,7 +34,10 @@ export const mockpublic = [
   {
     id: 2,
     name: "Partida #2",
-    username: "Bruno",
+    host: {
+      username: "bruno",
+      avatar_url: ""
+    },
     min_players: 3,
     max_players: 4,
     games: 100,
@@ -54,7 +60,10 @@ export const mockpublic = [
   {
     id: 3,
     name: "Partida #3",
-    username: "ThermoTank45",
+    host: {
+      username: "leo",
+      avatar_url: ""
+    },
     min_players: 3,
     max_players: 4,
     games: 100,
@@ -84,7 +93,10 @@ export const mockpublic = [
   {
     id: 4,
     name: "Partida #4",
-    username: "lueme",
+    host: {
+      username: "alvaro",
+      avatar_url: ""
+    },
     min_players: 3,
     max_players: 4,
     games: 200,
@@ -113,7 +125,10 @@ export const mockpublic = [
   {
     id: 5,
     name: "Partida #5",
-    username: "Bruno",
+    host: {
+      username: "anna",
+      avatar_url: ""
+    },
     min_players: 2,
     max_players: 2,
     games: 100,
@@ -136,7 +151,10 @@ export const mockpublic = [
   {
     id: 6,
     name: "Partida #6",
-    username: "ThermoTank45",
+    host: {
+      username: "chesco",
+      avatar_url: ""
+    },
     min_players: 3,
     max_players: 4,
     games: 100,
@@ -166,7 +184,10 @@ export const mockpublic = [
   {
     id: 7,
     name: "Partida #7",
-    username: "lueme",
+    host: {
+      username: "jalote",
+      avatar_url: ""
+    },
     min_players: 3,
     max_players: 4,
     games: 200,
@@ -195,7 +216,10 @@ export const mockpublic = [
   {
     id: 8,
     name: "Partida #8",
-    username: "Bruno",
+    host: {
+      username: "laurab2",
+      avatar_url: ""
+    },
     min_players: 2,
     max_players: 2,
     games: 100,
@@ -218,7 +242,10 @@ export const mockpublic = [
   {
     id: 9,
     name: "Partida #9",
-    username: "ThermoTank45",
+    host: {
+      username: "aaa",
+      avatar_url: ""
+    },
     min_players: 3,
     max_players: 4,
     games: 100,
@@ -248,7 +275,10 @@ export const mockpublic = [
   {
     id: 10,
     name: "Partida #10",
-    username: "Cesco",
+    host: {
+      username: "quartuslover",
+      avatar_url: ""
+    },
     min_players: 3,
     max_players: 4,
     games: 100,

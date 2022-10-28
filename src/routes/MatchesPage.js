@@ -1,10 +1,9 @@
-import { CreateMatch } from "../features/matches/CreateMatch"
 import { Grid } from "@mui/material"
-import { CreatedMatches } from "../features/matches/CreatedMatches"
 import React from "react"
-import { PublicMatches } from "../features/matches/PublicMatches"
+import { PublicMatches, CreatedMatches } from "../features/matches/list/Matches"
+import { CreateMatch } from "../features/matches/create/CreateMatch"
 
-export const Matches = () => {
+export const MatchesPage = () => {
   return (
     <React.Fragment>
       <h2>Partidas</h2>

@@ -6,10 +6,9 @@ import { rest } from "msw"
 import { setupServer } from "msw/node"
 import { renderWithProviders } from "../../utils/testUtils"
 
-const robots = [{ name: "Robot" }, { name: "Robot1" }]
 
 export const handlers = [
-  rest.post("http://127.0.0.1:8000/matches/created", async (req, res, ctx) => {
+  rest.post("http://127.0.0.1:8000/matches/", async (req, res, ctx) => {
     const body = await req.json()
     if (body.name === "Nombre de Partida") {
       return res(ctx.status(201), ctx.delay(150))
@@ -17,7 +16,8 @@ export const handlers = [
       return res(ctx.status(400), ctx.delay(150))
     }
   }),
-  rest.get("http://127.0.0.1:8000/robots", async (req, res, ctx) => {
+
+  rest.get("http://127.0.0.1:8000/robots/", async (req, res, ctx) => {
     return res(ctx.status(200), ctx.delay(150), ctx.json([...robots]))
   }),
 ]
@@ -25,12 +25,10 @@ export const handlers = [
 const server = setupServer(...handlers)
 
 beforeAll(() => server.listen())
-
 afterEach(() => server.resetHandlers())
-
 afterAll(() => server.close())
 
-// Case where all inputs are correct
+// Case where all inputs are correct FIXME
 test("Should create match", async () => {
   const user = userEvent.setup()
 
@@ -58,7 +56,7 @@ test("Should create match", async () => {
   await user.keyboard("secret password")
 
   await user.click(screen.getByLabelText("Elegir Robot"))
-  await user.click(screen.getByText("Robot1"))
+  await user.click(screen.getByText("Robot1")) // FIXME
 
   await user.click(screen.getByRole("button", { name: "Crear" }))
 

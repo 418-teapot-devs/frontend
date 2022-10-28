@@ -3,7 +3,7 @@ import { useRoutes } from "react-router-dom"
 import { Root } from "./routes/Root"
 import { ProtectedRoute } from "./routes/ProtectedRoute"
 import  LoginAndRegister  from "./routes/LoginAndRegister"
-import { Matches } from "./routes/Matches"
+import { MatchesPage } from "./routes/MatchesPage"
 import { Profile } from "./features/user/Profile"
 import { UploadBot } from "./features/robots/UploadBot"
 import BoardManager from "./features/simulation/BoardManager"
@@ -28,7 +28,7 @@ const App = () => {
         },
         {
           path: "/matches",
-          element: <Matches />,
+          element: <MatchesPage />,
         },
         {
           path: "/profile",
