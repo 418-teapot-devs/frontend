@@ -15,18 +15,17 @@ export const MatchesList = (props) => {
       sx={{ height: "100%", width: "100%", overflow: "hidden" }}
       
     >
-      <TableContainer sx={{ height: "100%" }}>
+      <TableContainer sx={{ height: "100%" }} component={Box}>
         <Table stickyHeader aria-label="customized table">
           <TableHead>
             <TableRow>
-              <TableCell>Partida</TableCell>
+              <TableCell><b>Partida</b></TableCell>
               <TableCell></TableCell>
-              <TableCell>Creador</TableCell>
-              <TableCell>Juegos</TableCell>
-              <TableCell>Rondas</TableCell>
-              <TableCell align="right">Jugadores</TableCell>
-              <TableCell align="left">Min/Max</TableCell>
-
+              <TableCell><b>Creador</b></TableCell>
+              <TableCell><b>Juegos</b></TableCell>
+              <TableCell><b>Rondas</b></TableCell>
+              <TableCell><b>Jugadores</b></TableCell>
+              <TableCell><b>Min/Max</b></TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>

@@ -60,7 +60,6 @@ export const PublicMatches = () => {
       matchType="public"
       onClick={()=> {}}
       buttontext="Unirme"
-      data-testid="public-matches"
     />
   )
 };
@@ -71,7 +70,6 @@ export const CreatedMatches = () => {
       matchType="created"
       onClick={() =>{}}
       buttontext="Iniciar"
-      data-testid="created-matches"
     />
   )
 
@@ -83,7 +81,6 @@ export const JoinedMatches = () => {
       matchType="joined"
       onClick={() => {}}
       buttontext="Detalles"
-      data-testid="joined-matches"
     />
   )
 }
@@ -94,7 +91,6 @@ export const StartedMatches = () => {
       matchType="started"
       onClick={() =>{}}
       buttontext="Detalles"
-      data-testid="started-matches"
     />
   )
 }
