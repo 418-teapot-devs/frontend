@@ -36,7 +36,7 @@ const validationSchema = () =>
       .required("El código de su robot es requerido")
       .test(
         "fileSize",
-        "El archivo es demasiado grande.",
+        "El archivo es demasiado grande",
         (value) => value && value.size <= FILE_SIZE
       ),
 
@@ -67,7 +67,6 @@ export const UploadBot = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      console.log(values)
       setLoading(true)
       const response = await uploadBot(values, user.token)
       switch (response.status) {
@@ -95,7 +94,7 @@ export const UploadBot = () => {
   return (
     <Card variant="outlined">
       <form onSubmit={formik.handleSubmit}>
-        <CardContent>
+        <CardContent alignItems="center">
           <Typography
             gutterBottom
             variant="h5"
@@ -106,31 +105,34 @@ export const UploadBot = () => {
           </Typography>
           <Stack spacing={2}>
             <Box alignItems="center">
-              <Avatar 
-                src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png"}
+              <Avatar
+                src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png"} 
+                //src={formik.values.avatar ? formik.values.avatar : "avatar.png"}
                 sx={{ width: 80, height: 80, margin: "auto" }}
                 alignItems="center"
               />
             </Box>
-            <Button
-              variant="outlined"
-              component="label"
-              aria-label="avatar"
-              fullWidth
-              startIcon={<CameraAltIcon />}
-            >
-              Subir avatar
-              <input
-                hidden
-                accept="image/*"
-                id="avatar"
-                name="avatar"
-                type="file"
-                onChange={(event) => {
-                  formik.setFieldValue("avatar", event.currentTarget.files[0])
-                }}
-              />
-            </Button>
+            <Box alignItems="center">
+              <Button
+                variant="outlined"
+                component="label"
+                aria-label="avatar"
+                sx={{ width: 200 }}
+                startIcon={<CameraAltIcon />}
+              >
+                Subir avatar
+                <input
+                  hidden
+                  accept="image/*"
+                  id="avatar"
+                  name="avatar"
+                  type="file"
+                  onChange={(event) => {
+                    formik.setFieldValue("avatar", event.currentTarget.files[0])
+                  }}
+                />
+              </Button>
+            </Box>
             <Typography
               gutterBottom
               variant="subtitle1"

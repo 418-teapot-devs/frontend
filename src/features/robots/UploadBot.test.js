@@ -16,7 +16,6 @@ export const handlers = [
     } else if (name === "takenName") {
       return res(ctx.status(409), ctx.delay(150))
     }
-
     return res(ctx.status(201), ctx.delay(150))
   }),
 ]
@@ -37,7 +36,7 @@ test("should upload", async () => {
   await user.click(screen.getByRole("button", { name: "avatar" }))
   await user.upload(
     screen.getByLabelText("avatar"),
-    new File(["(⌐□_□)"], "image.png", { type: "image/png" })
+    URL.createObjectURL(new File(["(⌐□_□)"], "image.png"))
   )
 
   await user.click(screen.getByLabelText("Nombre *"))

@@ -5,6 +5,7 @@ import userEvent from "@testing-library/user-event"
 
 import { Register } from "./Register"
 import React from "react"
+import { type } from "@testing-library/user-event/dist/types/utility"
 
 export const handlers = [
   rest.post("http://127.0.0.1:8000/users/", async (req, res, ctx) => {
@@ -66,16 +67,16 @@ test("taken username no avatar", async () => {
   const user = userEvent.setup()
   render(<Register />)
 
-  await user.click(screen.getByLabelText("Nombre de usuario"))
+  await user.click(screen.getByLabelText("Nombre de usuario *"))
   await user.keyboard("takenUsername")
 
-  await user.click(screen.getByLabelText("Correo electrónico"))
+  await user.click(screen.getByLabelText("Correo electrónico *"))
   await user.keyboard("takenemail@gmail.com")
 
-  await user.click(screen.getByLabelText("Contraseña"))
+  await user.click(screen.getByLabelText("Contraseña *"))
   await user.keyboard("Password1")
 
-  await user.click(screen.getByLabelText("Reingrese la contraseña"))
+  await user.click(screen.getByLabelText("Reingrese la contraseña *"))
   await user.keyboard("Password1")
 
   await user.click(screen.getByRole("button", { name: /Registrarse/i }))
@@ -96,19 +97,19 @@ test("wrong password fixes should register", async () => {
   await user.click(screen.getByRole("button", { name: "Subir avatar" }))
   await user.upload(
     screen.getByLabelText("avatar"),
-    new File(["(⌐□_□)"], "image.png", { type: "image/png" })
+    URL.createObjectURL(new File(["(⌐□_□)"], "image.png"))
   )
 
-  await user.click(screen.getByLabelText("Nombre de usuario"))
+  await user.click(screen.getByLabelText("Nombre de usuario *"))
   await user.keyboard("username")
 
-  await user.click(screen.getByLabelText("Correo electrónico"))
+  await user.click(screen.getByLabelText("Correo electrónico *"))
   await user.keyboard("username@gmail.com")
 
-  await user.click(screen.getByLabelText("Contraseña"))
+  await user.click(screen.getByLabelText("Contraseña *"))
   await user.keyboard("Pass")
 
-  await user.click(screen.getByLabelText("Reingrese la contraseña"))
+  await user.click(screen.getByLabelText("Reingrese la contraseña *"))
   await user.keyboard("Pass")
 
   await user.click(screen.getByRole("button", { name: /Registrarse/i }))
@@ -117,21 +118,21 @@ test("wrong password fixes should register", async () => {
     await screen.findByText(/La contraseña debe tener al menos 8 caracteres/i)
   ).toBeInTheDocument()
 
-  await user.click(screen.getByLabelText("Contraseña"))
+  await user.click(screen.getByLabelText("Contraseña *"))
   await user.keyboard("word")
 
   expect(
     await screen.findByText(/La contraseña debe tener al menos un número/i)
   ).toBeInTheDocument()
 
-  await user.click(screen.getByLabelText("Contraseña"))
+  await user.click(screen.getByLabelText("Contraseña *"))
   await user.keyboard("1")
 
   expect(
     await screen.findByText(/Las contraseñas no coinciden/i)
   ).toBeInTheDocument()
 
-  await user.click(screen.getByLabelText("Reingrese la contraseña"))
+  await user.click(screen.getByLabelText("Reingrese la contraseña *"))
   await user.keyboard("word1")
 
   await user.click(screen.getByRole("button", { name: /Registrarse/i }))
@@ -149,19 +150,19 @@ test("unknown error", async () => {
   await user.click(screen.getByRole("button", { name: "Subir avatar" }))
   await user.upload(
     screen.getByLabelText("avatar"),
-    new File(["(⌐□_□)"], "image.png", { type: "image/png" })
+    URL.createObjectURL(new File(["(⌐□_□)"], "image.png", {type: "image/png"} ))
   )
 
-  await user.click(screen.getByLabelText("Nombre de usuario"))
+  await user.click(screen.getByLabelText("Nombre de usuario *"))
   await user.keyboard("error")
 
-  await user.click(screen.getByLabelText("Correo electrónico"))
+  await user.click(screen.getByLabelText("Correo electrónico *"))
   await user.keyboard("username@gmail.com")
 
-  await user.click(screen.getByLabelText("Contraseña"))
+  await user.click(screen.getByLabelText("Contraseña *"))
   await user.keyboard("Password1")
 
-  await user.click(screen.getByLabelText("Reingrese la contraseña"))
+  await user.click(screen.getByLabelText("Reingrese la contraseña *"))
   await user.keyboard("Password1")
 
   await user.click(screen.getByRole("button", { name: /Registrarse/i }))
