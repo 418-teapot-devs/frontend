@@ -1,60 +1,32 @@
-import { Box, Button, Card, CardContent, Slider, Stack } from "@mui/material"
+import { Button, Stack } from "@mui/material"
+import Slider, { sliderClasses } from "@mui/material/Slider"
 import React, { useEffect, useRef, useState } from "react"
 import Board from "./Board"
+import RobotStatus from "./RobotStatus"
 
-const MAX_ROUNDS = 10
-
-const mockedRobots = [
-  {
-    x: [
-      196.32, 376.56, 488.08, 847.6, 78.39, 396.71, 457.95, 466.48, 319.53,
-      461.42,
-    ],
-    y: [
-      301.35, 150.98, 868.97, 885.12, 443.15, 241.69, 267.73, 850.41, 319.11,
-      928.06,
-    ],
-  },
-  {
-    x: [
-      807.65, 166.02, 370.39, 242.44, 850.67, 172.53, 64.99, 490.26, 777.33,
-      477.86,
-    ],
-    y: [
-      813.92, 21.21, 379.07, 374.32, 903.14, 304.11, 768.49, 1.5, 984.62,
-      198.61,
-    ],
-  },
-  {
-    x: [
-      234.86, 99.1, 74.76, 945.44, 530.05, 769.72, 421.8, 690.7, 886.21, 782.16,
-    ],
-    y: [
-      233.5, 900.16, 386.19, 867.07, 95.3, 463.47, 848.61, 902.06, 874.67,
-      989.83,
-    ],
-  },
-]
-
-const Simulation = () => {
+const Simulation = ({ robots, rounds }) => {
   const [round, setRound] = useState(0)
   const [paused, setPaused] = useState(true)
+
   const intervalRef = useRef()
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       if (!paused) {
-        setRound((prevround) => (prevround + 1) % MAX_ROUNDS)
+        setRound((prevround) => (prevround + 1) % rounds.length)
       }
-    }, 500)
+    }, 10)
     return () => clearInterval(intervalRef.current)
-  }, [paused])
+  }, [paused, rounds.length])
 
-  const handleClick = () => setPaused(!paused)
+  const roundData = Object.keys(rounds[round].robots).map((key) => ({
+    ...rounds[round].robots[key],
+    name: robots[key].name,
+  }))
 
-  const robots = mockedRobots.map((robot) => ({
-    x: robot.x[round],
-    y: robot.y[round],
+  const robotsWithId = Object.keys(robots).map((key) => ({
+    ...robots[key],
+    robot_id: key,
   }))
 
   return (
@@ -63,25 +35,39 @@ const Simulation = () => {
       justifyContent="space-between"
       alignItems="center"
     >
-      <Stack style={{ height: "100%" }} direction="row" spacing={2}>
-        <Board robots={robots} />
-        <Stack>
-          <Card variant="outlined">
-            <CardContent>
-              Hola
-            </CardContent>
-          </Card>
+      <Stack direction="row" spacing={1} sx={{ maxHeight: "90%" }}>
+        <Board robots={roundData} />
+        <Stack spacing={1}>
+          {robotsWithId.map((robot, i) => (
+            <RobotStatus
+              key={i}
+              name={robot.name}
+              {...rounds[round].robots[robot.robot_id]}
+            />
+          ))}
         </Stack>
       </Stack>
-      <Stack direction="row" spacing={2} sx={{ paddingRight: 2, width: "100%" }}>
-        <Button variant="outlined" onClick={handleClick}>
+      <Stack
+        direction="row"
+        spacing={2}
+        sx={{ paddingRight: 2, width: "100%" }}
+      >
+        <Button variant="outlined" onClick={() => setPaused(!paused)}>
           {paused ? "Play" : "Pause"}
         </Button>
         <Slider
+          sx={{
+            [`& .${sliderClasses.track}`]: {
+              transition: "none",
+            },
+            [`& .${sliderClasses.thumb}`]: {
+              transition: "none",
+            },
+          }}
           defaultValue={0}
           value={round}
           min={0}
-          max={MAX_ROUNDS - 1}
+          max={rounds.length - 1}
           onChange={(e, newValue) => setRound(newValue)}
         />
       </Stack>

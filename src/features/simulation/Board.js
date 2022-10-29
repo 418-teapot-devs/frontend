@@ -8,7 +8,7 @@ const Board = ({ robots }) => {
   const boardContainerRef = useRef(null)
 
   return (
-    <Box ref={boardContainerRef} style={{ height: "90%" }}>
+    <Box ref={boardContainerRef}>
       <CustomStage width={1000} height={1000} containerRef={boardContainerRef}>
         <Layer>
           <Rect
@@ -17,15 +17,14 @@ const Board = ({ robots }) => {
             width={1000}
             height={1000}
             fill="#1c1c1c"
-            cornerRadius={16}
+            cornerRadius={4}
           />
-          {robots.map((robot) => (
+          {robots.map((robot, i) => (
             <Robot
-              key={robot}
-              position={robot}
+              key={i}
               width={20}
               height={20}
-              fill="red"
+              {...robot}
             />
           ))}
         </Layer>

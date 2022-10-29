@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react"
+import React, { useLayoutEffect } from "react"
 import { Stage } from "react-konva"
 
 const STAGE_WIDTH = 1000
@@ -14,6 +14,7 @@ const CustomStage = ({ children, containerRef, ...props }) => {
   const stageRef = React.useRef(null)
 
   const fitStageToContainer = () => {
+    console.log("Fitting...")
     if (containerRef && containerRef.current) {
       let container = containerRef.current
       let stage = stageRef.current
