@@ -25,16 +25,16 @@ export function RobotBaseItem(props) {
               justifyContent="space-between"
               sx={{ mb: 1 }}
             >
-              <Stack>
-                <Stack direction="column" alignItems="left">
-                  <Typography variant="overline" margin={0} noWrap="true">
+              <Stack sx={{ mb: 1}}>
+                <Stack direction="column" alignItems="left" noWrap>
+                  <Typography variant="overline" margin={0} noWrap>
                     {props.name}
                   </Typography>
-                  <Typography variant="caption" margin={0} noWrap="true">
+                  <Typography variant="caption" margin={0} noWrap>
                     <EmojiEventsIcon sx={{fontSize: 15, color: "#ffc107"}}> 
                     </EmojiEventsIcon> Win rate: {props.win_rate}
                   </Typography>
-                  <Typography variant="caption" margin={0} noWrap="true">
+                  <Typography variant="caption" margin={0} noWrap>
                     <LocalFireDepartmentIcon sx={{fontSize: 15, color: "#f44336"}}>
                     </LocalFireDepartmentIcon> MMR: {props.mmr}
                   </Typography>

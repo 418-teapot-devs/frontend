@@ -3,6 +3,7 @@ import { RobotBaseItem } from "./RobotBaseItem"
 import { getRobots } from "./api/getRobots"
 import { useAuth } from "../../hooks/useAuth"
 import { Link } from 'react-router-dom'
+import AddIcon from '@mui/icons-material/Add';
 import {
   Box,
   Button,
@@ -46,7 +47,7 @@ export const RobotsList = (props) => {
   }, [user.token])
 
   return(
-    <Card variant="outlined" style={robotsCardStyle} >
+    <Card variant="outlined" style={robotsCardStyle}>
       <CardContent>
           <Typography
             gutterBottom
@@ -56,14 +57,14 @@ export const RobotsList = (props) => {
           >
             Mis robots
           </Typography>
-          <Box display="flex" justifyContent="flex-end" > 
-            <Button component={Link} to="/uploadbot" variant="overline" color="primary">
+          <Box display="flex" justifyContent="flex-end" sx={{ m: 3 }} > 
+            <Button component={Link} to="/uploadbot" variant="contained" startIcon={<AddIcon/>}>
               Nuevo robot
             </Button>
           </Box>
-      <Grid container spacing={1}>
+      <Grid container spacing={1} sx={{ m:2 }}>
           {robots.map((robot) => (
-            <Grid item xs={12} md={6} lg={4} xl={3}>
+            <Grid item xs={12} md={3} lg={2.5} xl={3}>
               <RobotBaseItem {...robot}>
               </RobotBaseItem>
             </Grid>
