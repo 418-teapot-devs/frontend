@@ -1,8 +1,11 @@
-import { React, useEffect, useState } from "react"
+import { React, useEffect, useState, Redirect } from "react"
 import { RobotBaseItem } from "./RobotBaseItem"
 import { getRobots } from "./api/getRobots"
 import { useAuth } from "../../hooks/useAuth"
+import { Link } from 'react-router-dom'
 import {
+  Box,
+  Button,
   Card,
   CardContent,
   Typography,
@@ -13,7 +16,7 @@ import {
 var robotsCardStyle = {
   display: 'block',
   transitionDuration: '0.3s',
-  height: '20vw',
+  height: '100vw',
   overflow: 'scroll'
 }
 
@@ -43,7 +46,7 @@ export const RobotsList = (props) => {
   }, [user.token])
 
   return(
-    <Card variant="outlined" style={robotsCardStyle}>
+    <Card variant="outlined" style={robotsCardStyle} >
       <CardContent>
           <Typography
             gutterBottom
@@ -53,6 +56,11 @@ export const RobotsList = (props) => {
           >
             Mis robots
           </Typography>
+          <Box display="flex" justifyContent="flex-end" > 
+            <Button component={Link} to="/uploadbot" variant="overline" color="primary">
+              Nuevo robot
+            </Button>
+          </Box>
       <Grid container spacing={1}>
           {robots.map((robot) => (
             <Grid item xs={12} md={6} lg={4} xl={3}>
