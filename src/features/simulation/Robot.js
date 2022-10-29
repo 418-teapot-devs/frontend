@@ -2,13 +2,13 @@ import React, { useEffect } from "react"
 import { Rect } from "react-konva"
 
 const Robot = ({ position, ...props }) => {
-  const rectRef = React.useRef(null)
+  const robotRef = React.useRef(null)
   useEffect(() => {
-    const rect = rectRef.current
-    rect.to({ ...position, duration: 0.5 })
+    const robot = robotRef.current
+    robot.to({ ...position, duration: 0 })
   })
 
-  return <Rect ref={rectRef} {...props} />
+  return <Rect ref={robotRef} {...props} />
 }
 
 export default Robot

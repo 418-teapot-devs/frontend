@@ -2,6 +2,8 @@ import {
   List,
   ListItem,
   ListItemButton,
+  ListItemIcon,
+  ListItemText,
   Paper,
   Stack,
   Tooltip,
@@ -12,7 +14,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"
 import PlayCircleOutlineOutlinedIcon from "@mui/icons-material/PlayCircleOutlineOutlined"
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined"
-import GridOnOutlinedIcon from '@mui/icons-material/GridOnOutlined';
+import GridOnOutlinedIcon from "@mui/icons-material/GridOnOutlined"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth"
 
@@ -35,8 +37,8 @@ const mainOptions = [
   {
     title: "Simulación",
     to: "simulation",
-    icon: <GridOnOutlinedIcon/>
-  }
+    icon: <GridOnOutlinedIcon />,
+  },
 ]
 
 const extraOptions = [
@@ -50,9 +52,10 @@ const extraOptions = [
 const SideBarItem = (props) => {
   return (
     <ListItem disablePadding>
-      <Tooltip title={props.title} placement="right">
-        <ListItemButton onClick={props.onClick}>{props.icon}</ListItemButton>
-      </Tooltip>
+      <ListItemButton onClick={props.onClick}>
+        <ListItemIcon>{props.icon}</ListItemIcon>
+        <ListItemText>{props.title}</ListItemText>
+      </ListItemButton>
     </ListItem>
   )
 }
