@@ -63,6 +63,17 @@ export const RobotsList = (props) => {
             </Button>
           </Box>
       <Grid container spacing={1} sx={{ m:2 }}>
+          {robots.length === 0 && (
+            <Box alignItems="center" sx={{ m: 3}}>
+              <Typography
+                gutterBottom
+                variant="h6"
+                component="div"
+              >
+                No tienes robots aún
+              </Typography>
+            </Box>
+          )}
           {robots.map((robot) => (
             <Grid item xs={12} md={3} lg={2.5} xl={3}>
               <RobotBaseItem {...robot}>
