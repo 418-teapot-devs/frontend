@@ -4,7 +4,6 @@ import { MatchListItem } from "./MatchListItem"
 import { MatchesList } from "./MatchesList"
 import { TableRow, Box } from "@mui/material"
 import TableCell from "@mui/material/TableCell"
-import { mockpublic } from "./mockpublic"
 
 export const Matches = (props) => {
 
@@ -31,8 +30,7 @@ export const Matches = (props) => {
   return(
     <Box alignItems="center">
     <MatchesList data-testid="matches-list">
-      {/* FIXME: mockpublic es para tests, para conexión con back usar matches */}
-      {mockpublic.length === 0 && (
+      {matches.length === 0 && (
       <TableRow>
         <TableCell colSpan={8} align="center">
           Parece que todavía no hay ninguna partida...
@@ -40,8 +38,7 @@ export const Matches = (props) => {
       </TableRow>
       )}
 
-      {/* FIXME */}
-      {mockpublic.map((match) => { 
+      {matches.map((match) => { 
         return (
           <MatchListItem
             match={match}
