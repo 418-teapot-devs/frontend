@@ -36,7 +36,7 @@ test("should upload", async () => {
   await user.click(screen.getByRole("button", { name: "avatar" }))
   await user.upload(
     screen.getByLabelText("avatar"),
-    URL.createObjectURL(new File(["(⌐□_□)"], "image.png"))
+    new File(["(⌐□_□)"], "image.png")
   )
 
   await user.click(screen.getByLabelText("Nombre *"))

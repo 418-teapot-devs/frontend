@@ -5,7 +5,6 @@ import userEvent from "@testing-library/user-event"
 
 import { Register } from "./Register"
 import React from "react"
-import { type } from "@testing-library/user-event/dist/types/utility"
 
 export const handlers = [
   rest.post("http://127.0.0.1:8000/users/", async (req, res, ctx) => {
@@ -97,7 +96,7 @@ test("wrong password fixes should register", async () => {
   await user.click(screen.getByRole("button", { name: "Subir avatar" }))
   await user.upload(
     screen.getByLabelText("avatar"),
-    URL.createObjectURL(new File(["(⌐□_□)"], "image.png"))
+    new File(["(⌐□_□)"], "image.png")
   )
 
   await user.click(screen.getByLabelText("Nombre de usuario *"))
@@ -150,7 +149,7 @@ test("unknown error", async () => {
   await user.click(screen.getByRole("button", { name: "Subir avatar" }))
   await user.upload(
     screen.getByLabelText("avatar"),
-    URL.createObjectURL(new File(["(⌐□_□)"], "image.png", {type: "image/png"} ))
+    new File(["(⌐□_□)"], "image.png", {type: "image/png"} )
   )
 
   await user.click(screen.getByLabelText("Nombre de usuario *"))
