@@ -1,6 +1,11 @@
 import { Grid } from "@mui/material"
 import React from "react"
-import { PublicMatches, CreatedMatches, StartedMatches, JoinedMatches } from "../features/matches/list/Matches"
+
+import { PublicMatches } from "../features/matches/list/PublicMatches"
+import { CreatedMatches } from "../features/matches/list/CreatedMatches"
+import { StartedMatches } from "../features/matches/list/StartedMatches"
+import { JoinedMatches } from "../features/matches/list/JoinedMatches"
+
 import { CreateMatch } from "../features/matches/create/CreateMatch"
 import { Box } from "@mui/system"
 

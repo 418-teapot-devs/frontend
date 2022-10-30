@@ -1,6 +1,11 @@
 import React from "react"
 import { screen } from "@testing-library/react"
-import { PublicMatches, CreatedMatches, StartedMatches, JoinedMatches } from "./Matches"
+
+import { PublicMatches } from "./PublicMatches"
+import { CreatedMatches } from "./CreatedMatches"
+import { StartedMatches } from "./StartedMatches"
+import { JoinedMatches } from "./JoinedMatches"
+
 import { renderWithProviders } from "../../../utils/testUtils"
 import { mockpublic } from "./mockpublic"
 import { rest } from "msw"
@@ -9,24 +14,12 @@ import { setupServer } from "msw/node"
 export const handlers = [
   
   rest.get("http://127.0.0.1:8000/matches/", async (req, res, ctx) => {
-    const matchType = req.url.searchParams.get('public')
-    return res(ctx.status(200), ctx.delay(150), ctx.json([...mockpublic]))
-  }),
-
-  rest.get("http://127.0.0.1:8000/matches/", async (req, res, ctx) => {
-    const matchType = req.url.searchParams.get('created')
-    return res(ctx.status(200), ctx.delay(150), ctx.json([...mockpublic]))
-  }),
-
-  rest.get("http://127.0.0.1:8000/matches/", async (req, res, ctx) => {
-    const matchType = req.url.searchParams.get('joined')
-    return res(ctx.status(200), ctx.delay(150), ctx.json([...mockpublic]))
-  }),
-
-  rest.get("http://127.0.0.1:8000/matches/", async (req, res, ctx) => {
-    const matchType = req.url.searchParams.get('started')
-    return res(ctx.status(200), ctx.delay(150), ctx.json([...mockpublic]))
-  }),
+    const matchType = req.url.searchParams.get('match_type')
+    if (matchType === 'public') {
+      return res(ctx.status(200), ctx.delay(150), ctx.json([...mockpublic]))
+    } else {
+      return res(ctx.status(200), ctx.delay(150), ctx.json([...mockpublic]))
+    }}),
 ]
 
 const server = setupServer(...handlers)

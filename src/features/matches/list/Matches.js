@@ -6,7 +6,7 @@ import { TableRow, Box } from "@mui/material"
 import TableCell from "@mui/material/TableCell"
 import { mockpublic } from "./mockpublic"
 
-const Matches = (props) => {
+export const Matches = (props) => {
 
   const [matches, setMatches] = useState([])
   const { user } = useAuth()
@@ -53,46 +53,5 @@ const Matches = (props) => {
       })}
     </MatchesList>
     </Box>
-  )
-}
-
-export const PublicMatches = () => {
-  return (
-    <Matches
-      matchType="public"
-      onClick={()=> {}}
-      buttontext="Unirme"
-    />
-  )
-};
-
-export const CreatedMatches = () => {
-  return (
-    <Matches
-      matchType="created"
-      onClick={() =>{}}
-      buttontext="Iniciar"
-    />
-  )
-
-}
-
-export const JoinedMatches = () => {
-  return (
-    <Matches
-      matchType="joined"
-      onClick={() => {}}
-      buttontext="Detalles"
-    />
-  )
-}
-
-export const StartedMatches = () => {
-  return (
-    <Matches
-      matchType="started"
-      onClick={() =>{}}
-      buttontext="Detalles"
-    />
   )
 }
