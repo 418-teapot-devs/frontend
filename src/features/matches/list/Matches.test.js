@@ -7,7 +7,7 @@ import { StartedMatches } from "./StartedMatches"
 import { JoinedMatches } from "./JoinedMatches"
 
 import { renderWithProviders } from "../../../utils/testUtils"
-import { mockpublic } from "./mockpublic"
+import { matcheslist } from "../../../mocks/data/matcheslist"
 
 import { server } from "../../../mocks/server"
 
@@ -19,7 +19,7 @@ test("Renders all matches' names", async () => {
     const matches_names = getAllByTestId("public-match-name").map(
     (cell) => cell.textContent
   )
-  const public_names = mockpublic.map((match) => match.name)
+  const public_names = matcheslist.map((match) => match.name)
   expect(matches_names).toEqual(public_names)
 
   })
@@ -34,7 +34,7 @@ test("Renders all matches' creators", async () => {
   const matches_creators = getAllByTestId("public-match-username").map(
     (cell) => cell.textContent
   )
-  const Public_creators = mockpublic.map((match) => match.host.username)
+  const Public_creators = matcheslist.map((match) => match.host.username)
   expect(matches_creators).toEqual(Public_creators)
   })
 })
@@ -48,7 +48,7 @@ test("Renders all matches' games", async () => {
     const matches_games = getAllByTestId("public-match-games").map(
       (cell) => cell.textContent
     )
-    const Public_games = mockpublic.map((match) => String(match.games))
+    const Public_games = matcheslist.map((match) => String(match.games))
     expect(matches_games).toEqual(Public_games)
   })
 })
@@ -62,7 +62,7 @@ test("Renders all matches' rounds", async () => {
     const matches_rounds = getAllByTestId("public-match-rounds").map(
       (cell) => cell.textContent
     )
-    const Public_rounds = mockpublic.map((match) => String(match.rounds))
+    const Public_rounds = matcheslist.map((match) => String(match.rounds))
     expect(matches_rounds).toEqual(Public_rounds)
   })
 })
@@ -74,7 +74,7 @@ test("Renders all robots", async () => {
  
   await waitFor(() => {
     const matches_robots = getAllByTestId("public-match-robot").length
-    const expected_robots = mockpublic.reduce(
+    const expected_robots = matcheslist.reduce(
       (a, match) => a + match.robots.length,
       0
     )
@@ -88,7 +88,7 @@ test("Renders locks if match is private", async () => {
   )
   await waitFor(() => {
     const matches_isprivate = getAllByTestId("public-match-private").length
-    const expected_isprivate = mockpublic.reduce(
+    const expected_isprivate = matcheslist.reduce(
       (a, match) => a + (match.is_private ? 1 : 0),
       0
     )
@@ -102,7 +102,7 @@ test("Renders all the join buttons in public", async () => {
   )
   await waitFor(() => {
     const matches_join = screen.getAllByRole("button", { name: "Unirme" }).length
-    const expected_join = mockpublic.length
+    const expected_join = matcheslist.length
     expect(matches_join).toEqual(expected_join)
   })
 })
@@ -114,7 +114,7 @@ test("Renders all the start buttons in created", async () => {
   )
   await waitFor(() => {
     const matches_join = screen.getAllByRole("button", { name: "Iniciar" }).length
-    const expected_join = mockpublic.length
+    const expected_join = matcheslist.length
     expect(matches_join).toEqual(expected_join)
   })
 })
@@ -125,7 +125,7 @@ test("Renders all the details buttons in started", async () => {
   )
   await waitFor(() => {
     const matches_join = screen.getAllByRole("button", { name: "Detalles" }).length
-    const expected_join = mockpublic.length
+    const expected_join = matcheslist.length
     expect(matches_join).toEqual(expected_join)
   })
 })

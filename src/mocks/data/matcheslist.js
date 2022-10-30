@@ -1,4 +1,4 @@
-export const mockpublic = [
+export const matcheslist = [
   {
     id: 1,
     name: "Partida #1",
