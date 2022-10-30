@@ -107,7 +107,6 @@ export const UploadBot = () => {
             <Box alignItems="center">
               <Avatar
                 src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png"} 
-                //src={formik.values.avatar ? formik.values.avatar : "avatar.png"}
                 sx={{ width: 80, height: 80, margin: "auto" }}
                 alignItems="center"
               />
@@ -117,7 +116,7 @@ export const UploadBot = () => {
                 variant="outlined"
                 component="label"
                 aria-label="avatar"
-                sx={{ width: 200 }}
+                fullWidth
                 startIcon={<CameraAltIcon />}
               >
                 Subir avatar
