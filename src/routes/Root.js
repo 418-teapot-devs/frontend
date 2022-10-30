@@ -4,11 +4,11 @@ import SideBar from "./SideBar"
 
 export const Root = () => {
   return (
-    <Stack sx={{ height: "100% " }} spacing={10} direction="row">
-      <Box sx={{ height: "100vh", padding: 1 }}>
+    <Stack sx={{ height: "100%" }} spacing={0} direction="row">
+      <Box sx={{ padding: 1 }}>
         <SideBar />
       </Box>
-      <Box sx={{ padding: 1, width:'70%'}}>
+      <Box sx={{ padding: 4, width:'100%'}}>
         <Outlet />
       </Box>
     </Stack>
