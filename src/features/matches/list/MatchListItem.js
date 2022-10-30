@@ -51,12 +51,13 @@ export const MatchListItem = (props) => {
         {props.match.min_players}-{props.match.max_players}
       </TableCell>
       <TableCell align="right">
-        <Button 
-          variant="outlined"
-          fullWidth
-          onClick={props.onClick}>
-            {props.buttontext}
-        </Button>
+      <Button
+        variant="outlined"
+        fullWidth
+        onClick={() => props.onClick(props.match)}
+        data-testid={'join-button-' + props.match.id}>
+        {props.buttontext}
+      </Button>
       </TableCell>
     </TableRow>
   )
