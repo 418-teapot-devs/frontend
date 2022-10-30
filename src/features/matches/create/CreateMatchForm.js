@@ -1,6 +1,7 @@
 import React from "react"
 import { useFormik } from "formik"
 import * as yup from "yup"
+import { RobotSelect } from "../../robots/RobotsSelect"
 
 import {
   Button,
@@ -13,7 +14,6 @@ import {
   Alert,
   AlertTitle,
 } from "@mui/material"
-import { RobotSelect } from "../robots/RobotsSelect"
 
 const validationSchema = () =>
   yup.object({
@@ -62,7 +62,7 @@ const validationSchema = () =>
         is: (password) => password,
         then: yup.string().required("Confirmar la contraseña ingresada"),
       }),
-    robot_name: yup.string().required("Elegir un robot es obligatorio"),
+    robot_id: yup.number().required("Elegir un robot es obligatorio"),
   })
 
 export const CreateMatchForm = ({ onSubmit, loading, success, failure }) => {
@@ -75,7 +75,7 @@ export const CreateMatchForm = ({ onSubmit, loading, success, failure }) => {
       rounds: "",
       password: "",
       confirm_password: "",
-      robot_name: "",
+      robot_id: "",
     },
     validationSchema: validationSchema,
     onSubmit: onSubmit,
@@ -186,19 +186,19 @@ export const CreateMatchForm = ({ onSubmit, loading, success, failure }) => {
             />
             <RobotSelect
               select
-              value={formik.values.robot_name}
-              id="robot_name"
-              name="robot_name"
+              value={formik.values.robot_id}
+              id="robot_id"
+              name="robot_id"
               label="Elegir Robot"
               onChange={formik.handleChange}
               inputProps={{
-                name: "robot_name",
+                name: "robot_id",
                 id: "robot-s",
               }}
               error={
-                formik.touched.robot_name && Boolean(formik.errors.robot_name)
+                formik.touched.robot_id && Boolean(formik.errors.robot_id)
               }
-              helperText={formik.touched.robot_name && formik.errors.robot_name}
+              helperText={formik.touched.robot_id && formik.errors.robot_id}
             />
           </Stack>
         </CardContent>
@@ -220,7 +220,7 @@ export const CreateMatchForm = ({ onSubmit, loading, success, failure }) => {
         {failure && (
           <Alert severity="error">
             <AlertTitle>
-              No se pudo crear la partida por un error en el servidor
+              No se pudo crear la partida por un error en el servidor.
             </AlertTitle>
           </Alert>
         )}
