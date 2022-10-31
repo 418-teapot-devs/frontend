@@ -9,12 +9,13 @@ export const joinmatch_request = async (values, match, token) => {
     method: "POST",
     headers: {
       accept: "application/json",
+      "Content-Type": "application/json",
       token: token,
     },
-    body: {
+    body: JSON.stringify({
       robot_id: values.robot_id,
-      password: values.password
-    }
+      password: values.password,
+    }),
   })
 )}
 
@@ -22,21 +23,25 @@ export const joinmatch_request = async (values, match, token) => {
 // When submiting form, send post request to backend and redirect
 export const JoinMatch = async (values, match, token, setLoading, setError) => {
   setLoading(true)
-  const response = await joinmatch_request(values, match, token)
-  switch (response.status) {
-    case (201):
-      setLoading(false)
-      setError(null)
-      return true
-      
-    case (403):
-      setLoading(false)
-      setError("La contraseña es incorrecta")
-      return false
+  try {
+    const response = await joinmatch_request(values, match, token)
+    switch (response.status) {
+      case (201):
+        setLoading(false)
+        setError(null)
+        return true
 
-    default:
-      setLoading(false)
-      setError("Se produjo un error")
-      return false
+      case (403):
+        setLoading(false)
+        setError("La contraseña es incorrecta")
+        return false
+
+      default:
+        setLoading(false)
+        setError("Se produjo un error")
+        return false
+   }
+  } catch (err) {
+    setError(`Error desconocido: ${err}`)
   }
 }

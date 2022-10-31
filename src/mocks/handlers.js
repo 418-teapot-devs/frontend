@@ -4,13 +4,14 @@ import { matcheslist } from "./data/matcheslist"
 const join_handlers = matcheslist.map((match) => {
   return (
     rest.post(`http://127.0.0.1:8000/matches/${match.id}/join/`, async (req, res, ctx) => {
-      if (match.is_private && match.id===4)
+      const body = await req.json()
+      if (match.is_private && body.password === "server error") 
+        return res(ctx.status(400), ctx.delay(150))
+      else if (match.is_private && body.password === "")
         return res(ctx.status(403), ctx.delay(150)) 
-      else if (match.id===2)
-        return res(ctx.status(400), ctx.delay(150)) 
-      else 
-        return res(ctx.status(201), ctx.delay(150)) 
-    })
+      else
+        return res(ctx.status(201), ctx.delay(150))
+    })  
   )
 })
 

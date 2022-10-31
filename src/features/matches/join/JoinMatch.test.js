@@ -58,39 +58,6 @@ test("Click join and form pops up, then close it", async () => {
   })
 })
 
-test("Click join and sumbit form", async () => {
-    
-  const { getAllByTestId } = renderWithProviders(<PublicMatches/>)
-  await waitFor(()=> {
-    const matches_names = getAllByTestId  ("public-match-name").map(
-      (cell) => cell.textContent
-    )
-    const public_names = matcheslist.map((match) => match.name)
-    expect(matches_names).toEqual(public_names)
-  })
-  const match = matcheslist[0]
-  const user = userEvent.setup()
-
-  await user.click(screen.getByTestId('join-button-'+ match.id))
-  expect(
-    await screen.findByText('Unirme a partida: ' + match.name)
-  ).toBeInTheDocument()
-  
-  await waitFor(() => {
-    user.click(screen.getByLabelText("Elegir Robot"))
-  })
-  await waitFor(() =>{
-    user.click(screen.getByText("Robot1"))
-    user.click(screen.getByTestId('submit-joinform-'+ match.id))
-  })
-
-  await waitFor(() => {
-    expect(window.location.pathname).toBe(`/matches/${match.id}`)
-  })
-
-})
-
-
 test("Fail to sumbit form: incorrect password", async () => {
     
   const { getAllByTestId } = renderWithProviders(<PublicMatches/>)
@@ -125,7 +92,45 @@ test("Fail to sumbit form: incorrect password", async () => {
 })
 
 
-test("Fail to sumbit form", async () => {
+test("Fail to sumbit form: server error", async () => {
+    
+  const { getAllByTestId } = renderWithProviders(<PublicMatches/>)
+  await waitFor(()=> {
+    const matches_names = getAllByTestId  ("public-match-name").map(
+      (cell) => cell.textContent
+    )
+    const public_names = matcheslist.map((match) => match.name)
+    expect(matches_names).toEqual(public_names)
+  })
+  const match = matcheslist[0]
+  const user = userEvent.setup()
+
+  await user.click(screen.getByTestId('join-button-'+ match.id))
+  expect(
+    await screen.findByText('Unirme a partida: ' + match.name)
+  ).toBeInTheDocument()
+
+  await waitFor(() => {
+    user.click(screen.getByLabelText("Elegir Robot"))
+  })
+  
+  await waitFor(() => {
+    user.click(screen.getByText("Robot2"))
+  })
+
+  await user.click(screen.getByLabelText("Contraseña de partida"))
+  await user.keyboard("server error")
+
+  await user.click(screen.getByTestId('submit-joinform-'+ match.id))
+
+  expect(
+    await screen.findByText(/Se produjo un error/i)
+  ).toBeInTheDocument()
+
+})
+
+
+test("Click join and sumbit form", async () => {
     
   const { getAllByTestId } = renderWithProviders(<PublicMatches/>)
   await waitFor(()=> {
@@ -146,14 +151,13 @@ test("Fail to sumbit form", async () => {
   await waitFor(() => {
     user.click(screen.getByLabelText("Elegir Robot"))
   })
-  
   await waitFor(() =>{
-    user.click(screen.getByText("Robot2"))
+    user.click(screen.getByText("Robot1"))
     user.click(screen.getByTestId('submit-joinform-'+ match.id))
   })
 
-  expect(
-    await screen.findByText(/Se produjo un error/i)
-  ).toBeInTheDocument()
+  await waitFor(() => {
+    expect(window.location.pathname).toBe(`/matches/${match.id}`)
+  })
 
 })
