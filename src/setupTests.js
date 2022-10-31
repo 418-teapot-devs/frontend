@@ -4,3 +4,4 @@
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom/extend-expect"
 global.URL.createObjectURL = jest.fn();
+jest.setTimeout(30000);
