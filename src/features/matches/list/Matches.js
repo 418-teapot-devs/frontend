@@ -5,6 +5,7 @@ import { MatchesList } from "./MatchesList"
 import { TableRow, Box, Button, Typography, Stack } from "@mui/material"
 import TableCell from "@mui/material/TableCell"
 import RefreshIcon from '@mui/icons-material/Refresh';
+
 export const Matches = (props) => {
 
   const [matches, setMatches] = useState([])
@@ -32,7 +33,7 @@ export const Matches = (props) => {
     <Box alignItems="center">
       <Stack direction="row">
         <Typography variant="h5"> {props.title} </Typography>
-        <Button onClick={() => setRefresh(!refresh)} >
+        <Button onClick={() => setRefresh(!refresh)} data-testid='refresh-button'>
           <RefreshIcon/>
         </Button>
       </Stack>
