@@ -10,10 +10,12 @@ import { useAuth } from "../../hooks/useAuth"
 
 import {
   Button,
+  Box,
   Card,
   CardActions,
   CardContent,
   TextField,
+  Avatar,
   Alert,
   AlertTitle,
   Typography,
@@ -34,7 +36,7 @@ const validationSchema = () =>
       .required("El código de su robot es requerido")
       .test(
         "fileSize",
-        "El archivo es demasiado grande.",
+        "El archivo es demasiado grande",
         (value) => value && value.size <= FILE_SIZE
       ),
 
@@ -65,7 +67,6 @@ export const UploadBot = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      console.log(values)
       setLoading(true)
       const response = await uploadBot(values, user.token)
       switch (response.status) {
@@ -103,35 +104,33 @@ export const UploadBot = () => {
             Crear robot <SmartToyIcon />
           </Typography>
           <Stack spacing={2}>
-            <TextField
-              fullWidth
-              id="name"
-              name="name"
-              label="Nombre"
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              error={formik.touched.name && Boolean(formik.errors.name)}
-              helperText={formik.touched.name && formik.errors.name}
-            />
-            <Button
-              variant="outlined"
-              component="label"
-              aria-label="avatar"
-              fullWidth
-              startIcon={<CameraAltIcon />}
-            >
-              Subir avatar
-              <input
-                hidden
-                accept="image/*"
-                id="avatar"
-                name="avatar"
-                type="file"
-                onChange={(event) => {
-                  formik.setFieldValue("avatar", event.currentTarget.files[0])
-                }}
+            <Box alignItems="center">
+              <Avatar
+                src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png"} 
+                sx={{ width: 80, height: 80, margin: "auto" }}
               />
-            </Button>
+            </Box>
+            <Box alignItems="center">
+              <Button
+                variant="outlined"
+                component="label"
+                aria-label="avatar"
+                fullWidth
+                startIcon={<CameraAltIcon />}
+              >
+                Subir avatar
+                <input
+                  hidden
+                  accept="image/*"
+                  id="avatar"
+                  name="avatar"
+                  type="file"
+                  onChange={(event) => {
+                    formik.setFieldValue("avatar", event.currentTarget.files[0])
+                  }}
+                />
+              </Button>
+            </Box>
             <Typography
               gutterBottom
               variant="subtitle1"
@@ -142,14 +141,16 @@ export const UploadBot = () => {
             >
               {formik.touched.avatar && formik.errors.avatar}
             </Typography>
-            <Typography
-              gutterBottom
-              variant="subtitle1"
-              component="div"
-              textAlign="center"
-            >
-              {Boolean(formik.values.avatar) && formik.values.avatar.name}
-            </Typography>
+            <TextField
+              fullWidth
+              id="name"
+              name="name"
+              label="Nombre *"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+            />
             <Button
               variant="outlined"
               component="label"
@@ -157,7 +158,7 @@ export const UploadBot = () => {
               fullWidth
               startIcon={<AddIcon />}
             >
-              Subir código
+              Subir código *
               <input
                 hidden
                 accept=".py"
