@@ -94,7 +94,7 @@ export const UploadBot = () => {
   return (
     <Card variant="outlined">
       <form onSubmit={formik.handleSubmit}>
-        <CardContent alignItems="center">
+        <CardContent>
           <Typography
             gutterBottom
             variant="h5"
@@ -108,7 +108,6 @@ export const UploadBot = () => {
               <Avatar
                 src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png"} 
                 sx={{ width: 80, height: 80, margin: "auto" }}
-                alignItems="center"
               />
             </Box>
             <Box alignItems="center">
