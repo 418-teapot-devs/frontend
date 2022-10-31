@@ -25,7 +25,7 @@ export const PublicMatches = () => {
       {Boolean(match) && <JoinMatchForm
         onSubmit={async (values) => {
           const success = await JoinMatch(values, match, user.token, setLoading, setError)
-          if (success) navigate(`matches/${match.id}`);
+          if (success) navigate(`/matches/${match.id}`);
         }}
         open={open}
         setOpen={setOpen}
