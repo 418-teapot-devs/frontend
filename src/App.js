@@ -7,7 +7,7 @@ import { Matches } from "./routes/Matches"
 import { Profile } from "./features/user/Profile"
 import { UploadBot } from "./features/robots/UploadBot"
 import BoardManager from "./features/simulation/BoardManager"
-import { Lobby } from "./features/matches/Lobby"
+import LobbyContainer from "./features/matches/LobbyContainer"
 
 const App = () => {
   const routes = useRoutes([
@@ -32,8 +32,8 @@ const App = () => {
           element: <Matches />,
         },
         {
-          path: "/lobby",
-          element: <Lobby />,
+          path: "/matches/:matchId",
+          element: <LobbyContainer />,
         },
         {
           path: "/profile",
