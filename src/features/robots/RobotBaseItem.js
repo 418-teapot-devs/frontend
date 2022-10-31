@@ -12,8 +12,6 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 
 export function RobotBaseItem(props) {
 
-    console.log(props)
-
   return (
     <Box display="inline-block">
       <Card variant="outlined">
@@ -26,21 +24,21 @@ export function RobotBaseItem(props) {
               sx={{ mb: 1 }}
             >
               <Stack sx={{ mb: 1}}>
-                <Stack direction="column" alignItems="left" noWrap>
-                  <Typography variant="overline" margin={0} noWrap>
+                <Stack direction="column" alignItems="left">
+                  <Typography variant="overline" margin={0} noWrap={true}>
                     {props.name}
                   </Typography>
-                  <Typography variant="caption" margin={0} noWrap>
+                  <Typography variant="caption" margin={0} noWrap={true}>
                     <EmojiEventsIcon sx={{fontSize: 15, color: "#ffc107"}}> 
                     </EmojiEventsIcon> Win rate: {props.win_rate}
                   </Typography>
-                  <Typography variant="caption" margin={0} noWrap>
+                  <Typography variant="caption" margin={0} noWrap={true}>
                     <LocalFireDepartmentIcon sx={{fontSize: 15, color: "#f44336"}}>
                     </LocalFireDepartmentIcon> MMR: {props.mmr}
                   </Typography>
                 </Stack>
               </Stack>
-              <Avatar src={props.avatar} sx={{ width: 60, height: 60 }}/>
+              <Avatar src={props.avatar_url} sx={{ width: 60, height: 60 }}/>
             </Stack>
           </Stack>
         </CardContent>

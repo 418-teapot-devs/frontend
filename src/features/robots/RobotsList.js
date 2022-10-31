@@ -11,6 +11,7 @@ import {
   CardContent,
   Typography,
   Grid,
+  Alert,
 } from "@mui/material"
 
 
@@ -25,6 +26,7 @@ export const RobotsList = (props) => {
 
   const [loading, setLoading] = useState(false)
   const [robots, setRobots] = useState([])
+  const [error, setError] = useState(null)
   const { user } = useAuth()
 
   useEffect(() => {
@@ -36,9 +38,11 @@ export const RobotsList = (props) => {
           const body = await response.json()
           setRobots(body)
           setLoading(false)
+          setError(null)
           break
         default:
           setLoading(false)
+          setError("Error en el servidor...")
           break
       }
     }
@@ -57,11 +61,18 @@ export const RobotsList = (props) => {
           >
             Mis robots
           </Typography>
-          <Box display="flex" justifyContent="flex-end" sx={{ m: 3 }} > 
+          <Box display="flex" justifyContent="flex-end" sx={{ m: 3 }} >
             <Button component={Link} to="/uploadbot" variant="contained" startIcon={<AddIcon/>}>
               Nuevo robot
             </Button>
           </Box>
+      { Boolean(error) &&
+        <Alert
+          severity="error"
+          sx={{justifyContent:"center", marginLeft: "30%", marginRight: "30%"}}>
+            {error}
+        </Alert>
+      }
       <Grid container spacing={1} sx={{ m:2 }}>
           {robots.length === 0 && (
             <Box alignItems="center" sx={{ m: 3}}>
@@ -75,7 +86,7 @@ export const RobotsList = (props) => {
             </Box>
           )}
           {robots.map((robot) => (
-            <Grid item xs={12} md={3} lg={2.5} xl={3}>
+            <Grid item xs={12} md={3} lg={2.5} xl={3} key={robot.robot_id}>
               <RobotBaseItem {...robot}>
               </RobotBaseItem>
             </Grid>

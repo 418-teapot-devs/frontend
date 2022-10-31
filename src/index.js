@@ -6,6 +6,11 @@ import { BrowserRouter } from "react-router-dom"
 import { AuthProvider } from "./hooks/useAuth"
 import "./index.css"
 
+// mock all
+// const { worker } = require('./mocks/browser')
+// worker.start()
+
+
 const container = document.getElementById("root")
 const root = createRoot(container)
 
