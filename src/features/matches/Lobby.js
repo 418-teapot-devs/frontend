@@ -1,14 +1,15 @@
 import { React, useEffect, useState, Redirect } from "react"
 import { useAuth } from "../../hooks/useAuth"
 import { grey } from "@mui/material/colors"
-import { PersonOutlined, LockOutlined } from "@mui/icons-material"
+import { PersonOutlined } from "@mui/icons-material"
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
 import {
   Avatar,
+  Box,
   Card,
   CardContent,
   Divider,
   Grid,
-  Tooltip,
   Typography,
   Stack,
   List,
@@ -16,8 +17,8 @@ import {
   ListItemAvatar,
   ListItemText,
   CardActions,
-  Collapse,
   Slide,
+  CircularProgress,
 } from "@mui/material"
 import { TransitionGroup } from "react-transition-group"
 
@@ -37,40 +38,63 @@ export const Lobby = ({ match }) => {
               textAlign="center"
             >
               {match.name}
-              {""}
-              {match.is_private && (
-                <Tooltip
-                  title="This match is private"
-                  placement="top-start"
-                  arrow
-                >
-                  <LockOutlined color="enabled" />
-                </Tooltip>
-              )}
             </Typography>
 
+            <Box textAlign="center">
+              {match.status === "in_progress" && (
+                <Box>
+                  <CircularProgress size={20} />
+                  <Typography>Partida en progreso</Typography>
+                </Box>
+              )}
+              {match.status === "waiting" && (
+                <Typography>
+                  Esperando que se unan {missing_robots} robots...
+                </Typography>
+              )}
+              {match.status === "finished" && (
+                <Typography>Partida finalizada</Typography>
+              )}
+            </Box>
+
             <Stack spacing={2}>
-              <Stack>
-                <Typography variant="overline" margin={0} noWrap>
-                  Host: {match.host.username}
-                </Typography>
-                <Divider />
-                <Typography variant="overline" margin={0} noWrap>
-                  Min. players: {match.min_players}
-                </Typography>
-                <Divider />
-                <Typography variant="overline" margin={0} noWrap>
-                  Max. players: {match.max_players}
-                </Typography>
-                <Divider />
-                <Typography variant="overline" margin={0} noWrap>
-                  #Games: {match.games}
-                </Typography>
-                <Divider />
-                <Typography variant="overline" margin={0} noWrap>
-                  #Rounds: {match.rounds}
-                </Typography>
-              </Stack>
+              <Card spacing={2}>
+                <CardContent>
+                  <Stack spacing={0.5}>
+                    <Stack direction="row" spacing={1}>
+                      <Avatar src={match.host.avatar_url} />
+                      <Typography variant="overline" margin={1} noWrap>
+                        Creador: @{match.host.username}
+                      </Typography>
+                    </Stack>
+                    <Divider />
+                    <Typography variant="overline" margin={0} noWrap>
+                      Min. jugadores: {match.min_players}
+                    </Typography>
+                    <Divider />
+                    <Typography variant="overline" margin={0} noWrap>
+                      Max. jugadores: {match.max_players}
+                    </Typography>
+                    <Divider />
+                    <Typography variant="overline" margin={0} noWrap>
+                      Juegos: {match.games}
+                    </Typography>
+                    <Divider />
+                    <Typography variant="overline" margin={0} noWrap>
+                      Rondas: {match.rounds}
+                    </Typography>
+                  </Stack>
+                </CardContent>
+              </Card>
+
+              <Box textAlign="center">
+                {match.status === "finished" && match.result && (
+                  <Typography variant="h5">
+                    <EmojiEventsIcon sx={{ fontSize: 25, color: "#ffc107" }} />{" "}
+                    Ganador: {match.result}
+                  </Typography>
+                )}
+              </Box>
               <Stack>
                 <Typography>Robots:</Typography>
                 <List>
@@ -85,9 +109,7 @@ export const Lobby = ({ match }) => {
                             <Avatar src={robot.avatar_url} />
                           </ListItemAvatar>
                           <ListItemText>
-                            <Typography
-                              variant="body1"
-                            >
+                            <Typography variant="body1">
                               {robot.name}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
