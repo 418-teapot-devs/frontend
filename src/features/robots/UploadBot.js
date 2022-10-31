@@ -108,28 +108,9 @@ export const UploadBot = () => {
               <Avatar 
                 src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png"}
                 sx={{ width: 80, height: 80, margin: "auto" }}
-                alignItems="center"
+                // alignItems="center"
               />
             </Box>
-            <Button
-              variant="outlined"
-              component="label"
-              aria-label="avatar"
-              fullWidth
-              startIcon={<CameraAltIcon />}
-            >
-              Subir avatar
-              <input
-                hidden
-                accept="image/*"
-                id="avatar"
-                name="avatar"
-                type="file"
-                onChange={(event) => {
-                  formik.setFieldValue("avatar", event.currentTarget.files[0])
-                }}
-              />
-            </Button>
             <Box alignItems="center">
               <Button
                 variant="outlined"
