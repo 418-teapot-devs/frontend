@@ -7,6 +7,7 @@ import { Matches } from "./routes/Matches"
 import { Profile } from "./features/user/Profile"
 import { UploadBot } from "./features/robots/UploadBot"
 import BoardManager from "./features/simulation/BoardManager"
+import { Lobby } from "./features/matches/Lobby"
 
 const App = () => {
   const routes = useRoutes([
@@ -29,6 +30,10 @@ const App = () => {
         {
           path: "/matches",
           element: <Matches />,
+        },
+        {
+          path: "/lobby",
+          element: <Lobby />,
         },
         {
           path: "/profile",
