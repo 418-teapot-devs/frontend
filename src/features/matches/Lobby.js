@@ -3,15 +3,20 @@ import { useAuth } from "../../hooks/useAuth"
 import { grey } from "@mui/material/colors"
 import { PersonOutlined } from "@mui/icons-material"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
+import ExitToAppIcon from "@mui/icons-material/ExitToApp"
 import {
   Avatar,
   Box,
   Card,
   CardContent,
+  Dialog,
+  DialogActions,
+  DialogTitle,
   Divider,
   Grid,
   Typography,
   Stack,
+  Link,
   List,
   ListItem,
   ListItemAvatar,
@@ -19,12 +24,22 @@ import {
   CardActions,
   Slide,
   CircularProgress,
+  Button,
 } from "@mui/material"
 import { TransitionGroup } from "react-transition-group"
 
 export const Lobby = ({ match }) => {
   const { user } = useAuth()
   const missing_robots = match.max_players - match.robots.length
+  const [open, setOpen] = useState(false)
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   return (
     <Grid container justifyContent="center">
@@ -139,7 +154,33 @@ export const Lobby = ({ match }) => {
               </Stack>
             </Stack>
           </CardContent>
-          <CardActions>{match.host.username === user.username}</CardActions>
+          <CardActions>
+            {match.host.username === user.username}
+            <Grid container justifyContent="flex-end" spacing={2}>
+              <Button
+                variant="outlined"
+                startIcon={<ExitToAppIcon />}
+                onClick={handleClickOpen}
+              >
+                Abandonar
+              </Button>
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {"¿Quieres abandonar la partida?"}
+                </DialogTitle>
+                <DialogActions>
+                  <Button onClick={handleClose}>No</Button>
+                  <Button onClick={handleClose} component={Link} to="/matches/">
+                    Sí, abandonar
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </Grid>
+          </CardActions>
         </Card>
       </Grid>
     </Grid>
