@@ -2,9 +2,10 @@ import { Box } from "@mui/material"
 import React, { useRef } from "react"
 import { Layer, Rect } from "react-konva"
 import CustomStage from "./CustomStage"
+import { ExplodingMissile, Missile } from "./Missile"
 import Robot from "./Robot"
 
-const Board = ({ robots }) => {
+const Board = ({ robots, missiles, explodingMissiles }) => {
   const boardContainerRef = useRef(null)
 
   return (
@@ -19,13 +20,20 @@ const Board = ({ robots }) => {
             fill="#1c1c1c"
             cornerRadius={4}
           />
-          {robots.map((robot, i) => (
-            <Robot
-              key={i}
-              width={20}
-              height={20}
-              {...robot}
-            />
+        </Layer>
+        <Layer>
+          {robots.map((robot) => (
+            <Robot key={robot.id} width={20} height={20} {...robot} />
+          ))}
+        </Layer>
+        <Layer>
+          {missiles.map((missile) => (
+            <Missile key={missile.id} radius={7} {...missile} />
+          ))}
+        </Layer>
+        <Layer>
+          {explodingMissiles.map((missile) => (
+            <ExplodingMissile key={missile.id} radius={7} {...missile} />
           ))}
         </Layer>
       </CustomStage>
