@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useFormik } from "formik"
 import * as yup from "yup"
 import { RobotSelect } from "../../robots/RobotsSelect"
@@ -22,7 +22,6 @@ const validationSchema = yup.object({
 
 export const JoinMatchForm = (props) => {
   //Props= {onSubmit, open, setOpen, match, error, loading}
-
   const formik = useFormik({
     initialValues: {
       password: "",
@@ -31,6 +30,7 @@ export const JoinMatchForm = (props) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       props.onSubmit(values)
+      formik.resetForm();
     },
   })
 
@@ -84,12 +84,16 @@ export const JoinMatchForm = (props) => {
             fullWidth
             variant="contained"
             disabled={props.loading}
-            onClick={() => props.setOpen(false) }
+            onClick={() => {
+              props.setOpen(false);
+              formik.resetForm();
+              props.setError(null)
+            }}
             data-testid={'cancel-joinform-'+ props.match.id}>
             Cancelar
           </Button>
         </DialogActions>
-        {Boolean(props.error) &&
+        {Boolean(props.error) && 
           <Alert severity="error">{props.error}</Alert>
         }
       </form>

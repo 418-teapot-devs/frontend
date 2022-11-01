@@ -31,6 +31,7 @@ export const PublicMatches = () => {
         setOpen={setOpen}
         match={match}
         error={error}
+        setError={setError}
         loading={loading}
       />}
       <Matches
