@@ -3,10 +3,13 @@ import { useAuth } from "../../hooks/useAuth"
 import { grey } from "@mui/material/colors"
 import { useNavigate } from "react-router-dom"
 import { PersonOutlined } from "@mui/icons-material"
+import { abandonMatch } from "./api/abandonMatch"
 import LockOutlined from "@mui/icons-material/LockOutlined"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
 import ExitToAppIcon from "@mui/icons-material/ExitToApp"
 import {
+  Alert,
+  AlertTitle,
   Avatar,
   Box,
   Card,
@@ -33,6 +36,9 @@ export const Lobby = ({ match }) => {
   const { user } = useAuth()
   const missing_robots = match.max_players - match.robots.length
   const [open, setOpen] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
+  const [notFound, setNotFound] = useState(false)
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -41,8 +47,22 @@ export const Lobby = ({ match }) => {
   const navigate = useNavigate()
 
   const handleAbandon = () => {
-    setOpen(false)
-    navigate("/matches", { replace: true })
+    const response = abandonMatch(user.token)
+    switch (response.status) {
+      case 201:
+        setSuccess(true)
+        setError(false)
+        setOpen(false)
+        navigate("/matches", { replace: true })
+        break
+      case 404:
+        setSuccess(false)
+        setNotFound(true)
+        break
+      default:
+        setSuccess(false)
+        setError(true)
+    }
   }
 
   const handleClose = () => {
@@ -187,9 +207,23 @@ export const Lobby = ({ match }) => {
                     {"¿Quieres abandonar la partida?"}
                   </DialogTitle>
                   <DialogActions spacing={2}>
-                    <Button onClick={handleClose}>No</Button>
-                    <Button onClick={handleAbandon}>Sí, abandonar</Button>
+                    <Stack direction="column">
+                      <Stack direction="row">
+                        <Button onClick={handleClose}>No</Button>
+                        <Button onClick={handleAbandon}>Sí, abandonar</Button>
+                      </Stack>
+                    </Stack>
                   </DialogActions>
+                  {error && (
+                    <Alert severity="error" fullWidth>
+                      <AlertTitle>Ocurrió un error</AlertTitle>
+                    </Alert>
+                  )}
+                  {notFound && (
+                    <Alert severity="error" fullWidth>
+                      <AlertTitle>No se encontró la partida</AlertTitle>
+                    </Alert>
+                  )}
                 </Dialog>
               </Grid>
             )}
