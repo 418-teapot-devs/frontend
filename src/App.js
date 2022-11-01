@@ -36,6 +36,10 @@ const App = () => {
           element: <LobbyContainer />,
         },
         {
+          path: "/matches/:matchId",
+          element: <LobbyContainer />,
+        },
+        {
           path: "/profile",
           element: <Profile />,
         },

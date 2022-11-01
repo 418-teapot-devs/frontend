@@ -1,7 +1,9 @@
-import { React, useEffect, useState, Redirect } from "react"
+import { React, useState } from "react"
 import { useAuth } from "../../hooks/useAuth"
 import { grey } from "@mui/material/colors"
+import { useNavigate } from "react-router-dom"
 import { PersonOutlined } from "@mui/icons-material"
+import LockOutlined from "@mui/icons-material/LockOutlined"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
 import ExitToAppIcon from "@mui/icons-material/ExitToApp"
 import {
@@ -16,7 +18,6 @@ import {
   Grid,
   Typography,
   Stack,
-  Link,
   List,
   ListItem,
   ListItemAvatar,
@@ -37,9 +38,15 @@ export const Lobby = ({ match }) => {
     setOpen(true)
   }
 
+  const navigate = useNavigate()
+
+  const handleAbandon = () => {
+    setOpen(false)
+    navigate("/matches", { replace: true })
+  }
+
   const handleClose = () => {
     setOpen(false)
-    return <Link to="/matches"/>
   }
 
   return (
@@ -53,7 +60,13 @@ export const Lobby = ({ match }) => {
               component="div"
               textAlign="center"
             >
-              {match.name}
+              {match.name}{" "}
+              {match.is_private && (
+                <LockOutlined
+                  data-testid="public-match-private"
+                  color="disabled"
+                />
+              )}
             </Typography>
 
             <Box textAlign="center">
@@ -156,31 +169,30 @@ export const Lobby = ({ match }) => {
             </Stack>
           </CardContent>
           <CardActions>
-            {match.host.username === user.username}
-            <Grid container justifyContent="flex-end" spacing={2}>
-              <Button
-                variant="outlined"
-                startIcon={<ExitToAppIcon />}
-                onClick={handleClickOpen}
-              >
-                Abandonar
-              </Button>
-              <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-              >
-                <DialogTitle id="alert-dialog-title">
-                  {"¿Quieres abandonar la partida?"}
-                </DialogTitle>
-                <DialogActions spacing={2}>
-                  <Button onClick={handleClose}>No</Button>
-                  <Button onClick={handleClose}>
-                    Sí, abandonar
-                  </Button>
-                </DialogActions>
-              </Dialog>
-            </Grid>
+            {user.username !== match.host.username && (
+              <Grid container justifyContent="flex-end" spacing={2}>
+                <Button
+                  variant="outlined"
+                  startIcon={<ExitToAppIcon />}
+                  onClick={handleClickOpen}
+                >
+                  Abandonar
+                </Button>
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"¿Quieres abandonar la partida?"}
+                  </DialogTitle>
+                  <DialogActions spacing={2}>
+                    <Button onClick={handleClose}>No</Button>
+                    <Button onClick={handleAbandon}>Sí, abandonar</Button>
+                  </DialogActions>
+                </Dialog>
+              </Grid>
+            )}
           </CardActions>
         </Card>
       </Grid>
