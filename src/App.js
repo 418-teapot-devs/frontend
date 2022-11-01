@@ -6,7 +6,7 @@ import  LoginAndRegister  from "./routes/LoginAndRegister"
 import { MatchesPage } from "./routes/MatchesPage"
 import { Profile } from "./features/user/Profile"
 import { UploadBot } from "./features/robots/UploadBot"
-import BoardManager from "./features/simulation/BoardManager"
+import SimulationManager from "./features/simulation/SimulationManager"
 
 const App = () => {
   const routes = useRoutes([
@@ -36,7 +36,7 @@ const App = () => {
         },
         {
           path: "/simulation",
-          element: <BoardManager />,
+          element: <SimulationManager />,
         },
       ],
     },

@@ -1,16 +1,14 @@
-import { Box, Stack } from "@mui/material"
+import { Grid, Stack } from "@mui/material"
 import { Outlet } from "react-router-dom"
-import SideBar from "./SideBar"
+import SideBar, { SIDEBAR_WIDTH } from "./SideBar"
 
 export const Root = () => {
   return (
-    <Stack sx={{ height: "100%" }} spacing={0} direction="row">
-      <Box sx={{ padding: 1 }}>
-        <SideBar />
-      </Box>
-      <Box sx={{ padding: 4, width:'100%'}}>
+    <Stack direction="row" sx={{ height: "100%" }}>
+      <SideBar />
+      <Grid container sx={{ padding: 1, pl: `calc(${SIDEBAR_WIDTH}px + 16px)`, justifyContent: "center" }}>
         <Outlet />
-      </Box>
+      </Grid>
     </Stack>
   )
 }

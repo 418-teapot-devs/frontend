@@ -1,4 +1,5 @@
 import {
+  Box,
   List,
   ListItem,
   ListItemButton,
@@ -12,7 +13,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"
 import PlayCircleOutlineOutlinedIcon from "@mui/icons-material/PlayCircleOutlineOutlined"
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined"
-import GridOnOutlinedIcon from '@mui/icons-material/GridOnOutlined';
+import GridOnOutlinedIcon from "@mui/icons-material/GridOnOutlined"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth"
 
@@ -35,8 +36,8 @@ const mainOptions = [
   {
     title: "Simulación",
     to: "simulation",
-    icon: <GridOnOutlinedIcon/>
-  }
+    icon: <GridOnOutlinedIcon />,
+  },
 ]
 
 const extraOptions = [
@@ -46,6 +47,8 @@ const extraOptions = [
     icon: <PersonOutlinedIcon />,
   },
 ]
+
+export const SIDEBAR_WIDTH = 64
 
 const SideBarItem = (props) => {
   return (
@@ -62,37 +65,42 @@ export const SideBar = () => {
   const navigate = useNavigate()
 
   return (
-    <Paper sx={{ height: "100%" }} variant="outlined">
-      <Stack
-        direction="column"
-        justifyContent="space-between"
-        sx={{ height: "100%" }}
+    <Box sx={{ padding: 1, position: "fixed", top: 0, left: 0 }}>
+      <Paper
+        sx={{ height: "calc(100vh - 16px)", width: `${SIDEBAR_WIDTH}px` }}
+        variant="outlined"
       >
-        <List>
-          {mainOptions.map((option) => (
+        <Stack
+          direction="column"
+          justifyContent="space-between"
+          sx={{ height: "100%" }}
+        >
+          <List>
+            {mainOptions.map((option) => (
+              <SideBarItem
+                key={option.title}
+                {...option}
+                onClick={() => navigate(option.to)}
+              />
+            ))}
+          </List>
+          <List>
+            {extraOptions.map((option) => (
+              <SideBarItem
+                key={option.title}
+                {...option}
+                onClick={() => navigate(option.to)}
+              />
+            ))}
             <SideBarItem
-              key={option.title}
-              {...option}
-              onClick={() => navigate(option.to)}
+              title="Cerrar Sesión"
+              icon={<LogoutOutlinedIcon />}
+              onClick={logout}
             />
-          ))}
-        </List>
-        <List>
-          {extraOptions.map((option) => (
-            <SideBarItem
-              key={option.title}
-              {...option}
-              onClick={() => navigate(option.to)}
-            />
-          ))}
-          <SideBarItem
-            title="Cerrar Sesión"
-            icon={<LogoutOutlinedIcon />}
-            onClick={logout}
-          />
-        </List>
-      </Stack>
-    </Paper>
+          </List>
+        </Stack>
+      </Paper>
+    </Box>
   )
 }
 
