@@ -15,12 +15,6 @@ import {
 } from "@mui/material"
 
 
-var robotsCardStyle = {
-  display: 'block',
-  transitionDuration: '0.3s',
-  height: '100vw',
-  overflow: 'scroll'
-}
 
 export const RobotsList = (props) => {
 
@@ -51,7 +45,7 @@ export const RobotsList = (props) => {
   }, [user.token])
 
   return(
-    <Card variant="outlined" style={robotsCardStyle}>
+    <Card variant="outlined">
       <CardContent>
           <Typography
             gutterBottom
@@ -73,7 +67,7 @@ export const RobotsList = (props) => {
             {error}
         </Alert>
       }
-      <Grid container spacing={1} sx={{ m:2 }}>
+      <Grid container spacing={2} >
           {robots.length === 0 && (
             <Box alignItems="center" sx={{ m: 3}}>
               <Typography

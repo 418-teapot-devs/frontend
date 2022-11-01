@@ -13,7 +13,7 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 export function RobotBaseItem(props) {
 
   return (
-    <Box display="inline-block">
+    <Box display="inline-block" sx={{width: "100%"}}>
       <Card variant="outlined">
         <CardContent>
           <Stack>
