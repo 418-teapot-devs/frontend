@@ -39,6 +39,7 @@ export const Lobby = ({ match }) => {
 
   const handleClose = () => {
     setOpen(false)
+    return <Link to="/matches"/>
   }
 
   return (
@@ -172,9 +173,9 @@ export const Lobby = ({ match }) => {
                 <DialogTitle id="alert-dialog-title">
                   {"¿Quieres abandonar la partida?"}
                 </DialogTitle>
-                <DialogActions>
+                <DialogActions spacing={2}>
                   <Button onClick={handleClose}>No</Button>
-                  <Button onClick={handleClose} component={Link} to="/matches/">
+                  <Button onClick={handleClose}>
                     Sí, abandonar
                   </Button>
                 </DialogActions>
