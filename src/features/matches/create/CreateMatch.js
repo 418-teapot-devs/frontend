@@ -1,6 +1,7 @@
 import { CreateMatchForm } from "./CreateMatchForm"
 import React, { useState } from "react"
 import { useAuth } from "../../../hooks/useAuth"
+import { Grid } from "@mui/material"
 
 const creatematch = (values, token) => {
   return (fetch("http://127.0.0.1:8000/matches/", {
@@ -46,11 +47,15 @@ export const CreateMatch = () => {
   }
 
   return (
-    <CreateMatchForm
-      onSubmit={onSubmit}
-      loading={loading}
-      success={success}
-      failure={failure}
-    />
+    <Grid container justifyContent="center">
+      <Grid item xs={12} md={6} lg={4}>
+        <CreateMatchForm
+          onSubmit={onSubmit}
+          loading={loading}
+          success={success}
+          failure={failure}
+        />
+      </Grid>
+    </Grid>
   )
 }

@@ -7,7 +7,7 @@ export const PublicMatches = (height) => {
       onClick={()=> {}}
       buttontext="Unirme"
       height={height}
-      title="Partidas Públicas"
+      title="Partidas públicas"
     />
   )
 }

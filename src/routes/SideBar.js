@@ -13,6 +13,9 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"
 import PlayCircleOutlineOutlinedIcon from "@mui/icons-material/PlayCircleOutlineOutlined"
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined"
 import GridOnOutlinedIcon from '@mui/icons-material/GridOnOutlined';
+import PublicIcon from '@mui/icons-material/Public';
+import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
+
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth"
 
@@ -28,9 +31,19 @@ const mainOptions = [
     icon: <SmartToyOutlinedIcon />,
   },
   {
-    title: "Partidas",
+    title: "Mis partidas",
     to: "matches",
     icon: <PlayCircleOutlineOutlinedIcon />,
+  },
+  {
+    title: "Partidas públicas",
+    to: "matches/public",
+    icon: <PublicIcon />,
+  },
+  {
+    title: "Historial de partidas",
+    to: "matches/started",
+    icon: <FactCheckOutlinedIcon/>,
   },
   {
     title: "Simulación",
