@@ -6,10 +6,12 @@ import  LoginAndRegister  from "./routes/LoginAndRegister"
 import { MyMatchesPage } from "./routes/MyMatchesPage"
 import { Profile } from "./features/user/Profile"
 import { UploadBot } from "./features/robots/UploadBot"
-import BoardManager from "./features/simulation/BoardManager"
+
 import { CreateMatch } from "./features/matches/create/CreateMatch" 
 import { PublicMatchesPage } from "./routes/PublicMatchesPage"
 import { StartedMatchesPage } from "./routes/StartedMatchesPage"
+import SimulationManager from "./features/simulation/SimulationManager"
+
 
 const App = () => {
   const routes = useRoutes([
@@ -43,7 +45,7 @@ const App = () => {
         },
         {
           path: "/simulation",
-          element: <BoardManager />,
+          element: <SimulationManager />,
         },
         {
           path: "/matches/public",
