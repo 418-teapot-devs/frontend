@@ -38,7 +38,7 @@ export function RobotBaseItem(props) {
                   </Typography>
                 </Stack>
               </Stack>
-              <Avatar src={props.avatar_url} sx={{ width: 60, height: 60 }}/>
+              <Avatar src={"http://localhost:8000" + props.avatar_url} sx={{ width: 60, height: 60 }}/>
             </Stack>
           </Stack>
         </CardContent>
