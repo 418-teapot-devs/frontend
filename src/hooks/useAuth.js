@@ -7,6 +7,11 @@ export const AuthContext = createContext()
 
 const INITIAL_USER = {
   token: null,
+  profile: {
+    username: null,
+    email: null,
+    avatar: null
+  }
 }
 
 export const AuthProvider = ({ children }) => {
@@ -14,10 +19,10 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate()
 
   const login = async (username, password) => {
-    const [token, error] = await loginAPI(username, password)
+    const [token, profile, error] = await loginAPI(username, password)
 
     if (token) {
-      setUser({ token: token })
+      setUser({ token: token, profile: profile })
       navigate("/", { replace: true })
     }
 
@@ -25,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   const logout = () => {
-    setUser({ token: null })
+    setUser({ token: null, profile: { username: null, email: null, avatar_url: null } })
     navigate("/login", { replace: true })
   }
 
