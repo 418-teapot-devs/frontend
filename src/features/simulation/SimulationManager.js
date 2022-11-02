@@ -1,5 +1,5 @@
-import { CircularProgress } from "@mui/material"
-import React, { useEffect, useState } from "react"
+import { Backdrop, CircularProgress } from "@mui/material"
+import React, { useState } from "react"
 import { useAuth } from "../../hooks/useAuth"
 import Simulation from "./Simulation"
 import SimulationForm from "./SimulationForm"
@@ -32,10 +32,16 @@ const SimulationManager = () => {
 
   return simulation ? (
     <Simulation {...simulation} />
-  ) : loading ? (
-    <CircularProgress />
   ) : (
-    <SimulationForm onSubmit={handleSubmit} />
+    <React.Fragment>
+      <Backdrop
+        open={loading}
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <SimulationForm onSubmit={handleSubmit} />
+    </React.Fragment>
   )
 }
 
