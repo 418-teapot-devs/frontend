@@ -1,7 +1,7 @@
 import React from "react"
 import { useFormik } from "formik"
 import * as yup from "yup"
-import { RobotSelect } from "../../robots/RobotsSelect"
+import { RobotsSelect } from "../../robots/RobotsSelect"
 
 import {
   Button,
@@ -65,22 +65,27 @@ const validationSchema = () =>
     robot_id: yup.number().required("Elegir un robot es obligatorio"),
   })
 
-export const CreateMatchForm = ({ onSubmit, loading, success, failure }) => {
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      min_players: "",
-      max_players: "",
-      games: "",
-      rounds: "",
-      password: "",
-      confirm_password: "",
-      robot_id: "",
-    },
-    validationSchema: validationSchema,
-    onSubmit: onSubmit,
-  })
-
+  
+  export const CreateMatchForm = ({ onSubmit, loading, success, failure }) => {
+    const callback = () => {
+      onSubmit(formik.values)
+      formik.resetForm(formik.initialValues)
+    }
+    const formik = useFormik({
+      initialValues: {
+        name: "",
+        min_players: "",
+        max_players: "",
+        games: "",
+        rounds: "",
+        password: "",
+        confirm_password: "",
+        robot_id: "",
+      },
+      validationSchema: validationSchema,
+      onSubmit: callback ,
+    })
+    
   return (
     <Card variant="outlined">
       <form onSubmit={formik.handleSubmit}>
@@ -98,7 +103,7 @@ export const CreateMatchForm = ({ onSubmit, loading, success, failure }) => {
               fullWidth
               id="name"
               name="name"
-              label="Nombre de la partida"
+              label="Nombre de la partida*"
               value={formik.values.name}
               onChange={formik.handleChange}
               error={formik.touched.name && Boolean(formik.errors.name)}
@@ -108,7 +113,7 @@ export const CreateMatchForm = ({ onSubmit, loading, success, failure }) => {
               fullWidth
               id="min_players"
               name="min_players"
-              label="Cantidad mínima de jugadores"
+              label="Cantidad mínima de jugadores*"
               type="number"
               value={formik.values.min_players}
               onChange={formik.handleChange}
@@ -123,7 +128,7 @@ export const CreateMatchForm = ({ onSubmit, loading, success, failure }) => {
               fullWidth
               id="max_players"
               name="max_players"
-              label="Cantidad máxima de jugadores"
+              label="Cantidad máxima de jugadores*"
               type="number"
               value={formik.values.max_players}
               onChange={formik.handleChange}
@@ -138,7 +143,7 @@ export const CreateMatchForm = ({ onSubmit, loading, success, failure }) => {
               fullWidth
               id="games"
               name="games"
-              label="Cantidad de juegos"
+              label="Cantidad de juegos*"
               type="number"
               value={formik.values.games}
               onChange={formik.handleChange}
@@ -149,7 +154,7 @@ export const CreateMatchForm = ({ onSubmit, loading, success, failure }) => {
               fullWidth
               id="rounds"
               name="rounds"
-              label="Cantidad de rondas"
+              label="Cantidad de rondas*"
               type="number"
               value={formik.values.rounds}
               onChange={formik.handleChange}
@@ -184,12 +189,12 @@ export const CreateMatchForm = ({ onSubmit, loading, success, failure }) => {
                 formik.errors.confirm_password
               }
             />
-            <RobotSelect
+            <RobotsSelect
               select
               value={formik.values.robot_id}
               id="robot_id"
               name="robot_id"
-              label="Elegir Robot"
+              label="Elegir Robot*"
               onChange={formik.handleChange}
               inputProps={{
                 name: "robot_id",

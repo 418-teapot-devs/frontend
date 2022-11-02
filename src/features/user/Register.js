@@ -8,10 +8,12 @@ import YupPassword from "yup-password"
 
 import {
   Avatar,
+  Box,
   Button,
   Card,
   CardActions,
   CardContent,
+  Grid,
   TextField,
   Typography,
   Stack,
@@ -103,7 +105,7 @@ export const Register = () => {
   })
 
   return (
-    <Card variant="outlined">
+    <Box>
       <form onSubmit={formik.handleSubmit}>
         <CardContent>
           <Typography
@@ -119,10 +121,10 @@ export const Register = () => {
               src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png"}
               sx={{ width: 80, height: 80, margin: "auto" }}
             />
+            <Box textAlign="center">
             <Button
               variant="outlined"
               component="label"
-              fullWidth
               startIcon={<CameraAltIcon />}
             >
               Subir avatar
@@ -138,6 +140,7 @@ export const Register = () => {
                 }}
               />
             </Button>
+            </Box>
             <Typography
               gutterBottom
               variant="subtitle1"
@@ -198,9 +201,15 @@ export const Register = () => {
           </Stack>
         </CardContent>
         <CardActions sx={{ padding: 2 }}>
-          <Button type="submit" fullWidth variant="contained">
+          <Grid container justifyContent="center">
+          <Grid item xs={12} sm={6}>
+          <Box textAlign="center">
+          <Button type="submit" variant="contained">
             Registrarse
           </Button>
+          </Box>
+          </Grid>
+          </Grid>
         </CardActions>
         {success && (
           <Alert severity="success">
@@ -223,6 +232,6 @@ export const Register = () => {
           </Alert>
         )}
       </form>
-    </Card>
+    </Box>
   )
 }

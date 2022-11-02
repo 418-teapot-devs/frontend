@@ -2,10 +2,12 @@ import React from "react"
 import { useFormik } from "formik"
 import * as yup from "yup"
 import {
+  Box,
   Button,
   Card,
   CardActions,
   CardContent,
+  Grid,
   TextField,
   Typography,
   Stack,
@@ -35,7 +37,7 @@ export const LoginForm = ({ onSubmit, loading, error }) => {
   })
 
   return (
-    <Card variant="outlined">
+    <Box>
       <form onSubmit={formik.handleSubmit}>
         <CardContent>
           <Typography
@@ -72,16 +74,21 @@ export const LoginForm = ({ onSubmit, loading, error }) => {
           </Stack>
         </CardContent>
         <CardActions sx={{ padding: 2 }}>
+          <Grid container justifyContent="center">
+          <Grid item xs={12} sm={6}>
+          <Box textAlign="center">
           <Button
             type="submit"
-            fullWidth
             variant="contained"
             disabled={loading}
           >
             Iniciar Sesión
           </Button>
+          </Box>
+          </Grid>
+          </Grid>
         </CardActions>
       </form>
-    </Card>
+    </Box>
   )
 }

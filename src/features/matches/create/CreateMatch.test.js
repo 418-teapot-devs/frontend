@@ -14,19 +14,19 @@ test("Should create match", async () => {
 
   renderWithProviders(<CreateMatch />)
 
-  await user.click(screen.getByLabelText("Nombre de la partida"))
+  await user.click(screen.getByLabelText("Nombre de la partida*"))
   await user.keyboard("Nombre de Partida")
 
-  await user.click(screen.getByLabelText("Cantidad mínima de jugadores"))
+  await user.click(screen.getByLabelText("Cantidad mínima de jugadores*"))
   await user.keyboard("2")
 
-  await user.click(screen.getByLabelText("Cantidad máxima de jugadores"))
+  await user.click(screen.getByLabelText("Cantidad máxima de jugadores*"))
   await user.keyboard("4")
 
-  await user.click(screen.getByLabelText("Cantidad de juegos"))
+  await user.click(screen.getByLabelText("Cantidad de juegos*"))
   await user.keyboard("200")
 
-  await user.click(screen.getByLabelText("Cantidad de rondas"))
+  await user.click(screen.getByLabelText("Cantidad de rondas*"))
   await user.keyboard("1000")
 
   await user.click(screen.getByLabelText("Contraseña de partida"))
@@ -35,7 +35,7 @@ test("Should create match", async () => {
   await user.click(screen.getByLabelText("Confirmar contraseña de partida"))
   await user.keyboard("secret password")
 
-  await user.click(screen.getByLabelText("Elegir Robot"))
+  await user.click(screen.getByLabelText("Elegir Robot*"))
   await user.click(screen.getByText("Robot1"))
 
   await user.click(screen.getByRole("button", { name: "Crear" }))
@@ -51,19 +51,19 @@ test("Should display error mesages. (1)", async () => {
 
   renderWithProviders(<CreateMatch />)
 
-  await user.click(screen.getByLabelText("Nombre de la partida"))
+  await user.click(screen.getByLabelText("Nombre de la partida*"))
   await user.keyboard("This is a match name that has to many characters")
 
-  await user.click(screen.getByLabelText("Cantidad mínima de jugadores"))
+  await user.click(screen.getByLabelText("Cantidad mínima de jugadores*"))
   await user.keyboard("1")
 
-  await user.click(screen.getByLabelText("Cantidad máxima de jugadores"))
+  await user.click(screen.getByLabelText("Cantidad máxima de jugadores*"))
   await user.keyboard("5")
 
-  await user.click(screen.getByLabelText("Cantidad de juegos"))
+  await user.click(screen.getByLabelText("Cantidad de juegos*"))
   await user.keyboard("201")
 
-  await user.click(screen.getByLabelText("Cantidad de rondas"))
+  await user.click(screen.getByLabelText("Cantidad de rondas*"))
   await user.keyboard("10001")
 
   await user.click(screen.getByLabelText("Contraseña de partida"))
@@ -105,16 +105,16 @@ test("Should display error messages (2)", async () => {
 
   renderWithProviders(<CreateMatch />)
 
-  await user.click(screen.getByLabelText("Cantidad mínima de jugadores"))
+  await user.click(screen.getByLabelText("Cantidad mínima de jugadores*"))
   await user.keyboard("4")
 
-  await user.click(screen.getByLabelText("Cantidad máxima de jugadores"))
+  await user.click(screen.getByLabelText("Cantidad máxima de jugadores*"))
   await user.keyboard("3")
 
-  await user.click(screen.getByLabelText("Cantidad de juegos"))
+  await user.click(screen.getByLabelText("Cantidad de juegos*"))
   await user.keyboard("0")
 
-  await user.click(screen.getByLabelText("Cantidad de rondas"))
+  await user.click(screen.getByLabelText("Cantidad de rondas*"))
   await user.keyboard("0")
 
   await user.click(screen.getByLabelText("Contraseña de partida"))
@@ -153,22 +153,22 @@ test("Should inform if there was a server error", async () => {
 
   renderWithProviders(<CreateMatch />)
 
-  await user.click(screen.getByLabelText("Nombre de la partida"))
+  await user.click(screen.getByLabelText("Nombre de la partida*"))
   await user.keyboard("error")
 
-  await user.click(screen.getByLabelText("Cantidad mínima de jugadores"))
+  await user.click(screen.getByLabelText("Cantidad mínima de jugadores*"))
   await user.keyboard("3")
 
-  await user.click(screen.getByLabelText("Cantidad máxima de jugadores"))
+  await user.click(screen.getByLabelText("Cantidad máxima de jugadores*"))
   await user.keyboard("3")
 
-  await user.click(screen.getByLabelText("Cantidad de juegos"))
+  await user.click(screen.getByLabelText("Cantidad de juegos*"))
   await user.keyboard("1")
 
-  await user.click(screen.getByLabelText("Cantidad de rondas"))
+  await user.click(screen.getByLabelText("Cantidad de rondas*"))
   await user.keyboard("1")
 
-  await user.click(screen.getByLabelText("Elegir Robot"))
+  await user.click(screen.getByLabelText("Elegir Robot*"))
   await user.click(screen.getByText("Robot1"))
 
   await user.click(screen.getByRole("button", { name: "Crear" }))
