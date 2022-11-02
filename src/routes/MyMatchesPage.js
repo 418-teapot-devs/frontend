@@ -46,13 +46,3 @@ export const MyMatchesPage = () => {
     </React.Fragment>
   )
 }
-      {/* <Box
-        data-testid="public-matches"
-        >
-        <PublicMatches height={"100%"}/>
-      </Box> */}
-      {/* <Box
-        data-testid="started-matches"
-        sx={{padding: 3}}>
-        <StartedMatches height="100%"/>
-      </Box> */}
