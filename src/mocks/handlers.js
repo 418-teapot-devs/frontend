@@ -1,5 +1,6 @@
 import { rest } from "msw"
 import { matcheslist } from "./data/matcheslist"
+import { profile } from "./data/profile"
 
 export const handlers = [
   rest.get("http://127.0.0.1:8000/matches/", async (req, res, ctx) => {
@@ -24,4 +25,9 @@ export const handlers = [
     const robots = [{name: "Robot1", id: "1"}, {name: "Robot2", id: "2"}]
     return res(ctx.status(200), ctx.delay(150), ctx.json([...robots]))
   }),
+
+  rest.post("http://127.0.0.1:8000/users/login", async (req, res, ctx) => {
+    const body = await req.json()
+      return res(ctx.status(200), ctx.delay(150), ctx.json({token: "hola", profile: profile}))
+  })
 ]
