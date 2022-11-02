@@ -1,4 +1,4 @@
-import { React, useEffect, useState, Redirect } from "react"
+import { React, useEffect, useState } from "react"
 import { RobotBaseItem } from "./RobotBaseItem"
 import { getRobots } from "./api/getRobots"
 import { useAuth } from "../../hooks/useAuth"
@@ -18,7 +18,6 @@ import {
 
 export const RobotsList = (props) => {
 
-  const [loading, setLoading] = useState(false)
   const [robots, setRobots] = useState([])
   const [error, setError] = useState(null)
   const { user } = useAuth()
@@ -31,11 +30,9 @@ export const RobotsList = (props) => {
         case 200:
           const body = await response.json()
           setRobots(body)
-          setLoading(false)
           setError(null)
           break
         default:
-          setLoading(false)
           setError("Error en el servidor...")
           break
       }

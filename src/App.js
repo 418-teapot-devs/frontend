@@ -7,6 +7,7 @@ import  RegisterPage  from "./routes/RegisterPage"
 import { Profile } from "./features/user/Profile"
 
 import { UploadBot } from "./features/robots/UploadBot"
+import LobbyContainer from "./features/matches/LobbyContainer"
 import { RobotsList } from "./features/robots/RobotsList"
 
 import { CreateMatch } from "./features/matches/create/CreateMatch" 
@@ -46,6 +47,14 @@ const App = () => {
         {
           path: "/matches/create",
           element: <CreateMatch />
+        },
+        {
+          path: "/matches/:matchId",
+          element: <LobbyContainer />,
+        },
+        {
+          path: "/matches/:matchId",
+          element: <LobbyContainer />,
         },
         {
           path: "/profile",

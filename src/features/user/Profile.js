@@ -3,8 +3,6 @@ import {
   Card,
   CardContent,
   Typography,
-  CircularProgress,
-  CardMedia,
 } from "@mui/material"
 
 import { useAuth } from "../../hooks/useAuth"
