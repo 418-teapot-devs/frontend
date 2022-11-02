@@ -37,7 +37,6 @@ export const Lobby = ({ match }) => {
   const { matchId } = useParams()
   const missing_robots = match.max_players - match.robots.length
   const [open, setOpen] = useState(false)
-  const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
   const [notFound, setNotFound] = useState(false)
 
@@ -50,18 +49,15 @@ export const Lobby = ({ match }) => {
   const handleAbandon = () => {
     const response = abandonMatch(user.token, matchId)
     switch (response.status) {
-      case 201:
-        setSuccess(true)
+      case 200:
         setError(false)
         setOpen(false)
         navigate("/matches", { replace: true })
         break
       case 404:
-        setSuccess(false)
         setNotFound(true)
         break
       default:
-        setSuccess(false)
         setError(true)
     }
   }
@@ -216,12 +212,12 @@ export const Lobby = ({ match }) => {
                     </Stack>
                   </DialogActions>
                   {error && (
-                    <Alert severity="error" fullWidth>
+                    <Alert severity="error" fullwidth>
                       <AlertTitle>Ocurrió un error</AlertTitle>
                     </Alert>
                   )}
                   {notFound && (
-                    <Alert severity="error" fullWidth>
+                    <Alert severity="error" fullwidth>
                       <AlertTitle>No se encontró la partida</AlertTitle>
                     </Alert>
                   )}

@@ -61,7 +61,6 @@ const validationSchema = () =>
   })
 
 export const UploadBot = () => {
-  const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
   const [duplicate, setDuplicate] = useState(false)
@@ -76,23 +75,19 @@ export const UploadBot = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      setLoading(true)
       const response = await uploadBot(values, user.token)
       switch (response.status) {
         case 201:
-          setLoading(false)
           setSuccess(true)
           setError(false)
           setDuplicate(false)
           break
         case 409:
-          setLoading(false)
           setSuccess(false)
           setError(true)
           setDuplicate(true)
           break
         default:
-          setLoading(false)
           setSuccess(false)
           setError(true)
           setDuplicate(false)

@@ -1,4 +1,4 @@
-import { CircularProgress, Stack } from "@mui/material"
+import { CircularProgress } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Lobby } from "./Lobby"
@@ -16,7 +16,7 @@ const LobbyContainer = () => {
       const data = JSON.parse(e.data)
       setMatch(data)
 
-      if (data["status"] == "finished") {
+      if (data["status"] === "finished") {
         console.log("finished")
         ws.close()
       }
