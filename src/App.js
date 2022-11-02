@@ -2,7 +2,8 @@ import React from "react"
 import { useRoutes } from "react-router-dom"
 import { Root } from "./routes/Root"
 import { ProtectedRoute } from "./routes/ProtectedRoute"
-import  LoginAndRegister  from "./routes/LoginAndRegister"
+import  LoginPage  from "./routes/LoginPage"
+import  RegisterPage  from "./routes/RegisterPage"
 import { Profile } from "./features/user/Profile"
 
 import { UploadBot } from "./features/robots/UploadBot"
@@ -66,7 +67,11 @@ const App = () => {
     },
     {
       path: "/login",
-      element: <LoginAndRegister />,
+      element: <LoginPage />,
+    },
+    {
+      path: "/register",
+      element: <RegisterPage />,
     },
   ])
 

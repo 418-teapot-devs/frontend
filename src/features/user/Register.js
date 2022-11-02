@@ -105,7 +105,7 @@ export const Register = () => {
   })
 
   return (
-    <Card variant="outlined">
+    <Box>
       <form onSubmit={formik.handleSubmit}>
         <CardContent>
           <Typography
@@ -232,6 +232,6 @@ export const Register = () => {
           </Alert>
         )}
       </form>
-    </Card>
+    </Box>
   )
 }
