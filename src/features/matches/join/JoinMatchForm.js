@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useFormik } from "formik"
 import * as yup from "yup"
-import { RobotSelect } from "../../robots/RobotsSelect"
+import { RobotsSelect } from "../../robots/RobotsSelect"
 
 import {
   Button,
@@ -54,7 +54,7 @@ export const JoinMatchForm = (props) => {
                 helperText={formik.touched.password && formik.errors.password}
               />
             }
-            <RobotSelect
+            <RobotsSelect
               select
               value={formik.values.robot_id}
               id="robot_id"
