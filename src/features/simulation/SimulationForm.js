@@ -100,9 +100,11 @@ const SimulationForm = ({ onSubmit }) => {
                   </Stack>
                 </CardContent>
                 <CardActions>
-                  <Button type="submit" fullWidth variant="contained">
-                    Iniciar Simulación
-                  </Button>
+                  {values.robots.every((robot) => robot !== "") && (
+                    <Button type="submit" fullWidth variant="contained">
+                      Iniciar Simulación
+                    </Button>
+                  )}
                 </CardActions>
               </Form>
             )}
