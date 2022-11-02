@@ -1,0 +1,43 @@
+import { Card, CardContent, Typography } from "@mui/material"
+import { grey } from "@mui/material/colors"
+import { Box } from "@mui/system"
+import { useMemo } from "react"
+import { stringToColor } from "../../utils/theme"
+import LinearProgress, {
+  linearProgressClasses,
+} from "@mui/material/LinearProgress"
+
+const RobotStatus = ({ name, x = "--", y = "--", dmg = 100 }) => {
+  const color = useMemo(() => stringToColor(name), [name])
+  return (
+    <Card
+      variant="outlined"
+      sx={{ minWidth: 200, backgroundColor: dmg === 100 ? grey[100] : "none" }}
+    >
+      <CardContent>
+        <Typography>{name}</Typography>
+        <Typography>x: {x}</Typography>
+        <Typography>y: {y}</Typography>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box sx={{ width: "100%", mr: 1 }}>
+            <LinearProgress
+              variant="determinate"
+              value={dmg}
+              sx={{
+                backgroundColor: color + "80",
+                [`& .${linearProgressClasses.bar}`]: {
+                  backgroundColor: color,
+                },
+              }}
+            />
+          </Box>
+          <Box>
+            <Typography variant="body2">{dmg}%</Typography>
+          </Box>
+        </Box>
+      </CardContent>
+    </Card>
+  )
+}
+
+export default RobotStatus

@@ -8,6 +8,7 @@ import { Profile } from "./features/user/Profile"
 import BoardManager from "./features/simulation/BoardManager"
 import { UploadBot } from "./features/robots/UploadBot"
 import { RobotsList } from "./features/robots/RobotsList"
+import SimulationManager from "./features/simulation/SimulationManager"
 
 const App = () => {
   const routes = useRoutes([
@@ -41,7 +42,7 @@ const App = () => {
         },
         {
           path: "/simulation",
-          element: <BoardManager />,
+          element: <SimulationManager />,
         },
       ],
     },

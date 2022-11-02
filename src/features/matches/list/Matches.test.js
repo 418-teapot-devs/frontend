@@ -6,6 +6,7 @@ import { CreatedMatches } from "./CreatedMatches"
 import { StartedMatches } from "./StartedMatches"
 import { JoinedMatches } from "./JoinedMatches"
 
+import userEvent from "@testing-library/user-event"
 import { renderWithProviders } from "../../../utils/testUtils"
 import { matcheslist } from "../../../mocks/data/matcheslist"
 
@@ -137,4 +138,15 @@ test("Renders all the details buttons in joined", async () => {
   expect(await screen.findByText(/Parece que todavía no hay ninguna partida.../i)).toBeInTheDocument()
 
 
+})
+
+test("Refresh button issues request to back", async () => {
+  const { getAllByTestId } = renderWithProviders(<StartedMatches/>)
+  const user = userEvent.setup()
+  await user.click(screen.getByTestId('refresh-button'))
+  await waitFor(() => {
+    const expected_started = matcheslist.length
+    const matches_started = screen.getAllByRole("button", { name: "Detalles" }).length
+    expect(matches_started).toEqual(expected_started)
+  })
 })

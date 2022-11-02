@@ -7,33 +7,24 @@ import { StartedMatches } from "../features/matches/list/StartedMatches"
 import { JoinedMatches } from "../features/matches/list/JoinedMatches"
 
 import { CreateMatch } from "../features/matches/create/CreateMatch"
-import { Box } from "@mui/system"
+import { Box, Typography } from "@mui/material"
 
 export const MatchesPage = () => {
   return (
     <React.Fragment>
-      <h1>Partidas</h1>
+      <Typography variant="h3">Partidas</Typography>
       <Grid container >
-
-        <Grid item  md={6}>
-          <Box sx={{padding: 3 }} >
-            <h2>Partidas Propias</h2>
-            <Box
-              sx={{width:"100%", height:300, overflow:"scroll"}}
-              data-testid="created-matches">
-              <CreatedMatches  />
+        <Grid item  md={6} sx={{padding: 3 }}>
+              <Box
+                data-testid="created-matches">
+                <CreatedMatches height={300} />
             </Box>
-          </Box>
         </Grid>
 
         <Grid item md={6} >
         <Box sx={{padding: 3}}>
-          <h2>Partidas Compartidas</h2>
-          <Box
-            sx={{width:"100%", height:300, overflow:"scroll"}}
-            data-testid="joined-matches"
-          >
-              <JoinedMatches />
+          <Box data-testid="joined-matches">
+            <JoinedMatches height={300}/>
           </Box>
         </Box>
         </Grid>
@@ -41,14 +32,13 @@ export const MatchesPage = () => {
       </Grid>
       <Box
         data-testid="public-matches"
-      >
-        <h2>Partidas Públicas</h2>
-        <PublicMatches/>
+        sx={{padding: 3}}>
+        <PublicMatches height={"100%"}/>
       </Box>
       <Box
-        data-testid="started-matches">
-        <h2>Historial de partidas</h2>
-        <StartedMatches/>
+        data-testid="started-matches"
+        sx={{padding: 3}}>
+        <StartedMatches height="100%"/>
       </Box>
     </React.Fragment>
   )
