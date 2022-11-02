@@ -5,6 +5,7 @@ import { ProtectedRoute } from "./routes/ProtectedRoute"
 import  LoginPage  from "./routes/LoginPage"
 import  RegisterPage  from "./routes/RegisterPage"
 import { Profile } from "./features/user/Profile"
+import { Home } from "./routes/HomePage"
 
 import { UploadBot } from "./features/robots/UploadBot"
 import { RobotsList } from "./features/robots/RobotsList"
@@ -29,7 +30,7 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: <h1>Home</h1>,
+          element: <Home />,
         },
         {
           path: "/robots",
