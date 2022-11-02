@@ -1,7 +1,7 @@
 import { React, useState } from "react"
 import { useAuth } from "../../hooks/useAuth"
 import { grey } from "@mui/material/colors"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { PersonOutlined } from "@mui/icons-material"
 import { abandonMatch } from "./api/abandonMatch"
 import LockOutlined from "@mui/icons-material/LockOutlined"
@@ -34,6 +34,7 @@ import { TransitionGroup } from "react-transition-group"
 
 export const Lobby = ({ match }) => {
   const { user } = useAuth()
+  const { matchId } = useParams()
   const missing_robots = match.max_players - match.robots.length
   const [open, setOpen] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -47,7 +48,7 @@ export const Lobby = ({ match }) => {
   const navigate = useNavigate()
 
   const handleAbandon = () => {
-    const response = abandonMatch(user.token)
+    const response = abandonMatch(user.token, matchId)
     switch (response.status) {
       case 201:
         setSuccess(true)
