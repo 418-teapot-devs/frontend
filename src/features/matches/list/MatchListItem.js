@@ -6,6 +6,7 @@ import {
   Tooltip,
   Button,
 } from "@mui/material"
+import { grey } from '@mui/material/colors';
 import { LockOutlined } from "@mui/icons-material"
 import TableCell from "@mui/material/TableCell"
 
@@ -42,7 +43,7 @@ export const MatchListItem = (props) => {
               placement="top-start"
               key={index}
             >
-              <Avatar key={index} src={robot.avatar_url} />
+              <Avatar key={index} src={robot.avatar_url} sx={{ bgcolor: grey[400] }} />
             </Tooltip>
           ))}
         </AvatarGroup>
@@ -52,7 +53,7 @@ export const MatchListItem = (props) => {
       </TableCell>
       <TableCell align="right">
         <Button 
-          variant="outlined"
+          variant="contained"
           fullWidth
           onClick={props.onClick}>
             {props.buttontext}

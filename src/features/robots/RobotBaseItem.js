@@ -6,6 +6,7 @@ import {
   CardContent,
   Typography,
 } from "@mui/material"
+import { grey } from '@mui/material/colors';
 import { Stack } from "@mui/system"
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
@@ -38,7 +39,7 @@ export function RobotBaseItem(props) {
                   </Typography>
                 </Stack>
               </Stack>
-              <Avatar src={"http://localhost:8000" + props.avatar_url} sx={{ width: 60, height: 60 }}/>
+              <Avatar src={"http://localhost:8000" + props.avatar_url} sx={{ width: 60, height: 60, bgcolor: grey[400] }}/>
             </Stack>
           </Stack>
         </CardContent>

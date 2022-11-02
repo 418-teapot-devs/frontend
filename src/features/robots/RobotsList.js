@@ -45,7 +45,7 @@ export const RobotsList = (props) => {
   }, [user.token])
 
   return(
-    <Card variant="outlined">
+    <Card variant="outlined" sx={{width:"75%"}}>
       <CardContent>
           <Typography
             gutterBottom
@@ -62,6 +62,7 @@ export const RobotsList = (props) => {
           </Box>
       { Boolean(error) &&
         <Alert
+          variant="filled"
           severity="error"
           sx={{justifyContent:"center", marginLeft: "30%", marginRight: "30%"}}>
             {error}

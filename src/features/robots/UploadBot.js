@@ -8,6 +8,7 @@ import { createTheme } from "@mui/material/styles"
 import CameraAltIcon from "@mui/icons-material/CameraAlt"
 import SmartToyIcon from "@mui/icons-material/SmartToy"
 import { useAuth } from "../../hooks/useAuth"
+import { grey } from '@mui/material/colors';
 
 import {
   Button,
@@ -126,7 +127,7 @@ export const UploadBot = () => {
                         ? URL.createObjectURL(formik.values.avatar)
                         : "avatar.png"
                     }
-                    sx={{ width: 80, height: 80, margin: "auto" }}
+                    sx={{ width: 80, height: 80, margin: "auto", bgcolor: grey[400]  }}
                   />
                 </Box>
                 <Box textAlign="center" sx={{ m: 3 }}>
@@ -227,17 +228,17 @@ export const UploadBot = () => {
               </Grid>
             </CardActions>
             {success && (
-              <Alert severity="success">
+              <Alert severity="success" variant="filled">
                 <AlertTitle>Se subió el robot con éxito</AlertTitle>
               </Alert>
             )}
             {error && (
-              <Alert severity="error">
+              <Alert severity="error" variant="filled">
                 <AlertTitle>No se pudo subir el robot</AlertTitle>
               </Alert>
             )}
             {duplicate && (
-              <Alert severity="error">
+              <Alert severity="error" variant="filled">
                 <AlertTitle>Ya cuentas con un robot con ese nombre</AlertTitle>
               </Alert>
             )}

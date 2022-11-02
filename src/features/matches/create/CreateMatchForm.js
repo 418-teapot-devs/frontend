@@ -218,7 +218,7 @@ const validationSchema = () =>
           </Button>
         </CardActions>
         {success && (
-          <Alert severity="success">
+          <Alert severity="success" variant="filled">
             <AlertTitle>Se creó la partida con éxito</AlertTitle>
           </Alert>
         )}

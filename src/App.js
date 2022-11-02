@@ -13,9 +13,7 @@ import { CreateMatch } from "./features/matches/create/CreateMatch"
 import { PublicMatchesPage } from "./routes/PublicMatchesPage"
 import { StartedMatchesPage } from "./routes/StartedMatchesPage"
 import { MyMatchesPage } from "./routes/MyMatchesPage"
-
 import SimulationManager from "./features/simulation/SimulationManager"
-
 
 const App = () => {
   const routes = useRoutes([
@@ -29,7 +27,7 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: <h1>Home</h1>,
+          element: <PublicMatchesPage />,
         },
         {
           path: "/robots",
@@ -55,10 +53,10 @@ const App = () => {
           path: "/simulation",
           element: <SimulationManager />,
         },
-        {
-          path: "/matches/public",
-          element: <PublicMatchesPage />,
-        },
+        // {
+        //   path: "/matches/public",
+        //   element: <PublicMatchesPage />,
+        // },
         {
           path: "/matches/started",
           element: <StartedMatchesPage />,
