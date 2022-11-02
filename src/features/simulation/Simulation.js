@@ -75,7 +75,7 @@ const Simulation = ({ robots, rounds }) => {
             {robotsWithId.map((robot) => (
               <RobotStatus
                 key={robot.id}
-                name={robot.name}
+                {...robot}
                 {...rounds[round].robots[robot.id]}
               />
             ))}
