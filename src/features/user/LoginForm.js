@@ -37,7 +37,7 @@ export const LoginForm = ({ onSubmit, loading, error }) => {
   })
 
   return (
-    <Card variant="outlined">
+    <Box>
       <form onSubmit={formik.handleSubmit}>
         <CardContent>
           <Typography
@@ -89,6 +89,6 @@ export const LoginForm = ({ onSubmit, loading, error }) => {
           </Grid>
         </CardActions>
       </form>
-    </Card>
+    </Box>
   )
 }
