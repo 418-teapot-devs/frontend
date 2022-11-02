@@ -1,26 +1,15 @@
 import React from "react"
-import {
-  TableRow,
-  Avatar,
-  AvatarGroup,
-  Tooltip,
-  Button,
-} from "@mui/material"
+import { TableRow, Avatar, AvatarGroup, Tooltip, Button } from "@mui/material"
 import { LockOutlined } from "@mui/icons-material"
 import TableCell from "@mui/material/TableCell"
 
 export const MatchListItem = (props) => {
-  return(
+  return (
     <TableRow data-testid="public-match-row">
-      <TableCell data-testid="public-match-name">
-        {props.match.name}
-      </TableCell>
+      <TableCell data-testid="public-match-name">{props.match.name}</TableCell>
       <TableCell data-testid="public-match-isprivate">
         {props.match.is_private && (
-          <LockOutlined
-            data-testid="public-match-private"
-            color="disabled"
-          />
+          <LockOutlined data-testid="public-match-private" color="disabled" />
         )}
       </TableCell>
       <TableCell data-testid="public-match-username">
@@ -42,7 +31,10 @@ export const MatchListItem = (props) => {
               placement="top-start"
               key={index}
             >
-              <Avatar key={index} src={"http://localhost:8000" + robot.avatar_url}/>
+              <Avatar
+                key={index}
+                src={"http://localhost:8000" + robot.avatar_url}
+              />
             </Tooltip>
           ))}
         </AvatarGroup>
@@ -51,11 +43,13 @@ export const MatchListItem = (props) => {
         {props.match.min_players}-{props.match.max_players}
       </TableCell>
       <TableCell align="right">
-        <Button 
+        <Button
           variant="outlined"
           fullWidth
-          onClick={() => props.onClick(props.match)}>
-            {props.buttontext}
+          data-testid={"join-button-" + props.match.id}
+          onClick={() => props.onClick(props.match)}
+        >
+          {props.buttontext}
         </Button>
       </TableCell>
     </TableRow>

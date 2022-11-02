@@ -61,7 +61,6 @@ const validationSchema = () =>
   })
 
 export const UploadBot = () => {
-  const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
   const [duplicate, setDuplicate] = useState(false)
@@ -76,23 +75,19 @@ export const UploadBot = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      setLoading(true)
       const response = await uploadBot(values, user.token)
       switch (response.status) {
         case 201:
-          setLoading(false)
           setSuccess(true)
           setError(false)
           setDuplicate(false)
           break
         case 409:
-          setLoading(false)
           setSuccess(false)
           setError(true)
           setDuplicate(true)
           break
         default:
-          setLoading(false)
           setSuccess(false)
           setError(true)
           setDuplicate(false)
@@ -101,8 +96,8 @@ export const UploadBot = () => {
   })
 
   return (
-    <Grid container justifyContent="center">
-      <Grid item xs={6} md={6} lg={5}>
+    <Grid container justifyContent="center" sx={{ marginTop: 4 }}>
+      <Grid item xs={6} md={5} lg={3}>
         <Card variant="outlined">
           <form onSubmit={formik.handleSubmit}>
             <CardContent>
@@ -135,6 +130,7 @@ export const UploadBot = () => {
                     component="label"
                     aria-label="avatar"
                     startIcon={<CameraAltIcon />}
+                    fullWidth
                   >
                     Subir avatar
                     <input
@@ -164,7 +160,6 @@ export const UploadBot = () => {
                 </Typography>
                 <Box textAlign="center">
                   <TextField
-                    sx={{ width: { sm: 200, md: 300 } }}
                     id="name"
                     name="name"
                     label="Nombre *"
@@ -172,6 +167,7 @@ export const UploadBot = () => {
                     onChange={formik.handleChange}
                     error={formik.touched.name && Boolean(formik.errors.name)}
                     helperText={formik.touched.name && formik.errors.name}
+                    fullWidth
                   />
                 </Box>
                 <Box textAlign="center" sx={{ m: 3 }}>
@@ -180,6 +176,7 @@ export const UploadBot = () => {
                     component="label"
                     aria-label="code"
                     startIcon={<AddIcon />}
+                    fullWidth
                   >
                     Subir código *
                     <input
@@ -218,13 +215,9 @@ export const UploadBot = () => {
               </Stack>
             </CardContent>
             <CardActions sx={{ padding: 2 }}>
-              <Grid container justifyContent="center">
-              <Grid item lg={2}>
-              <Button type="submit" variant="contained">
+              <Button type="submit" variant="contained" fullWidth>
                 Crear
               </Button>
-              </Grid>
-              </Grid>
             </CardActions>
             {success && (
               <Alert severity="success">
