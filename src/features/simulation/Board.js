@@ -33,7 +33,7 @@ const Board = ({ robots, missiles, explodingMissiles }) => {
         </Layer>
         <Layer>
           {explodingMissiles.map((missile) => (
-            <ExplodingMissile key={missile.id} radius={7} {...missile} />
+            <ExplodingMissile key={missile.id} radius={21} {...missile} />
           ))}
         </Layer>
       </CustomStage>

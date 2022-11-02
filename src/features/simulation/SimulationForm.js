@@ -16,7 +16,9 @@ import { DeleteOutlined } from "@mui/icons-material"
 
 const validationSchema = () =>
   yup.object({
-    robots: yup.array().of(yup.number())
+    robots: yup
+      .array()
+      .of(yup.number())
       .required("Los robots son obligatorios")
       .min(1, "El mínimo de robots es 1")
       .max(4, "El máximo de robots es 4"),
@@ -29,15 +31,6 @@ const validationSchema = () =>
   })
 
 const SimulationForm = ({ onSubmit }) => {
-  const formik = useFormik({
-    initialValues: {
-      robots: [""],
-      rounds: 999,
-    },
-    validationSchema: validationSchema,
-    onSubmit: onSubmit,
-  })
-
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12} md={6} lg={4}>
@@ -56,19 +49,20 @@ const SimulationForm = ({ onSubmit }) => {
                     <Typography variant="h5" gutterBottom>
                       Simulación
                     </Typography>
-                    <TextField
-                      fullWidth
-                      id="rounds"
-                      name="rounds"
-                      label="Cantidad de rondas *"
-                      type="number"
-                      value={formik.values.rounds}
-                      onChange={formik.handleChange}
-                      error={
-                        formik.touched.rounds && Boolean(formik.errors.rounds)
-                      }
-                      helperText={formik.touched.rounds && formik.errors.rounds}
-                    />
+                    <Field name="rounds">
+                      {({ field }) => (
+                        <TextField
+                          fullWidth
+                          label="Cantidad de rondas *"
+                          type="number"
+                          name={field.name}
+                          value={field.value}
+                          onChange={field.onChange}
+                          error={field.touched && Boolean(field.errors)}
+                          helperText={field.touched && field.errors}
+                        />
+                      )}
+                    </Field>
                     <FieldArray
                       name="robots"
                       render={(arrayHelpers) => (
@@ -102,10 +96,6 @@ const SimulationForm = ({ onSubmit }) => {
                         </Stack>
                       )}
                     />
-
-                    <Typography color="error" variant="caption">
-                      {formik.errors.robots}
-                    </Typography>
                   </Stack>
                 </CardContent>
                 <CardActions>

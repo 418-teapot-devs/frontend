@@ -2,20 +2,18 @@ import React, { useEffect, useMemo, useRef } from "react"
 import { Circle, Rect } from "react-konva"
 import { stringToColor } from "../../utils/theme"
 
-export const Missile = ({ layerRef, name, exploding, ...props }) => {
-  const fill = useMemo(() => stringToColor(name), [name])
+export const Missile = ({ name, sender_id, exploding, ...props }) => {
+  const fill = useMemo(() => stringToColor(name + sender_id), [name, sender_id])
 
   return (
     <Circle
-      offsetX={-props.radius}
-      offsetY={-props.radius}
       fill={fill}
       {...props}
     />
   )
 }
 
-export const ExplodingMissile = ({ layerRef, name, exploding, ...props }) => {
+export const ExplodingMissile = ({ exploding, ...props }) => {
   const missileRef = useRef(null)
   const fill = "red"
 
@@ -23,9 +21,8 @@ export const ExplodingMissile = ({ layerRef, name, exploding, ...props }) => {
     if (exploding) {
       const missile = missileRef.current
       missile.to({
-        scaleX: 3,
-        scaleY: 3,
-        duration: 0,
+        opacity: 0,
+        duration: 0.5,
       })
     }
   }, [exploding])
@@ -33,8 +30,6 @@ export const ExplodingMissile = ({ layerRef, name, exploding, ...props }) => {
   return (
     <Circle
       ref={missileRef}
-      offsetX={-props.radius}
-      offsetY={-props.radius}
       fill={fill}
       {...props}
     />
