@@ -1,5 +1,4 @@
 export const stringToColor = (string) => {
-  console.log("stringToColor")
   let hash = 0
   let i
 

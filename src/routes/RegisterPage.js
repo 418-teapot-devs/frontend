@@ -1,4 +1,4 @@
-import { Grid, Link, Card, Box,Button, Typography } from "@mui/material"
+import { Grid, Card, Box,Button, Typography } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { Register } from "../features/user/Register"
 
