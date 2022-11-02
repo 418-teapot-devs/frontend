@@ -5,7 +5,9 @@ import { ProtectedRoute } from "./routes/ProtectedRoute"
 import  LoginAndRegister  from "./routes/LoginAndRegister"
 import { MatchesPage } from "./routes/MatchesPage"
 import { Profile } from "./features/user/Profile"
+import BoardManager from "./features/simulation/BoardManager"
 import { UploadBot } from "./features/robots/UploadBot"
+import { RobotsList } from "./features/robots/RobotsList"
 import SimulationManager from "./features/simulation/SimulationManager"
 
 const App = () => {
@@ -24,6 +26,10 @@ const App = () => {
         },
         {
           path: "/robots",
+          element: <RobotsList />,
+        },
+        {
+          path: "/uploadbot",
           element: <UploadBot />,
         },
         {
