@@ -26,7 +26,7 @@ const validationSchema = () =>
       .number()
       .positive("La cantidad de rondas debe ser un entero positivo")
       .integer("La cantidad de rondas debe ser un entero positivo")
-      .max(999, "Se permiten hasta 999 rondas")
+      .max(10000, "Se permiten hasta 10000 rondas")
       .required("La cantidad de rondas es obligatoria"),
   })
 
@@ -38,12 +38,12 @@ const SimulationForm = ({ onSubmit }) => {
           <Formik
             initialValues={{
               robots: [""],
-              rounds: 999,
+              rounds: 1000,
             }}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
-            {({ values }) => (
+            {({ values, touched, errors }) => (
               <Form>
                 <CardContent>
                   <Stack spacing={2} justifyContent="center" textAlign="center">
@@ -59,8 +59,8 @@ const SimulationForm = ({ onSubmit }) => {
                           name={field.name}
                           value={field.value}
                           onChange={field.onChange}
-                          error={field.touched && Boolean(field.errors)}
-                          helperText={field.touched && field.errors}
+                          error={touched.rounds && Boolean(errors.rounds)}
+                          helperText={touched.rounds && errors.rounds}
                         />
                       )}
                     </Field>
