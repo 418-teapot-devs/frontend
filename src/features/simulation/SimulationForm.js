@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material"
 import { RobotsSelect } from "../robots/RobotsSelect"
-import { Field, FieldArray, Form, Formik, useFormik } from "formik"
+import { Field, FieldArray, Form, Formik } from "formik"
 import { DeleteOutlined } from "@mui/icons-material"
 
 const validationSchema = () =>
@@ -42,7 +42,8 @@ const SimulationForm = ({ onSubmit }) => {
             }}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
-            render={({ values }) => (
+          >
+            {({ values }) => (
               <Form>
                 <CardContent>
                   <Stack spacing={2} justifyContent="center" textAlign="center">
@@ -105,7 +106,7 @@ const SimulationForm = ({ onSubmit }) => {
                 </CardActions>
               </Form>
             )}
-          ></Formik>
+          </Formik>
         </Card>
       </Grid>
     </Grid>
