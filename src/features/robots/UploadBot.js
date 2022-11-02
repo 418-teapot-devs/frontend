@@ -4,6 +4,7 @@ import * as yup from "yup"
 import { uploadBot } from "./api/uploadBot" // CONNECTION W/BACKEND
 //import { uploadBot } from './api/uploadBot.mock'; // TESTING ONLY
 import AddIcon from "@mui/icons-material/Add"
+import { createTheme } from "@mui/material/styles"
 import CameraAltIcon from "@mui/icons-material/CameraAlt"
 import SmartToyIcon from "@mui/icons-material/SmartToy"
 import { useAuth } from "../../hooks/useAuth"
@@ -14,16 +15,24 @@ import {
   Card,
   CardActions,
   CardContent,
+  Grid,
   TextField,
   Avatar,
   Alert,
   AlertTitle,
   Typography,
   Stack,
+  ThemeProvider,
 } from "@mui/material"
 
 const FILE_SIZE = 4400000
 const SUPPORTED_IMG_FORMATS = ["image/png"]
+
+var theme = createTheme({
+  typography: {
+    htmlFontSize: 11,
+  },
+})
 
 const validationSchema = () =>
   yup.object({
@@ -92,125 +101,149 @@ export const UploadBot = () => {
   })
 
   return (
-    <Card variant="outlined">
-      <form onSubmit={formik.handleSubmit}>
-        <CardContent>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            textAlign="center"
-          >
-            Crear robot <SmartToyIcon />
-          </Typography>
-          <Stack spacing={2}>
-            <Box alignItems="center">
-              <Avatar
-                src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png"} 
-                sx={{ width: 80, height: 80, margin: "auto" }}
-              />
-            </Box>
-            <Box alignItems="center">
-              <Button
-                variant="outlined"
-                component="label"
-                aria-label="avatar"
-                fullWidth
-                startIcon={<CameraAltIcon />}
-              >
-                Subir avatar
-                <input
-                  hidden
-                  accept="image/*"
-                  id="avatar"
-                  name="avatar"
-                  type="file"
-                  onChange={(event) => {
-                    formik.setFieldValue("avatar", event.currentTarget.files[0])
-                  }}
-                />
+    <Grid container justifyContent="center">
+      <Grid item xs={6} md={6} lg={5}>
+        <Card variant="outlined">
+          <form onSubmit={formik.handleSubmit}>
+            <CardContent>
+              <ThemeProvider theme={theme}>
+                <Typography
+                  gutterBottom
+                  variant="overline"
+                  component="div"
+                  textAlign="center"
+                >
+                  <SmartToyIcon sx={{ fontSize: 20, color: "#1876D2" }} />
+                  Crear robot
+                  <SmartToyIcon sx={{ fontSize: 20, color: "#1876D2" }} />
+                </Typography>
+              </ThemeProvider>
+              <Stack spacing={1}>
+                <Box alignItems="center">
+                  <Avatar
+                    src={
+                      formik.values.avatar
+                        ? URL.createObjectURL(formik.values.avatar)
+                        : "avatar.png"
+                    }
+                    sx={{ width: 80, height: 80, margin: "auto" }}
+                  />
+                </Box>
+                <Box textAlign="center" sx={{ m: 3 }}>
+                  <Button
+                    variant="outlined"
+                    component="label"
+                    aria-label="avatar"
+                    startIcon={<CameraAltIcon />}
+                  >
+                    Subir avatar
+                    <input
+                      hidden
+                      accept="image/*"
+                      id="avatar"
+                      name="avatar"
+                      type="file"
+                      onChange={(event) => {
+                        formik.setFieldValue(
+                          "avatar",
+                          event.currentTarget.files[0]
+                        )
+                      }}
+                    />
+                  </Button>
+                </Box>
+                <Typography
+                  gutterBottom
+                  variant="subtitle1"
+                  component="div"
+                  textAlign="center"
+                  color="error"
+                  onChange={formik.handleChange}
+                >
+                  {formik.touched.avatar && formik.errors.avatar}
+                </Typography>
+                <Box textAlign="center">
+                  <TextField
+                    sx={{ width: { sm: 200, md: 300 } }}
+                    id="name"
+                    name="name"
+                    label="Nombre *"
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    error={formik.touched.name && Boolean(formik.errors.name)}
+                    helperText={formik.touched.name && formik.errors.name}
+                  />
+                </Box>
+                <Box textAlign="center" sx={{ m: 3 }}>
+                  <Button
+                    variant="outlined"
+                    component="label"
+                    aria-label="code"
+                    startIcon={<AddIcon />}
+                  >
+                    Subir código *
+                    <input
+                      hidden
+                      accept=".py"
+                      id="code"
+                      name="code"
+                      type="file"
+                      onChange={(event) => {
+                        formik.setFieldValue(
+                          "code",
+                          event.currentTarget.files[0]
+                        )
+                      }}
+                    />
+                  </Button>
+                </Box>
+                <Typography
+                  gutterBottom
+                  variant="subtitle1"
+                  component="div"
+                  textAlign="center"
+                  color="error"
+                  onChange={formik.handleChange}
+                >
+                  {formik.touched.code && formik.errors.code}
+                </Typography>
+                <Typography
+                  gutterBottom
+                  variant="subtitle1"
+                  component="div"
+                  textAlign="center"
+                >
+                  {Boolean(formik.values.code) && formik.values.code.name}
+                </Typography>
+              </Stack>
+            </CardContent>
+            <CardActions sx={{ padding: 2 }}>
+              <Grid container justifyContent="center">
+              <Grid item lg={2}>
+              <Button type="submit" variant="contained">
+                Crear
               </Button>
-            </Box>
-            <Typography
-              gutterBottom
-              variant="subtitle1"
-              component="div"
-              textAlign="center"
-              color="error"
-              onChange={formik.handleChange}
-            >
-              {formik.touched.avatar && formik.errors.avatar}
-            </Typography>
-            <TextField
-              fullWidth
-              id="name"
-              name="name"
-              label="Nombre *"
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              error={formik.touched.name && Boolean(formik.errors.name)}
-              helperText={formik.touched.name && formik.errors.name}
-            />
-            <Button
-              variant="outlined"
-              component="label"
-              aria-label="code"
-              fullWidth
-              startIcon={<AddIcon />}
-            >
-              Subir código *
-              <input
-                hidden
-                accept=".py"
-                id="code"
-                name="code"
-                type="file"
-                onChange={(event) => {
-                  formik.setFieldValue("code", event.currentTarget.files[0])
-                }}
-              />
-            </Button>
-            <Typography
-              gutterBottom
-              variant="subtitle1"
-              component="div"
-              textAlign="center"
-              color="error"
-              onChange={formik.handleChange}
-            >
-              {formik.touched.code && formik.errors.code}
-            </Typography>
-            <Typography
-              gutterBottom
-              variant="subtitle1"
-              component="div"
-              textAlign="center"
-            >
-              {Boolean(formik.values.code) && formik.values.code.name}
-            </Typography>
-          </Stack>
-        </CardContent>
-        <CardActions sx={{ padding: 2 }}>
-          <Button type="submit" fullWidth variant="contained">
-            Crear
-          </Button>
-        </CardActions>
-        {success && (
-          <Alert severity="success">
-            <AlertTitle>Se subió el robot con éxito.</AlertTitle>
-          </Alert>
-        )}
-        {error && (
-          <Alert severity="error">
-            <AlertTitle>No se pudo subir el robot.</AlertTitle>
-          </Alert>
-        )}
-        {duplicate && (
-          <Alert severity="error">
-            <AlertTitle>Ya cuentas con un robot con ese nombre.</AlertTitle>
-          </Alert>
-        )}
-      </form>
-    </Card>
+              </Grid>
+              </Grid>
+            </CardActions>
+            {success && (
+              <Alert severity="success">
+                <AlertTitle>Se subió el robot con éxito</AlertTitle>
+              </Alert>
+            )}
+            {error && (
+              <Alert severity="error">
+                <AlertTitle>No se pudo subir el robot</AlertTitle>
+              </Alert>
+            )}
+            {duplicate && (
+              <Alert severity="error">
+                <AlertTitle>Ya cuentas con un robot con ese nombre</AlertTitle>
+              </Alert>
+            )}
+          </form>
+        </Card>
+      </Grid>
+    </Grid>
   )
 }
