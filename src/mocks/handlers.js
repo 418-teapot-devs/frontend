@@ -1,5 +1,7 @@
+import { Token } from "@mui/icons-material"
 import { rest } from "msw"
 import { matcheslist } from "./data/matcheslist"
+import { robotslist } from "./data/robotslist"
 
 const join_handlers = matcheslist.map((match) => {
   return (
@@ -57,9 +59,32 @@ export const handlers = [
   }),
 
   rest.get("http://127.0.0.1:8000/robots/", async (req, res, ctx) => {
-    const robots = [{name: "Robot1", id: "1"}, {name: "Robot2", id: "2"}]
-    return res(ctx.status(200), ctx.delay(150), ctx.json([...robots]))
+    const token = req.headers.get('token')
+    if (token === "error")
+      return res(ctx.status(400), ctx.delay(150), ctx.json([...robotslist]))
+    else 
+      return res(ctx.status(200), ctx.delay(150), ctx.json([...robotslist]))
   }),
 
   ...join_handlers,
+
+  rest.post("http://127.0.0.1:8000/users/login", async (req, res, ctx) => {
+    const body = await req.json()
+    const response = {
+      token: "hola",
+      profile: {
+        username: "user",
+        email: "email@e.mail",
+        avatar_url: ""
+      }
+    }
+    console.log(body.username)
+    if (body.username === "error")
+      return res(ctx.status(401), ctx.delay(150))
+    else if (body.username === "server error")
+      return res(ctx.status(500), ctx.delay(150))
+    else
+      return res(ctx.status(200), ctx.delay(150), ctx.json(response))
+  }),
+
 ]

@@ -1,7 +1,7 @@
 export const register = (values) => {
   const params = [
     `username=${encodeURIComponent(values.username)}`,
-    `e_mail=${encodeURIComponent(values.email)}`,
+    `email=${encodeURIComponent(values.email)}`,
     `password=${encodeURIComponent(values.password)}`,
   ].join("&")
 

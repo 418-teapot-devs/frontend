@@ -7,10 +7,13 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt"
 import YupPassword from "yup-password"
 
 import {
+  Avatar,
+  Box,
   Button,
   Card,
   CardActions,
   CardContent,
+  Grid,
   TextField,
   Typography,
   Stack,
@@ -79,7 +82,7 @@ export const Register = () => {
     onSubmit: async (values) => {
       const response = await register(values)
       switch (response.status) {
-        case 200:
+        case 201:
           setSuccess(true)
           setError(false)
           setDuplicateEmail(false)
@@ -102,7 +105,7 @@ export const Register = () => {
   })
 
   return (
-    <Card variant="outlined">
+    <Box>
       <form onSubmit={formik.handleSubmit}>
         <CardContent>
           <Typography
@@ -114,10 +117,14 @@ export const Register = () => {
             Registrarse
           </Typography>
           <Stack spacing={2}>
+            <Avatar 
+              src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png"}
+              sx={{ width: 80, height: 80, margin: "auto" }}
+            />
+            <Box textAlign="center">
             <Button
               variant="outlined"
               component="label"
-              fullWidth
               startIcon={<CameraAltIcon />}
             >
               Subir avatar
@@ -133,6 +140,7 @@ export const Register = () => {
                 }}
               />
             </Button>
+            </Box>
             <Typography
               gutterBottom
               variant="subtitle1"
@@ -143,19 +151,11 @@ export const Register = () => {
             >
               {formik.touched.avatar && formik.errors.avatar}
             </Typography>
-            <Typography
-              gutterBottom
-              variant="subtitle1"
-              component="div"
-              textAlign="center"
-            >
-              {Boolean(formik.values.avatar) && formik.values.avatar.name}
-            </Typography>
             <TextField
               fullWidth
               id="username"
               name="username"
-              label="Nombre de usuario"
+              label="Nombre de usuario *"
               value={formik.values.username}
               onChange={formik.handleChange}
               error={formik.touched.username && Boolean(formik.errors.username)}
@@ -165,7 +165,7 @@ export const Register = () => {
               fullWidth
               id="email"
               name="email"
-              label="Correo electrónico"
+              label="Correo electrónico *"
               value={formik.values.email}
               onChange={formik.handleChange}
               error={formik.touched.email && Boolean(formik.errors.email)}
@@ -175,7 +175,7 @@ export const Register = () => {
               fullWidth
               id="password"
               name="password"
-              label="Contraseña"
+              label="Contraseña *"
               type="password"
               value={formik.values.password}
               onChange={formik.handleChange}
@@ -186,7 +186,7 @@ export const Register = () => {
               fullWidth
               id="confirmPassword"
               name="confirmPassword"
-              label="Reingrese la contraseña"
+              label="Reingrese la contraseña *"
               type="password"
               value={formik.values.confirmPassword}
               onChange={formik.handleChange}
@@ -201,31 +201,37 @@ export const Register = () => {
           </Stack>
         </CardContent>
         <CardActions sx={{ padding: 2 }}>
-          <Button type="submit" fullWidth variant="contained">
+          <Grid container justifyContent="center">
+          <Grid item xs={12} sm={6}>
+          <Box textAlign="center">
+          <Button type="submit" variant="contained">
             Registrarse
           </Button>
+          </Box>
+          </Grid>
+          </Grid>
         </CardActions>
         {success && (
           <Alert severity="success">
-            <AlertTitle>Se creó el usuario con éxito.</AlertTitle>
+            <AlertTitle>Se creó el usuario con éxito</AlertTitle>
           </Alert>
         )}
         {error && (
           <Alert severity="error">
-            <AlertTitle>No se pudo crear el usuario.</AlertTitle>
+            <AlertTitle>No se pudo crear el usuario</AlertTitle>
           </Alert>
         )}
         {duplicateEmail && (
           <Alert severity="error">
-            <AlertTitle>El correo electrónico ya está en uso.</AlertTitle>
+            <AlertTitle>El correo electrónico ya está en uso</AlertTitle>
           </Alert>
         )}
         {duplicateUsername && (
           <Alert severity="error">
-            <AlertTitle>El nombre de usuario ya está en uso.</AlertTitle>
+            <AlertTitle>El nombre de usuario ya está en uso</AlertTitle>
           </Alert>
         )}
       </form>
-    </Card>
+    </Box>
   )
 }

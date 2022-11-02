@@ -5,7 +5,7 @@ import { useAuth } from "../../../hooks/useAuth"
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-export const PublicMatches = () => {
+export const PublicMatches = (height) => {
   const { user } = useAuth()
   
   const [open, setOpen] = useState(false)
@@ -38,6 +38,8 @@ export const PublicMatches = () => {
         matchType="public"
         onClick={handleClick}
         buttontext="Unirme"
+        height={height}
+        title="Partidas públicas"
       />
     </React.Fragment>
   )

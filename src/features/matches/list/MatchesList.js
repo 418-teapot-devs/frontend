@@ -12,8 +12,7 @@ import TableCell from "@mui/material/TableCell"
 export const MatchesList = (props) => {
   return (
     <Box alignItems="center"
-      sx={{ height: "100%", width: "100%", overflow: "hidden" }}
-      
+      sx={{ height: props.height, width: "100%", overflow: "hidden" }} 
     >
       <TableContainer sx={{ height: "100%" }} component={Box}>
         <Table stickyHeader aria-label="customized table">

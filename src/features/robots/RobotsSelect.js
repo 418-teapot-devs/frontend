@@ -33,7 +33,7 @@ export const RobotSelect = (props) => {
   ) : (
     <TextField {...props}>
       {robots.map((robot) => (
-        <MenuItem value={robot.id} key={robot.id}>
+        <MenuItem value={robot.robot_id} key={robot.robot_id}>
           {robot.name}
         </MenuItem>
       ))}
