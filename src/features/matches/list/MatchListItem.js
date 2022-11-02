@@ -42,7 +42,7 @@ export const MatchListItem = (props) => {
               placement="top-start"
               key={index}
             >
-              <Avatar key={index} src={robot.avatar_url} />
+              <Avatar key={index} src={"http://localhost:8000" + robot.avatar_url}/>
             </Tooltip>
           ))}
         </AvatarGroup>
@@ -54,7 +54,7 @@ export const MatchListItem = (props) => {
         <Button 
           variant="outlined"
           fullWidth
-          onClick={props.onClick}>
+          onClick={() => props.onClick(props.match)}>
             {props.buttontext}
         </Button>
       </TableCell>

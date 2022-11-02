@@ -45,7 +45,7 @@ export const RobotsList = (props) => {
   }, [user.token])
 
   return(
-    <Card variant="outlined">
+    <Card variant="outlined" sx={{width: "80%"}}>
       <CardContent>
           <Typography
             gutterBottom
