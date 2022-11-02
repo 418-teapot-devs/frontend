@@ -7,7 +7,7 @@ export const JoinedMatches = (height) => {
       onClick={() => {}}
       buttontext="Detalles"
       height={height}
-      title="Partidas compartidas"
+      title="Partidas unidas"
     />
   )
 }
