@@ -1,6 +1,10 @@
 import { Token } from "@mui/icons-material"
 import { rest } from "msw"
-import { matcheslist } from "./data/matcheslist"
+import {
+  public_matcheslist,
+  started_matcheslist,
+  created_matcheslist
+} from "./data/matcheslist"
 import { robotslist } from "./data/robotslist"
 
 export const handlers = [
@@ -8,8 +12,12 @@ export const handlers = [
     const matchType = req.url.searchParams.get('match_type')
     if (matchType === 'joined') {
       return res(ctx.status(200), ctx.delay(150), ctx.json([]))
+    } else if (matchType === 'started') {
+      return res(ctx.status(200), ctx.delay(150), ctx.json([...started_matcheslist]))
+    } else if (matchType === 'created') {
+      return res(ctx.status(200), ctx.delay(150), ctx.json([...created_matcheslist]))
     } else {
-      return res(ctx.status(200), ctx.delay(150), ctx.json([...matcheslist]))
+      return res(ctx.status(200), ctx.delay(150), ctx.json([...public_matcheslist]))
     }
   }),
 
