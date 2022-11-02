@@ -1,4 +1,11 @@
-import { CircularProgress, FormControl, InputLabel, MenuItem, Select } from "@mui/material"
+import {
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material"
 import { useEffect, useState } from "react"
 import { useAuth } from "../../hooks/useAuth"
 import { getRobots } from "./api/getRobots"
@@ -31,15 +38,12 @@ export const RobotsSelect = ({ ...props }) => {
   return loading ? (
     <CircularProgress />
   ) : (
-    <FormControl fullWidth>
-      <InputLabel id={"robots-select" + props.key}>{props.label}</InputLabel>
-      <Select {...props}>
-        {robots.map((robot) => (
-          <MenuItem value={robot.robot_id} key={robot.robot_id}>
-            {robot.name}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+    <TextField select fullWidth {...props}>
+      {robots.map((robot) => (
+        <MenuItem value={robot.robot_id} key={robot.robot_id}>
+          {robot.name}
+        </MenuItem>
+      ))}
+    </TextField>
   )
 }
