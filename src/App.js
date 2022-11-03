@@ -6,6 +6,8 @@ import LoginPage from "./routes/LoginPage"
 import RegisterPage from "./routes/RegisterPage"
 import { Profile } from "./features/user/Profile"
 import { Box } from "@mui/material"
+import { Home } from "./routes/HomePage"
+
 import { UploadBot } from "./features/robots/UploadBot"
 import LobbyContainer from "./features/matches/LobbyContainer"
 import { RobotsList } from "./features/robots/RobotsList"
@@ -28,7 +30,7 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: <PublicMatchesPage />,
+          element: <Home />,
         },
         {
           path: "/robots",
