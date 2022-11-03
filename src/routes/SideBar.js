@@ -21,11 +21,11 @@ import { useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth"
 
 const mainOptions = [
-  {
-    title: "Inicio",
-    to: "",
-    icon: <HomeOutlinedIcon />,
-  },
+  // {
+  //   title: "Inicio",
+  //   to: "",
+  //   icon: <HomeOutlinedIcon />,
+  // },
   {
     title: "Robots",
     to: "robots",
@@ -38,7 +38,7 @@ const mainOptions = [
   },
   {
     title: "Partidas públicas",
-    to: "matches/public",
+    to: "/",//"matches/public",
     icon: <PublicIcon />,
   },
   {
