@@ -30,7 +30,7 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: <h1>Home</h1>,
+          element: <PublicMatchesPage/>,
         },
         {
           path: "/robots",
@@ -64,10 +64,10 @@ const App = () => {
           path: "/simulation",
           element: <SimulationManager />,
         },
-        {
-          path: "/matches/public",
-          element: <PublicMatchesPage />,
-        },
+        // {
+        //   path: "/matches/public",
+        //   element: <PublicMatchesPage />,
+        // },
         {
           path: "/matches/started",
           element: <StartedMatchesPage />,
