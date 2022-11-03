@@ -4,6 +4,7 @@ import { grey } from "@mui/material/colors"
 import { useNavigate, useParams } from "react-router-dom"
 import { PersonOutlined } from "@mui/icons-material"
 import { abandonMatch } from "./api/abandonMatch"
+import { startMatch } from "./api/startMatch"
 import LockOutlined from "@mui/icons-material/LockOutlined"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
 import ExitToAppIcon from "@mui/icons-material/ExitToApp"
@@ -18,6 +19,7 @@ import {
   DialogActions,
   DialogTitle,
   Divider,
+  Fade,
   Grid,
   Typography,
   Stack,
@@ -30,15 +32,18 @@ import {
   CircularProgress,
   Button,
 } from "@mui/material"
+import PlayArrowOutlinedIcon from "@mui/icons-material/PlayArrowOutlined"
 import { TransitionGroup } from "react-transition-group"
 
 export const Lobby = ({ match }) => {
   const { user } = useAuth()
   const { matchId } = useParams()
-  const missing_robots = match.max_players - match.robots.length
+  const missing_robots = match.max_players - Object.keys(match.robots).length
   const [open, setOpen] = useState(false)
   const [error, setError] = useState(false)
   const [notFound, setNotFound] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [started, setStarted] = useState(false)
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -46,24 +51,54 @@ export const Lobby = ({ match }) => {
 
   const navigate = useNavigate()
 
-  const handleAbandon = () => {
-    const response = abandonMatch(user.token, matchId)
+  const handleStart = () => {
+    const response = startMatch(user.token, matchId)
     switch (response.status) {
-      case 200:
+      case 201:
+        setError(false)
+        setLoading(true)
+        setStarted(true)
+        break
+      default:
+        setLoading(false)
+        setError(true)
+        setStarted(false)
+        break
+    }
+  }
+
+  const handleAbandon = async () => {
+    const response = await abandonMatch(user.token, matchId)
+    switch (response.status) {
+      case 201:
         setError(false)
         setOpen(false)
         navigate("/matches", { replace: true })
         break
       case 404:
         setNotFound(true)
+        setError(true)
         break
       default:
         setError(true)
+        break
     }
   }
 
   const handleClose = () => {
     setOpen(false)
+  }
+
+  const matchWinners = () => {
+    let winners = []
+    if (match.results) {
+      Object.keys(match.results).forEach((key) => {
+        if (match.results[key].robot_pos === 1) {
+          winners.push(match.robots[key].name)
+        }
+      })
+    }
+    return winners
   }
 
   return (
@@ -87,18 +122,26 @@ export const Lobby = ({ match }) => {
             </Typography>
 
             <Box textAlign="center">
-              {match.status === "in_progress" && (
+              {started && (
                 <Box>
-                  <CircularProgress size={20} />
+                  <Fade
+                    in={loading}
+                    style={{
+                      transitionDelay: loading ? "3s" : "0ms",
+                    }}
+                    unmountOnExit
+                  >
+                    <CircularProgress size={20} />
+                  </Fade>
                   <Typography>Partida en progreso</Typography>
                 </Box>
               )}
-              {match.status === "waiting" && (
+              {match.state === "Lobby" && (
                 <Typography>
                   Esperando que se unan {missing_robots} robots...
                 </Typography>
               )}
-              {match.status === "finished" && (
+              {match.state === "Finished" && (
                 <Typography>Partida finalizada</Typography>
               )}
             </Box>
@@ -134,10 +177,10 @@ export const Lobby = ({ match }) => {
               </Card>
 
               <Box textAlign="center">
-                {match.status === "finished" && match.result && (
+                {match.state === "Finished" && match.results && (
                   <Typography variant="h5">
                     <EmojiEventsIcon sx={{ fontSize: 25, color: "#ffc107" }} />{" "}
-                    Ganador: {match.result}
+                    Ganador: {matchWinners()}
                   </Typography>
                 )}
               </Box>
@@ -145,21 +188,23 @@ export const Lobby = ({ match }) => {
                 <Typography>Robots:</Typography>
                 <List>
                   <TransitionGroup>
-                    {match.robots.map((robot) => (
+                    {Object.keys(match.robots).map((key) => (
                       <Slide
-                        key={robot.username + robot.name}
+                        key={
+                          match.robots[key].username + match.robots[key].name
+                        }
                         direction="right"
                       >
                         <ListItem>
                           <ListItemAvatar>
-                            <Avatar src={robot.avatar_url} />
+                            <Avatar src={match.robots[key].avatar_url} />
                           </ListItemAvatar>
                           <ListItemText>
                             <Typography variant="body1">
-                              {robot.name}
+                              {match.robots[key].name}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                              @{robot.username}
+                              @{match.robots[key].username}
                             </Typography>
                           </ListItemText>
                         </ListItem>
@@ -186,7 +231,20 @@ export const Lobby = ({ match }) => {
             </Stack>
           </CardContent>
           <CardActions>
-            {user.username !== match.host.username && (
+            {user.profile.username === match.host.username &&
+              match.state === "Lobby" &&
+              Object.keys(match.robots).length >= match.min_players && (
+                <Grid container justifyContent="center" spacing={2}>
+                  <Button
+                    variant="contained"
+                    startIcon={<PlayArrowOutlinedIcon />}
+                    onClick={handleStart}
+                  >
+                    Iniciar
+                  </Button>
+                </Grid>
+              )}
+            {user.profile.username !== match.host.username && (
               <Grid container justifyContent="flex-end" spacing={2}>
                 <Button
                   variant="outlined"
@@ -212,12 +270,12 @@ export const Lobby = ({ match }) => {
                     </Stack>
                   </DialogActions>
                   {error && (
-                    <Alert severity="error" fullwidth>
+                    <Alert severity="error" fullwidth="true">
                       <AlertTitle>Ocurrió un error</AlertTitle>
                     </Alert>
                   )}
                   {notFound && (
-                    <Alert severity="error" fullwidth>
+                    <Alert severity="error" fullwidth="true">
                       <AlertTitle>No se encontró la partida</AlertTitle>
                     </Alert>
                   )}

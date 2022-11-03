@@ -6,7 +6,7 @@ import { renderWithProviders } from "../../../utils/testUtils"
 import { joinmatch_request } from "./api/JoinMatch"
 import { server } from "../../../mocks/server"
 
-import { matcheslist } from "../../../mocks/data/matcheslist"
+import { public_matcheslist } from "../../../mocks/data/matcheslist"
 import { PublicMatches } from "../list/PublicMatches"
 
 test("Click join and form pops up, then close it", async () => {
@@ -16,10 +16,10 @@ test("Click join and form pops up, then close it", async () => {
     const matches_names = getAllByTestId("public-match-name").map(
       (cell) => cell.textContent
     )
-    const public_names = matcheslist.map((match) => match.name)
+    const public_names = public_matcheslist.map((match) => match.name)
     expect(matches_names).toEqual(public_names)
   })
-  const match = matcheslist[0]
+  const match = public_matcheslist[0]
   const user = userEvent.setup()
 
   await user.click(screen.getByTestId('join-button-'+ match.id))
@@ -41,10 +41,10 @@ test("Fail to sumbit form: incorrect password", async () => {
     const matches_names = getAllByTestId  ("public-match-name").map(
       (cell) => cell.textContent
     )
-    const public_names = matcheslist.map((match) => match.name)
+    const public_names = public_matcheslist.map((match) => match.name)
     expect(matches_names).toEqual(public_names)
   })
-  const match = matcheslist[3]
+  const match = public_matcheslist[3]
   const user = userEvent.setup()
 
   await user.click(screen.getByTestId('join-button-'+ match.id))
@@ -84,10 +84,10 @@ test("Fail if invalid robot", async () => {
     const matches_names = getAllByTestId ("public-match-name").map(
       (cell) => cell.textContent
     )
-    const public_names = matcheslist.map((match) => match.name)
+    const public_names = public_matcheslist.map((match) => match.name)
     expect(matches_names).toEqual(public_names)
   })
-  const match = matcheslist[1]
+  const match = public_matcheslist[1]
   const user = userEvent.setup()
 
   await user.click(screen.getByTestId('join-button-'+ match.id))
@@ -127,10 +127,10 @@ test("Fail if invalid match", async () => {
     const matches_names = getAllByTestId ("public-match-name").map(
       (cell) => cell.textContent
     )
-    const public_names = matcheslist.map((match) => match.name)
+    const public_names = public_matcheslist.map((match) => match.name)
     expect(matches_names).toEqual(public_names)
   })
-  const match = matcheslist[1]
+  const match = public_matcheslist[1]
   const user = userEvent.setup()
 
   await user.click(screen.getByTestId('join-button-'+ match.id))
@@ -170,10 +170,10 @@ test("Fail if user is not found", async () => {
     const matches_names = getAllByTestId ("public-match-name").map(
       (cell) => cell.textContent
     )
-    const public_names = matcheslist.map((match) => match.name)
+    const public_names = public_matcheslist.map((match) => match.name)
     expect(matches_names).toEqual(public_names)
   })
-  const match = matcheslist[1]
+  const match = public_matcheslist[1]
   const user = userEvent.setup()
 
   await user.click(screen.getByTestId('join-button-'+ match.id))
@@ -213,10 +213,10 @@ test("Fail if unauthorized action", async () => {
     const matches_names = getAllByTestId ("public-match-name").map(
       (cell) => cell.textContent
     )
-    const public_names = matcheslist.map((match) => match.name)
+    const public_names = public_matcheslist.map((match) => match.name)
     expect(matches_names).toEqual(public_names)
   })
-  const match = matcheslist[1]
+  const match = public_matcheslist[1]
   const user = userEvent.setup()
 
   await user.click(screen.getByTestId('join-button-'+ match.id))
@@ -256,10 +256,10 @@ test("Fail if match is already started", async () => {
     const matches_names = getAllByTestId ("public-match-name").map(
       (cell) => cell.textContent
     )
-    const public_names = matcheslist.map((match) => match.name)
+    const public_names = public_matcheslist.map((match) => match.name)
     expect(matches_names).toEqual(public_names)
   })
-  const match = matcheslist[1]
+  const match = public_matcheslist[1]
   const user = userEvent.setup()
 
   await user.click(screen.getByTestId('join-button-'+ match.id))
@@ -289,10 +289,10 @@ test("Fail if joining full match", async () => {
     const matches_names = getAllByTestId ("public-match-name").map(
       (cell) => cell.textContent
     )
-    const public_names = matcheslist.map((match) => match.name)
+    const public_names = public_matcheslist.map((match) => match.name)
     expect(matches_names).toEqual(public_names)
   })
-  const match = matcheslist[7]
+  const match = public_matcheslist[7]
   const user = userEvent.setup()
 
   await user.click(screen.getByTestId('join-button-'+ match.id))
@@ -323,10 +323,10 @@ test("Fail to sumbit form: server error", async () => {
     const matches_names = getAllByTestId  ("public-match-name").map(
       (cell) => cell.textContent
     )
-    const public_names = matcheslist.map((match) => match.name)
+    const public_names = public_matcheslist.map((match) => match.name)
     expect(matches_names).toEqual(public_names)
   })
-  const match = matcheslist[0]
+  const match = public_matcheslist[0]
   const user = userEvent.setup()
 
   await user.click(screen.getByTestId('join-button-'+ match.id))
@@ -362,10 +362,10 @@ test("Click join and sumbit form", async () => {
     const matches_names = getAllByTestId  ("public-match-name").map(
       (cell) => cell.textContent
     )
-    const public_names = matcheslist.map((match) => match.name)
+    const public_names = public_matcheslist.map((match) => match.name)
     expect(matches_names).toEqual(public_names)
   })
-  const match = matcheslist[1]
+  const match = public_matcheslist[1]
   const user = userEvent.setup()
 
   await user.click(screen.getByTestId('join-button-'+ match.id))
