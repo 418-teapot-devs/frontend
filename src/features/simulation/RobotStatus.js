@@ -7,8 +7,8 @@ import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress"
 
-const RobotStatus = ({ name, x = "--", y = "--", dmg = 100 }) => {
-  const color = useMemo(() => stringToColor(name), [name])
+const RobotStatus = ({ name, id, x = "--", y = "--", dmg = 100 }) => {
+  const color = useMemo(() => stringToColor(name + id), [name, id])
   return (
     <Card
       variant="outlined"

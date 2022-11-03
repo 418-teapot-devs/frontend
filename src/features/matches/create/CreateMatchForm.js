@@ -1,7 +1,7 @@
 import React from "react"
 import { useFormik } from "formik"
 import * as yup from "yup"
-import { RobotSelect } from "../../robots/RobotsSelect"
+import { RobotsSelect } from "../../robots/RobotsSelect"
 
 import {
   Button,
@@ -189,7 +189,7 @@ const validationSchema = () =>
                 formik.errors.confirm_password
               }
             />
-            <RobotSelect
+            <RobotsSelect
               select
               value={formik.values.robot_id}
               id="robot_id"

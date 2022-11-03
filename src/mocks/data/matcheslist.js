@@ -1,4 +1,4 @@
-export const matcheslist = [
+export const public_matcheslist = [
   {
     id: 1,
     name: "Partida #1",
@@ -305,4 +305,97 @@ export const matcheslist = [
       },
     ],
   },
+]
+
+export const started_matcheslist = [
+  {
+    id: 11,
+    name: "kdfk",
+    host: {
+      username: "quartuslover",
+      avatar_url: ""
+    },
+    min_players: 3,
+    max_players: 4,
+    games: 100,
+    rounds: 5000,
+    is_private: false,
+    robots: [
+      {
+        name: "AI",
+        username: "Cesco",
+        avatar_url:
+          "https://cdn-icons-png.flaticon.com/512/1055/1055602.png?w=826&t=st=1665875421~exp=1665876021~hmac=fcac65e22e78faf09da4dbdef3a43702b2a335b42d5b5d4a2612915d62136636.png",
+      },
+      {
+        name: "IdentityRobot",
+        username: "Bruno",
+        avatar_url:
+          "https://cdn-icons-png.flaticon.com/512/1126/1126923.png?w=826&t=st=1665874973~exp=1665875573~hmac=6263da3ef1c927843309331e9e6126237745576d300db8bd10e3bd3d433f5f2e.png",
+      },
+      {
+        name: "IdentityRobot",
+        username: "Bruno",
+        avatar_url:
+          "https://cdn-icons-png.flaticon.com/512/1126/1126923.png?w=826&t=st=1665874973~exp=1665875573~hmac=6263da3ef1c927843309331e9e6126237745576d300db8bd10e3bd3d433f5f2e.png",
+      },
+    ],
+  },
+  {
+    id: 12,
+    name: "Partida terminada",
+    host: {
+      username: "quartuslover",
+      avatar_url: ""
+    },
+    min_players: 3,
+    max_players: 3,
+    games: 100,
+    rounds: 5000,
+    is_private: false,
+    robots: [
+      {
+        name: "AI",
+        username: "Cesco",
+        avatar_url:
+          "https://cdn-icons-png.flaticon.com/512/1055/1055602.png?w=826&t=st=1665875421~exp=1665876021~hmac=fcac65e22e78faf09da4dbdef3a43702b2a335b42d5b5d4a2612915d62136636.png",
+      },
+      {
+        name: "IdentityRobot",
+        username: "Bruno",
+        avatar_url:
+          "https://cdn-icons-png.flaticon.com/512/1126/1126923.png?w=826&t=st=1665874973~exp=1665875573~hmac=6263da3ef1c927843309331e9e6126237745576d300db8bd10e3bd3d433f5f2e.png",
+      },
+      {
+        name: "IdentityRobot",
+        username: "Bruno",
+        avatar_url:
+          "https://cdn-icons-png.flaticon.com/512/1126/1126923.png?w=826&t=st=1665874973~exp=1665875573~hmac=6263da3ef1c927843309331e9e6126237745576d300db8bd10e3bd3d433f5f2e.png",
+      },
+    ],
+  },
+]
+
+export const created_matcheslist = [
+  {
+    id: 13,
+    name: "kdfk",
+    host: {
+      username: "quartuslover",
+      avatar_url: ""
+    },
+    min_players: 2,
+    max_players: 4,
+    games: 100,
+    rounds: 50,
+    is_private: false,
+    robots: [
+      {
+        name: "AI",
+        username: "Cesco",
+        avatar_url:
+          "https://cdn-icons-png.flaticon.com/512/1055/1055602.png?w=826&t=st=1665875421~exp=1665876021~hmac=fcac65e22e78faf09da4dbdef3a43702b2a335b42d5b5d4a2612915d62136636.png",
+      },
+    ],
+  }
 ]

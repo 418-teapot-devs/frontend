@@ -14,7 +14,6 @@ const CustomStage = ({ children, containerRef, ...props }) => {
   const stageRef = React.useRef(null)
 
   const fitStageToContainer = () => {
-    console.log("Fitting...")
     if (containerRef && containerRef.current) {
       let container = containerRef.current
       let stage = stageRef.current

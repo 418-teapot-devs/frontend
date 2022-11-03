@@ -11,17 +11,12 @@ import { LockOutlined } from "@mui/icons-material"
 import TableCell from "@mui/material/TableCell"
 
 export const MatchListItem = (props) => {
-  return(
+  return (
     <TableRow data-testid="public-match-row">
-      <TableCell data-testid="public-match-name">
-        {props.match.name}
-      </TableCell>
+      <TableCell data-testid="public-match-name">{props.match.name}</TableCell>
       <TableCell data-testid="public-match-isprivate">
         {props.match.is_private && (
-          <LockOutlined
-            data-testid="public-match-private"
-            color="disabled"
-          />
+          <LockOutlined data-testid="public-match-private" color="disabled" />
         )}
       </TableCell>
       <TableCell data-testid="public-match-username">
@@ -35,15 +30,20 @@ export const MatchListItem = (props) => {
       </TableCell>
       <TableCell data-testid="public-match-players">
         <AvatarGroup max={4}>
-          {props.match.robots.map((robot, index) => (
+          {Object.keys(props.match.robots).map((key, index) => (
             <Tooltip
               data-testid="public-match-robot"
               arrow
-              title={`${robot.name},@${robot.username}`}
+              title={`${props.match.robots[key].name},@${props.match.robots[key].username}`}
               placement="top-start"
               key={index}
             >
-              <Avatar key={index} src={robot.avatar_url} sx={{ bgcolor: grey[400] }} />
+              <Avatar
+                key={index}
+                src={
+                  "http://localhost:8000" + props.match.robots[key].avatar_url
+                }
+              />
             </Tooltip>
           ))}
         </AvatarGroup>
@@ -55,8 +55,10 @@ export const MatchListItem = (props) => {
         <Button 
           variant="contained"
           fullWidth
-          onClick={props.onClick}>
-            {props.buttontext}
+          data-testid={"join-button-" + props.match.id}
+          onClick={() => props.onClick(props.match)}
+        >
+          {props.buttontext}
         </Button>
       </TableCell>
     </TableRow>
