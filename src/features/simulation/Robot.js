@@ -1,14 +1,18 @@
-import React, { useEffect } from "react"
+import React, { useMemo } from "react"
 import { Rect } from "react-konva"
+import { stringToColor } from "../../utils/theme"
 
-const Robot = ({ position, ...props }) => {
-  const rectRef = React.useRef(null)
-  useEffect(() => {
-    const rect = rectRef.current
-    rect.to({ ...position, duration: 0.5 })
-  })
+const Robot = ({ name, id, ...props }) => {
+  const fill = useMemo(() => stringToColor(name + id), [name, id])
 
-  return <Rect ref={rectRef} {...props} />
+  return (
+    <Rect
+      fill={fill}
+      offsetX={props.height / 2}
+      offsetY={props.width / 2}
+      {...props}
+    />
+  )
 }
 
 export default Robot

@@ -16,7 +16,6 @@ export const handlers = [
     } else if (name === "takenName") {
       return res(ctx.status(409), ctx.delay(150))
     }
-
     return res(ctx.status(201), ctx.delay(150))
   }),
 ]
@@ -37,10 +36,10 @@ test("should upload", async () => {
   await user.click(screen.getByRole("button", { name: "avatar" }))
   await user.upload(
     screen.getByLabelText("avatar"),
-    new File(["(⌐□_□)"], "image.png", { type: "image/png" })
+    new File(["(⌐□_□)"], "image.png")
   )
 
-  await user.click(screen.getByLabelText("Nombre"))
+  await user.click(screen.getByLabelText("Nombre *"))
   await user.keyboard("robot")
 
   await user.click(screen.getByRole("button", { name: "code" }))
@@ -61,7 +60,7 @@ test("should not upload", async () => {
   const user = userEvent.setup()
   renderWithProviders(<UploadBot />)
 
-  await user.click(screen.getByLabelText("Nombre"))
+  await user.click(screen.getByLabelText("Nombre *"))
   await user.keyboard("takenName")
 
   await user.click(screen.getByRole("button", { name: "code" }))
@@ -82,7 +81,7 @@ test("no code, should not upload", async () => {
   const user = userEvent.setup()
   renderWithProviders(<UploadBot />)
 
-  await user.click(screen.getByLabelText("Nombre"))
+  await user.click(screen.getByLabelText("Nombre *"))
   await user.keyboard("robot")
 
   await user.click(screen.getByRole("button", { name: /Crear/i }))
@@ -109,7 +108,7 @@ test("unknown error, should not upload", async () => {
   const user = userEvent.setup()
   renderWithProviders(<UploadBot />)
 
-  await user.click(screen.getByLabelText("Nombre"))
+  await user.click(screen.getByLabelText("Nombre *"))
   await user.keyboard("error")
 
   await user.click(screen.getByRole("button", { name: "code" }))

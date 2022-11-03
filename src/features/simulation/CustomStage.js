@@ -1,5 +1,8 @@
-import React from "react"
+import React, { useLayoutEffect } from "react"
 import { Stage } from "react-konva"
+
+const STAGE_WIDTH = 1000
+const STAGE_HEIGHT = 1000
 
 let delta = {
   x: 0,
@@ -7,10 +10,23 @@ let delta = {
 }
 let isMoving = false
 
-const CustomStage = ({ children, ...props }) => {
-  console.log(children)
-  console.log(props)
+const CustomStage = ({ children, containerRef, ...props }) => {
   const stageRef = React.useRef(null)
+
+  const fitStageToContainer = () => {
+    if (containerRef && containerRef.current) {
+      let container = containerRef.current
+      let stage = stageRef.current
+
+      let containerHeight = container.offsetHeight
+
+      let scale = containerHeight / STAGE_WIDTH
+
+      stage.width(STAGE_WIDTH * scale)
+      stage.height(STAGE_HEIGHT * scale)
+      stage.scale({ x: scale, y: scale })
+    }
+  }
 
   const handleOnWheel = (e) => {
     e.evt.preventDefault()
@@ -36,25 +52,15 @@ const CustomStage = ({ children, ...props }) => {
     let newScale = direction > 0 ? oldScale * scaleBy : oldScale / scaleBy
 
     stage.scale({ x: newScale, y: newScale })
-
-    let newPos = {
+    stage.position({
       x: pointer.x - mousePointTo.x * newScale,
       y: pointer.y - mousePointTo.y * newScale,
-    }
-    stage.position(newPos)
+    })
   }
 
   const handleOnMouseMove = (e) => {
     const stage = stageRef.current
-
-    let pointer = stage.getPointerPosition()
-
-    console.log({
-      pointer_x: pointer.x,
-      pointer_y: pointer.y,
-      stage_x: stage.x(),
-      stage_y: stage.y(),
-    })
+    const pointer = stage.getPointerPosition()
 
     if (e.evt.buttons === 1) {
       if (!isMoving) {
@@ -88,12 +94,16 @@ const CustomStage = ({ children, ...props }) => {
     }
   }
 
+  useLayoutEffect(() => {
+    fitStageToContainer()
+  }, [containerRef])
+
   return (
     <Stage
       ref={stageRef}
+      {...props}
       onWheel={handleOnWheel}
       onMouseMove={handleOnMouseMove}
-      {...props}
     >
       {children}
     </Stage>
