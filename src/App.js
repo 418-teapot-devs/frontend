@@ -64,10 +64,10 @@ const App = () => {
           path: "/simulation",
           element: <SimulationManager />,
         },
-        // {
-        //   path: "/matches/public",
-        //   element: <PublicMatchesPage />,
-        // },
+        {
+          path: "/matches/public",
+          element: <PublicMatchesPage />,
+        },
         {
           path: "/matches/started",
           element: <StartedMatchesPage />,

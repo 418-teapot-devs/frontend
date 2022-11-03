@@ -8,8 +8,8 @@ import "./index.css"
 import { darkModeTheme, lightModeTheme } from "./utils/theme"
 import { ThemeProvider } from "@mui/material/styles"
 
-// const container = document.getElementById("root")
-// const root = createRoot(container)
+const container = document.getElementById("root")
+const root = createRoot(container)
 
 root.render(
   <React.StrictMode>
