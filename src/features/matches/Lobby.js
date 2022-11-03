@@ -2,9 +2,7 @@ import { React, useState } from "react"
 import { useAuth } from "../../hooks/useAuth"
 import { grey } from "@mui/material/colors"
 import { useNavigate, useParams } from "react-router-dom"
-import {
-  PersonOutlined,
-} from "@mui/icons-material"
+import { PersonOutlined } from "@mui/icons-material"
 import { abandonMatch } from "./api/abandonMatch"
 import { startMatch } from "./api/startMatch"
 import LockOutlined from "@mui/icons-material/LockOutlined"
@@ -37,15 +35,16 @@ import {
 import PlayArrowOutlinedIcon from "@mui/icons-material/PlayArrowOutlined"
 import { TransitionGroup } from "react-transition-group"
 
-export const Lobby = ({ match, state }) => {
+export const Lobby = ({ match }) => {
   const { user } = useAuth()
   const { matchId } = useParams()
-  const missing_robots = match.max_players - match.robots.length
+  const missing_robots = match.max_players - Object.keys(match.robots).length
   const [open, setOpen] = useState(false)
   const [error, setError] = useState(false)
   const [notFound, setNotFound] = useState(false)
   const [loading, setLoading] = useState(false)
   const [started, setStarted] = useState(false)
+
   const handleClickOpen = () => {
     setOpen(true)
   }
@@ -68,7 +67,7 @@ export const Lobby = ({ match, state }) => {
     }
   }
 
-  const handleAbandon = async () =>{
+  const handleAbandon = async () => {
     const response = await abandonMatch(user.token, matchId)
     switch (response.status) {
       case 201:
@@ -92,12 +91,13 @@ export const Lobby = ({ match, state }) => {
 
   const matchWinners = () => {
     let winners = []
-    match.results.map((robotResult) => {
-      console.log(robotResult)
-      if (robotResult.robot_pos === "1")
-        winners.push(robotResult.name)
-        console.log({winners})
-    })
+    if (match.results) {
+      Object.keys(match.results).forEach((key) => {
+        if (match.results[key].robot_pos === 1) {
+          winners.push(match.robots[key].name)
+        }
+      })
+    }
     return winners
   }
 
@@ -136,12 +136,12 @@ export const Lobby = ({ match, state }) => {
                   <Typography>Partida en progreso</Typography>
                 </Box>
               )}
-              {state === "Lobby" && (
+              {match.state === "Lobby" && (
                 <Typography>
                   Esperando que se unan {missing_robots} robots...
                 </Typography>
               )}
-              {state === "Finished" && (
+              {match.state === "Finished" && (
                 <Typography>Partida finalizada</Typography>
               )}
             </Box>
@@ -177,7 +177,7 @@ export const Lobby = ({ match, state }) => {
               </Card>
 
               <Box textAlign="center">
-                {state === "Finished" && match.results && (
+                {match.state === "Finished" && match.results && (
                   <Typography variant="h5">
                     <EmojiEventsIcon sx={{ fontSize: 25, color: "#ffc107" }} />{" "}
                     {/* {matchWinners(setWinners, winners)} */}
@@ -189,21 +189,23 @@ export const Lobby = ({ match, state }) => {
                 <Typography>Robots:</Typography>
                 <List>
                   <TransitionGroup>
-                    {match.robots.map((robot) => (
+                    {Object.keys(match.robots).map((key) => (
                       <Slide
-                        key={robot.username + robot.name}
+                        key={
+                          match.robots[key].username + match.robots[key].name
+                        }
                         direction="right"
                       >
                         <ListItem>
                           <ListItemAvatar>
-                            <Avatar src={robot.avatar_url} />
+                            <Avatar src={match.robots[key].avatar_url} />
                           </ListItemAvatar>
                           <ListItemText>
                             <Typography variant="body1">
-                              {robot.name}
+                              {match.robots[key].name}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                              @{robot.username}
+                              @{match.robots[key].username}
                             </Typography>
                           </ListItemText>
                         </ListItem>
@@ -231,16 +233,16 @@ export const Lobby = ({ match, state }) => {
           </CardContent>
           <CardActions>
             {user.profile.username === match.host.username &&
-              state === "Lobby" &&
+              match.state === "Lobby" &&
               match.robots.length >= match.min_players && (
                 <Grid container justifyContent="center" spacing={2}>
-                <Button
-                  variant="contained"
-                  startIcon={<PlayArrowOutlinedIcon />}
-                  onClick={handleStart}
-                >
-                  Iniciar
-                </Button>
+                  <Button
+                    variant="contained"
+                    startIcon={<PlayArrowOutlinedIcon />}
+                    onClick={handleStart}
+                  >
+                    Iniciar
+                  </Button>
                 </Grid>
               )}
             {user.profile.username !== match.host.username && (

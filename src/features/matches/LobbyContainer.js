@@ -6,11 +6,9 @@ import { Lobby } from "./Lobby"
 import { useAuth } from "../../hooks/useAuth"
 
 const LobbyContainer = () => {
-  const { user } = useAuth() 
+  const { user } = useAuth()
   const { matchId } = useParams()
   const [match, setMatch] = useState(null)
-  const [state, setState] = useState("Lobby")
-  const [results, setResults] = useState(null)
 
   useEffect(() => {
     const url = `ws://localhost:8000/matches/${matchId}/ws`
@@ -19,15 +17,14 @@ const LobbyContainer = () => {
     ws.onmessage = async (e) => {
       const data = JSON.parse(e.data)
       setMatch(data)
-      setState(data["state"])
-    
+
       if (data["state"] === "Finished") {
-        const response = (await getResults(user.token, matchId))
+        const response = await getResults(user.token, matchId)
         switch (response.status) {
           case 200:
             const body = await response.json()
-            setResults(body.results)
-            console.log(body.results)
+            setMatch((match) => ({ ...match, results: body.results }))
+            break
         }
         ws.close()
       }
@@ -38,7 +35,7 @@ const LobbyContainer = () => {
     }
   }, [matchId])
 
-  return match ? <Lobby match={match} state={state}/> : <CircularProgress />
+  return match ? <Lobby match={match} /> : <CircularProgress />
 }
 
 export default LobbyContainer

@@ -23,17 +23,19 @@ export const MatchListItem = (props) => {
       </TableCell>
       <TableCell data-testid="public-match-players">
         <AvatarGroup max={4}>
-          {props.match.robots.map((robot, index) => (
+          {Object.keys(props.match.robots).map((key, index) => (
             <Tooltip
               data-testid="public-match-robot"
               arrow
-              title={`${robot.name},@${robot.username}`}
+              title={`${props.match.robots[key].name},@${props.match.robots[key].username}`}
               placement="top-start"
               key={index}
             >
               <Avatar
                 key={index}
-                src={"http://localhost:8000" + robot.avatar_url}
+                src={
+                  "http://localhost:8000" + props.match.robots[key].avatar_url
+                }
               />
             </Tooltip>
           ))}
