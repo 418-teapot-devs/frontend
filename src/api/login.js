@@ -21,7 +21,7 @@ export const login = async (username, password) => {
         profile = body["profile"]
         break
       case 401:
-        error = "El usuario no existe o la contraseña inválida"
+        error = "El usuario no existe o la contraseña es inválida"
         break
       case 500:
         error = "Error del servidor, intente más tarde"

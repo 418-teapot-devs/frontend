@@ -7,7 +7,7 @@ export const StartedMatches = ({height}) => {
       onClick={() =>{}}
       buttontext="Detalles"
       height={height}
-      title="Historial de Partidas"
+      title="Historial de partidas"
     />
   )
 }

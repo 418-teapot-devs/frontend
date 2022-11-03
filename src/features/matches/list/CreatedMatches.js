@@ -7,7 +7,7 @@ export const CreatedMatches = (height) => {
       onClick={() =>{}}
       buttontext="Iniciar"
       height={height}
-      title="Partidas Propias"
+      title="Mis partidas"
     />
   )
 }
