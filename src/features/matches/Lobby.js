@@ -180,7 +180,6 @@ export const Lobby = ({ match }) => {
                 {match.state === "Finished" && match.results && (
                   <Typography variant="h5">
                     <EmojiEventsIcon sx={{ fontSize: 25, color: "#ffc107" }} />{" "}
-                    {/* {matchWinners(setWinners, winners)} */}
                     Ganador: {matchWinners()}
                   </Typography>
                 )}
@@ -234,7 +233,7 @@ export const Lobby = ({ match }) => {
           <CardActions>
             {user.profile.username === match.host.username &&
               match.state === "Lobby" &&
-              match.robots.length >= match.min_players && (
+              Object.keys(match.robots).length >= match.min_players && (
                 <Grid container justifyContent="center" spacing={2}>
                   <Button
                     variant="contained"
