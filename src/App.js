@@ -83,7 +83,7 @@ const App = () => {
   ])
 
   return (
-    <Box sx={(theme) => ({backgroundColor: theme.palette.surface[0], minHeight: "100vh"})}>
+    <Box sx={(theme) => ({backgroundColor: theme.palette.background.main, minHeight: "100vh"})}>
       {routes}
     </Box>
   )

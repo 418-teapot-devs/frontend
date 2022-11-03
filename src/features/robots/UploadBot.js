@@ -221,17 +221,17 @@ export const UploadBot = () => {
               </Button>
             </CardActions>
             {success && (
-              <Alert severity="success" variant="filled">
+              <Alert severity="success" >
                 <AlertTitle>Se subió el robot con éxito</AlertTitle>
               </Alert>
             )}
             {error && (
-              <Alert severity="error" variant="filled">
+              <Alert severity="error" >
                 <AlertTitle>No se pudo subir el robot</AlertTitle>
               </Alert>
             )}
             {duplicate && (
-              <Alert severity="error" variant="filled">
+              <Alert severity="error" >
                 <AlertTitle>Ya cuentas con un robot con ese nombre</AlertTitle>
               </Alert>
             )}

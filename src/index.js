@@ -5,49 +5,11 @@ import reportWebVitals from "./reportWebVitals"
 import { BrowserRouter } from "react-router-dom"
 import { AuthProvider } from "./hooks/useAuth"
 import "./index.css"
-import { ThemeProvider, createTheme } from "@mui/material/styles"
-import {
-  red,
-  grey,
-  purple,
-  pink,
-  orange,
-  deepOrange,
-  blue,
-  green,
-  teal
-} from "@mui/material/colors"
+import { darkModeTheme, lightModeTheme } from "./utils/theme"
+import { ThemeProvider } from "@mui/material/styles"
 
-// mock all
-const { worker } = require('./mocks/browser')
-worker.start()
-
-const darkModeTheme = createTheme({
-  palette: {
-    primary: {
-      main: '#4F8F55' , // botones
-    },
-    surface: [
-      '#000',
-      grey[900],
-      "#5555",
-    ],
-    background: {
-      paper: grey[900], // cards
-      default: grey[500], // personita de avatares y header de tablas
-    },
-    text: {
-      primary: "#fff",
-      secondary: [300],
-    },
-    error: {
-      main: red[300],
-    }
-  },
-})
-
-const container = document.getElementById("root")
-const root = createRoot(container)
+// const container = document.getElementById("root")
+// const root = createRoot(container)
 
 root.render(
   <React.StrictMode>

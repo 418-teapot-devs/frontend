@@ -5,18 +5,14 @@ import { Stack } from "@mui/system"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment"
 
-import Card, { cardClasses } from "@mui/material/Card"
-import { paperClasses } from "@mui/material/Paper"
+import Card from "@mui/material/Card"
 
 export function RobotBaseItem(props) {
   return (
     <Box display="inline-block" sx={{ width: "100%" }}>
       <Card
         variant="outlined"
-        sx={(theme) => ({backgroundColor: theme.palette.surface[2]})}
-        // sx={{
-          // backgroundColor: "#5555",
-        // }}
+        sx={(theme) => ({backgroundColor: theme.palette.background.default})}
       >
         <CardContent>
           <Stack>
