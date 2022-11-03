@@ -2,14 +2,14 @@ import React from "react"
 import { useRoutes } from "react-router-dom"
 import { Root } from "./routes/Root"
 import { ProtectedRoute } from "./routes/ProtectedRoute"
-import  LoginPage  from "./routes/LoginPage"
-import  RegisterPage  from "./routes/RegisterPage"
+import LoginPage from "./routes/LoginPage"
+import RegisterPage from "./routes/RegisterPage"
 import { Profile } from "./features/user/Profile"
-
+import { Box } from "@mui/material"
 import { UploadBot } from "./features/robots/UploadBot"
 import { RobotsList } from "./features/robots/RobotsList"
 
-import { CreateMatch } from "./features/matches/create/CreateMatch" 
+import { CreateMatch } from "./features/matches/create/CreateMatch"
 import { PublicMatchesPage } from "./routes/PublicMatchesPage"
 import { StartedMatchesPage } from "./routes/StartedMatchesPage"
 import { MyMatchesPage } from "./routes/MyMatchesPage"
@@ -43,7 +43,7 @@ const App = () => {
         },
         {
           path: "/matches/create",
-          element: <CreateMatch />
+          element: <CreateMatch />,
         },
         {
           path: "/profile",
@@ -60,7 +60,7 @@ const App = () => {
         {
           path: "/matches/started",
           element: <StartedMatchesPage />,
-        }
+        },
       ],
     },
     {
@@ -73,7 +73,11 @@ const App = () => {
     },
   ])
 
-  return routes
+  return (
+    <Box sx={(theme) => ({backgroundColor: theme.palette.surface[0], minHeight: "100vh"})}>
+      {routes}
+    </Box>
+  )
 }
 
 export default App

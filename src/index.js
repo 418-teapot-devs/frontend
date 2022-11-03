@@ -8,7 +8,7 @@ import "./index.css"
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import {
   red,
-  blueGrey,
+  grey,
   purple,
   pink,
   orange,
@@ -19,24 +19,29 @@ import {
 } from "@mui/material/colors"
 
 // mock all
-// const { worker } = require('./mocks/browser')
-// worker.start()
+const { worker } = require('./mocks/browser')
+worker.start()
 
 const darkModeTheme = createTheme({
   palette: {
     primary: {
-      main: red[400], // botones
+      main: '#4F8F55' , // botones
     },
+    surface: [
+      '#000',
+      grey[900],
+      "#5555",
+    ],
     background: {
-      default: blueGrey[400], // personita de avatares y header de tablas
-      paper: blueGrey[900], // cards
+      paper: grey[900], // cards
+      default: grey[500], // personita de avatares y header de tablas
     },
     text: {
       primary: "#fff",
       secondary: [300],
     },
     error: {
-      main: red[500],
+      main: red[300],
     }
   },
 })
