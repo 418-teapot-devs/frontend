@@ -67,7 +67,7 @@ const SideBarItem = (props) => {
   return (
     <ListItem disablePadding>
       <Tooltip title={props.title} placement="right">
-        <ListItemButton onClick={props.onClick}>{props.icon}</ListItemButton>
+        <ListItemButton sx={{ justifyContent: "center" }} onClick={props.onClick}>{props.icon}</ListItemButton>
       </Tooltip>
     </ListItem>
   )
