@@ -7,7 +7,7 @@ import  RegisterPage  from "./routes/RegisterPage"
 import { Profile } from "./features/user/Profile"
 
 import { UploadBot } from "./features/robots/UploadBot"
-import LobbyContainer from "./features/matches/Lobby/LobbyContainer"
+import LobbyContainer from "./features/matches/lobby/LobbyContainer"
 import { RobotsList } from "./features/robots/RobotsList"
 
 import { CreateMatch } from "./features/matches/create/CreateMatch" 
