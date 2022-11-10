@@ -1,7 +1,7 @@
 import { createContext, useContext, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import { useLocalStorage } from "./useLocalStorage"
-import { login as loginAPI } from "../api/login"
+import { login as loginAPI } from "../features/user/api/login"
 
 export const AuthContext = createContext()
 
