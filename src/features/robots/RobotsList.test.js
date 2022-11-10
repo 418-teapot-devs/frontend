@@ -5,9 +5,10 @@ import { robotslist } from "../../mocks/data/robotslist";
 import { server } from "../../mocks/server"
 
 test("Render button for creating robot", async () => {
-  renderWithProviders(<RobotsList />)
+  const { getByTestId } = renderWithProviders(<RobotsList />) 
+
   expect(
-      screen.getByRole("link", {name: "Nuevo robot"})
+    getByTestId("robots-list-create-robot")
   ).toBeInTheDocument()
 })
 
