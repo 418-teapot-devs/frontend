@@ -244,7 +244,8 @@ export const Lobby = ({ match }) => {
                   </Button>
                 </Grid>
               )}
-            {user.profile.username !== match.host.username && (
+            {user.profile.username !== match.host.username && 
+              match.state !== "Finished" && (
               <Grid container justifyContent="flex-end" spacing={2}>
                 <Button
                   variant="outlined"
