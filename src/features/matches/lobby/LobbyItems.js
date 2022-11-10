@@ -1,7 +1,7 @@
-import { React } from "react";
-import { grey } from "@mui/material/colors";
-import { PersonOutlined } from "@mui/icons-material";
-import LockOutlined from "@mui/icons-material/LockOutlined";
+import { React } from "react"
+import { grey } from "@mui/material/colors"
+import { PersonOutlined } from "@mui/icons-material"
+import LockOutlined from "@mui/icons-material/LockOutlined"
 import {
   Avatar,
   Box,
@@ -17,8 +17,8 @@ import {
   ListItemText,
   Slide,
   CircularProgress,
-} from "@mui/material";
-import { TransitionGroup } from "react-transition-group";
+} from "@mui/material"
+import { TransitionGroup } from "react-transition-group"
 
 const JoinedRobotItem = ({ robot }) => {
   return (
@@ -33,8 +33,8 @@ const JoinedRobotItem = ({ robot }) => {
         </Typography>
       </ListItemText>
     </ListItem>
-  );
-};
+  )
+}
 
 const MissingRobotItem = () => {
   return (
@@ -51,8 +51,8 @@ const MissingRobotItem = () => {
         </Avatar>
       </ListItemAvatar>
     </ListItem>
-  );
-};
+  )
+}
 
 export const Players = ({ robots, missing_robots }) => {
   return (
@@ -70,8 +70,8 @@ export const Players = ({ robots, missing_robots }) => {
         <MissingRobotItem key={i} />
       ))}
     </List>
-  );
-};
+  )
+}
 
 const Host = ({ host }) => {
   return (
@@ -79,8 +79,8 @@ const Host = ({ host }) => {
       <Avatar src={"http://localhost:8000" + host.avatar_url} />
       <Typography variant="overline">Creador: @{host.username}</Typography>
     </Stack>
-  );
-};
+  )
+}
 
 export const MatchDescription = ({ match }) => {
   const description = [
@@ -88,7 +88,7 @@ export const MatchDescription = ({ match }) => {
     `max.jugadores: ${match.max_players}`,
     `juegos: ${match.games}`,
     `rondas: ${match.rounds}`,
-  ];
+  ]
 
   return (
     <Card>
@@ -102,13 +102,13 @@ export const MatchDescription = ({ match }) => {
                 <Typography variant="overline">{field}</Typography>
                 <Divider />
               </div>
-            );
+            )
           })}
         </Stack>
       </CardContent>
     </Card>
-  );
-};
+  )
+}
 
 export const Title = ({ match }) => {
   return (
@@ -118,8 +118,8 @@ export const Title = ({ match }) => {
         <LockOutlined data-testid="public-match-private" color="disabled" />
       )}
     </Typography>
-  );
-};
+  )
+}
 
 export const InfoMessage = ({ state, missing_robots }) => {
   switch (state) {
@@ -128,13 +128,13 @@ export const InfoMessage = ({ state, missing_robots }) => {
         <Typography>
           Esperando que se unan {missing_robots} robots...
         </Typography>
-      );
+      )
     case "Finished":
-      return <Typography>Partida finalizada</Typography>;
+      return <Typography>Partida finalizada</Typography>
     default:
-      return;
+      return
   }
-};
+}
 
 export const LoadingBox = ({ loading }) => {
   return (
@@ -150,5 +150,5 @@ export const LoadingBox = ({ loading }) => {
       </Fade>
       <Typography>Partida en progreso</Typography>
     </Box>
-  );
-};
+  )
+}

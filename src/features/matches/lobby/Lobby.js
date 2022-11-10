@@ -1,8 +1,8 @@
-import { React, useState } from "react";
-import { useAuth } from "../../../hooks/useAuth";
-import { useNavigate, useParams } from "react-router-dom";
-import { abandonMatch } from "../abandon/abandonMatch";
-import { startMatch } from "../start/startMatch";
+import { React, useState } from "react"
+import { useAuth } from "../../../hooks/useAuth"
+import { useNavigate, useParams } from "react-router-dom"
+import { abandonMatch } from "../abandon/abandonMatch"
+import { startMatch } from "../start/startMatch"
 import {
   Box,
   Card,
@@ -11,62 +11,61 @@ import {
   Typography,
   Stack,
   CardActions,
-} from "@mui/material";
+} from "@mui/material"
 import {
   Players,
   Title,
   InfoMessage,
   MatchDescription,
-  LoadingBox
+  LoadingBox,
 } from "./LobbyItems"
-import { MatchResults } from "./MatchResults";
-import { StartButton } from "../start/StartMatchButton";
-import { AbandonButton } from "../abandon/AbandonMatchButton";
-
+import { MatchResults } from "./MatchResults"
+import { StartButton } from "../start/StartMatchButton"
+import { AbandonButton } from "../abandon/AbandonMatchButton"
 
 export const Lobby = ({ match }) => {
-  const { user } = useAuth();
-  const { matchId } = useParams();
-  const missing_robots = match.max_players - Object.keys(match.robots).length;
-  const [error, setError] = useState(false);
-  const [notFound, setNotFound] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [started, setStarted] = useState(false);
+  const { user } = useAuth()
+  const { matchId } = useParams()
+  const missing_robots = match.max_players - Object.keys(match.robots).length
+  const [error, setError] = useState(false)
+  const [notFound, setNotFound] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [started, setStarted] = useState(false)
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleStart = () => {
-    const response = startMatch(user.token, matchId);
+    const response = startMatch(user.token, matchId)
     switch (response.status) {
       case 201:
-        setError(false);
-        setLoading(true);
-        setStarted(true);
-        break;
+        setError(false)
+        setLoading(true)
+        setStarted(true)
+        break
       default:
-        setLoading(false);
-        setError(true);
-        setStarted(false);
-        break;
+        setLoading(false)
+        setError(true)
+        setStarted(false)
+        break
     }
-  };
+  }
 
   const handleAbandon = async () => {
-    const response = await abandonMatch(user.token, matchId);
+    const response = await abandonMatch(user.token, matchId)
     switch (response.status) {
       case 201:
-        setError(false);
-        navigate("/matches", { replace: true });
-        break;
+        setError(false)
+        navigate("/matches", { replace: true })
+        break
       case 404:
-        setNotFound(true);
-        setError(true);
-        break;
+        setNotFound(true)
+        setError(true)
+        break
       default:
-        setError(true);
-        break;
+        setError(true)
+        break
     }
-  };
+  }
 
   return (
     <Grid container justifyContent="center">
@@ -76,7 +75,10 @@ export const Lobby = ({ match }) => {
             <Title match={match} />
             <Box textAlign="center">
               {started && <LoadingBox loading={loading} />}
-              <InfoMessage state={match.state} missing_robots={missing_robots} />
+              <InfoMessage
+                state={match.state}
+                missing_robots={missing_robots}
+              />
             </Box>
             <Stack spacing={2}>
               <MatchDescription match={match} />
@@ -94,15 +96,16 @@ export const Lobby = ({ match }) => {
               Object.keys(match.robots).length >= match.min_players && (
                 <StartButton onClick={handleStart} />
               )}
-            {user.profile.username !== match.host.username && 
-            <AbandonButton
-            handleAbandon={handleAbandon}
-            error={error}
-            notFound={notFound}
-            />}
+            {user.profile.username !== match.host.username && (
+              <AbandonButton
+                handleAbandon={handleAbandon}
+                error={error}
+                notFound={notFound}
+              />
+            )}
           </CardActions>
         </Card>
       </Grid>
     </Grid>
-  );
-};
+  )
+}
