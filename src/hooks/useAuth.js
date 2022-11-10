@@ -34,11 +34,16 @@ export const AuthProvider = ({ children }) => {
     navigate("/login", { replace: true })
   }
 
+  const setProfile = (user) => { 
+    setUser({ token: user.token, profile: user.profile })
+  }
+
   const value = useMemo(
     () => ({
       user,
       login,
       logout,
+      setProfile
     }),
     // TODO: Read more about useMemo and useCallback
     // eslint-disable-next-line
