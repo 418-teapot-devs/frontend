@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 import PlayArrowOutlinedIcon from "@mui/icons-material/PlayArrowOutlined";
 
-export const StartButton = (handleStart) => {
+export const StartButton = ({handleStart}) => {
   return (
     <Grid container justifyContent="center" spacing={2}>
       <Button
