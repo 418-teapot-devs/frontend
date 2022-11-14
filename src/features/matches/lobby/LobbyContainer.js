@@ -1,12 +1,9 @@
 import { CircularProgress } from "@mui/material"
 import { useEffect, useState } from "react"
-import { getResults } from "./api/getResults"
 import { useParams } from "react-router-dom"
 import { Lobby } from "./Lobby"
-import { useAuth } from "../../hooks/useAuth"
 
 const LobbyContainer = () => {
-  const { user } = useAuth()
   const { matchId } = useParams()
   const [match, setMatch] = useState(null)
 
@@ -19,13 +16,6 @@ const LobbyContainer = () => {
       setMatch(data)
 
       if (data["state"] === "Finished") {
-        const response = await getResults(user.token, matchId)
-        switch (response.status) {
-          case 200:
-            const body = await response.json()
-            setMatch((match) => ({ ...match, results: body.results }))
-            break
-        }
         ws.close()
       }
     }
