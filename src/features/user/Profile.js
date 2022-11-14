@@ -11,6 +11,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  Divider,
   Grid,
   IconButton,
   Stack,
@@ -66,7 +67,7 @@ export const Profile = () => {
           setSuccess(true)
           setError(false)
           break
-        case 409:
+        case 400:
           setSuccess(false)
           setError(true)
           break
@@ -93,7 +94,7 @@ export const Profile = () => {
   }
 
   return (
-    <Grid container spacing={4} justifyContent="center">
+    <Grid container spacing={20} justifyContent="center">
       <Grid item xs={12} md={6} marginTop={10}>
         <Card>
           <CardContent>
@@ -164,11 +165,9 @@ export const Profile = () => {
           </CardContent>
           <CardActions>
             <Stack direction="column" spacing={2} fullWidth>
-            <Box textAlign="center">
             <Button variant="contained" color="primary" type="submit">
               Cambiar contraseña
             </Button>
-            </Box>
             {error && (
               <Alert severity="error">Error al cambiar la contraseña</Alert>
             )}
