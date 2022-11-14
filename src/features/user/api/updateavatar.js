@@ -7,6 +7,7 @@ export const updateavatar = async (avatar, token) => {
       method: "PATCH",
       headers: {
         accept: "application/json",
+        token: token,
       },
       body: data
     })
