@@ -85,8 +85,8 @@ export const Profile = () => {
 
     switch (response.status) {
       case 200:
-        const user = await response.json()
-        updateProfile(user)
+        const profile = await response.json()
+        updateProfile(profile)
         break
       default:
         setAvatarError(true)
@@ -112,7 +112,7 @@ export const Profile = () => {
             <Stack direction="row" spacing={2}>
               <IconButton variant="outlined" component="label">
                 <Avatar
-                  src={user.profile.avatar_url}
+                  src={"http://localhost:8000" + user.profile.avatar_url}
                   sx={{ width: 80, height: 80 }}
                 />
                 <input

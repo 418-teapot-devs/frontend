@@ -35,8 +35,8 @@ export const AuthProvider = ({ children }) => {
     navigate("/login", { replace: true })
   }
 
-  const updateProfile = async (user) => {
-    setProfile({ username: user.username, email: user.email, avatar_url: "http://localhost:8000" + user.avatar_url })
+  const updateProfile = async (profile) => {
+    setProfile({ username: profile.username, email: profile.email, avatar_url: "http://localhost:8000" + profile.avatar_url })
   }
 
   const value = useMemo(
