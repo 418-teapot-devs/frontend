@@ -4,14 +4,13 @@ import { useFormik } from "formik"
 import { changepassword } from "./api/changepassword"
 import * as yup from "yup"
 import {
-  Alert,  
+  Alert,
   Avatar,
   Box,
   Button,
   Card,
   CardActions,
   CardContent,
-  Divider,
   Grid,
   IconButton,
   Stack,
@@ -26,7 +25,7 @@ YupPassword(yup)
 
 const validationSchema = () =>
   yup.object({
-    oldPassword: yup
+    currentPassword: yup
       .string()
       .min(8, "La contraseña debe tener al menos 8 caracteres")
       .minLowercase(1, "La contraseña debe tener al menos una letra minúscula")
@@ -45,12 +44,13 @@ const validationSchema = () =>
     confirmPassword: yup
       .string()
       .required("La nueva contraseña es requerida")
-      .oneOf([yup.ref("password"), null], "Las contraseñas no coinciden"),
+      .oneOf([yup.ref("newPassword"), null], "Las contraseñas no coinciden"),
   })
 
 export const Profile = () => {
-  const { user, setProfile } = useAuth()
-  const [error, setError] = useState(false)
+  const { user, updateProfile } = useAuth()
+  const [pswdError, setPswdError] = useState(false)
+  const [avatarError, setAvatarError] = useState(false)
   const [success, setSuccess] = useState(false)
 
   const formik = useFormik({
@@ -65,37 +65,38 @@ export const Profile = () => {
       switch (response.status) {
         case 200:
           setSuccess(true)
-          setError(false)
+          setPswdError(false)
           break
         case 400:
           setSuccess(false)
-          setError(true)
+          setPswdError(true)
           break
         default:
           setSuccess(false)
-          setError(true)
+          setPswdError(true)
+          break
       }
     },
   })
 
-  const handleAvatarChange = (e) => {
-    const avatar = e.target.files[0]
-    const response = updateavatar(avatar, user.token)
+  const handleAvatarChange = async (e) => {
+    const avatar = e.currentTarget.files[0]
+    const response = await updateavatar(user.token, avatar)
 
     switch (response.status) {
       case 200:
-        const user = response.json()
-        setProfile(user)
+        const user = await response.json()
+        updateProfile(user)
         break
       default:
-        setError("Error en el servidor...")
+        setAvatarError(true)
         break
     }
   }
 
   return (
     <Grid container spacing={20} justifyContent="center">
-      <Grid item xs={12} md={6} marginTop={10}>
+      <Grid item md={6} marginTop={10}>
         <Card>
           <CardContent>
             <Box textAlign="center">
@@ -135,48 +136,77 @@ export const Profile = () => {
             </Stack>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent>
-            <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
+          <Card>
+            <CardContent>
               <Stack spacing={2}>
                 <TextField
-                  id="password"
-                  name="password"
+                  id="currentPassword"
+                  name="currentPassword"
                   label="Contraseña actual *"
                   type="password"
+                  value={formik.values.currentPassword}
                   onChange={formik.handleChange}
+                  error={
+                    formik.touched.currentPassword &&
+                    Boolean(formik.errors.currentPassword)
+                  }
+                  helperText={
+                    formik.touched.currentPassword &&
+                    formik.errors.currentPassword
+                  }
                 />
                 <TextField
-                  id="password"
-                  name="password"
+                  id="newPassword"
+                  name="newPassword"
                   label="Nueva contraseña *"
                   type="password"
+                  value={formik.values.newPassword}
                   onChange={formik.handleChange}
+                  error={
+                    formik.touched.newPassword &&
+                    Boolean(formik.errors.newPassword)
+                  }
+                  helperText={
+                    formik.touched.newPassword && formik.errors.newPassword
+                  }
                 />
                 <TextField
-                  id="password"
-                  name="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
                   label="Reingrese la nueva contraseña *"
                   type="password"
+                  value={formik.values.confirmPassword}
                   onChange={formik.handleChange}
+                  error={
+                    formik.touched.confirmPassword &&
+                    Boolean(formik.errors.confirmPassword)
+                  }
+                  helperText={
+                    formik.touched.confirmPassword &&
+                    formik.errors.confirmPassword
+                  }
                 />
               </Stack>
-            </form>
-          </CardContent>
-          <CardActions>
-            <Stack direction="column" spacing={2} fullWidth>
-            <Button variant="contained" color="primary" type="submit">
-              Cambiar contraseña
-            </Button>
-            {error && (
+            </CardContent>
+            <CardActions>
+              <Stack direction="column" spacing={{ xs: 12, md: 1 }}>
+                <Button type="submit" variant="contained" color="primary">
+                  Cambiar contraseña
+                </Button>
+              </Stack>
+            </CardActions>
+            {pswdError && (
               <Alert severity="error">Error al cambiar la contraseña</Alert>
             )}
             {success && (
               <Alert severity="success">Contraseña cambiada con éxito</Alert>
             )}
-            </Stack>
-          </CardActions>
-        </Card>
+            {avatarError && (
+              <Alert severity="error">Error al subir el avatar</Alert>
+            )}
+          </Card>
+        </form>
       </Grid>
     </Grid>
   )

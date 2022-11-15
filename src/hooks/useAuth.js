@@ -10,12 +10,13 @@ const INITIAL_USER = {
   profile: {
     username: null,
     email: null,
-    avatar: null
+    avatar_url: null // Es así?
   }
 }
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useLocalStorage("user", INITIAL_USER)
+  const [profile, setProfile] = useLocalStorage("profile", INITIAL_USER.profile)
   const navigate = useNavigate()
 
   const login = async (username, password) => {
@@ -34,8 +35,8 @@ export const AuthProvider = ({ children }) => {
     navigate("/login", { replace: true })
   }
 
-  const setProfile = (user) => { 
-    setUser({ token: user.token, profile: user.profile })
+  const updateProfile = async (user) => {
+    setProfile({ username: user.username, email: user.email, avatar_url: "http://localhost:8000" + user.avatar_url })
   }
 
   const value = useMemo(
@@ -43,7 +44,7 @@ export const AuthProvider = ({ children }) => {
       user,
       login,
       logout,
-      setProfile
+      updateProfile
     }),
     // TODO: Read more about useMemo and useCallback
     // eslint-disable-next-line

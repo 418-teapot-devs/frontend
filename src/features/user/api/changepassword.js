@@ -1,4 +1,7 @@
-export const changepassword = async (token, oldPassword, newPassword) => {
+export const changepassword = (token, values) => {
+
+    console.log(JSON.stringify({currentPassword: values.currentPassword, newPassword: values.newPassword}))
+
     return fetch(`http://127.0.0.1:8000/users/password/`, {
         method: "PUT",
         headers: {
@@ -6,8 +9,8 @@ export const changepassword = async (token, oldPassword, newPassword) => {
         token: token,
         },
         body: JSON.stringify({
-            old_password: oldPassword,
-            new_password: newPassword,
+            old_password: values.currentPassword,
+            new_password: values.newPassword,
         })
     })
 }
