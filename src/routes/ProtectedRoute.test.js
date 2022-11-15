@@ -17,8 +17,14 @@ const logged_user = {
   },
 }
 
+const not_logued_user = {
+  user: {
+    token: null,
+    profile: null,
+  },
+}
 
-test("Show text if user is not logged in", async () => {
+test("Show text if user is logged in", async () => {
   renderWithProviders(
     <ProtectedRoute>
       <div>Im here!</div>
