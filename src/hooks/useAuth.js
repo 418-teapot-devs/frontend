@@ -10,13 +10,12 @@ const INITIAL_USER = {
   profile: {
     username: null,
     email: null,
-    avatar_url: null // Es así?
+    avatar_url: null
   }
 }
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useLocalStorage("user", INITIAL_USER)
-  const [profile, setProfile] = useLocalStorage("profile", INITIAL_USER.profile)
   const navigate = useNavigate()
 
   const login = async (username, password) => {
@@ -36,7 +35,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   const updateProfile = async (profile) => {
-    setProfile({ username: profile.username, email: profile.email, avatar_url: "http://localhost:8000" + profile.avatar_url })
+    setUser({ token: user.token, profile: { username: profile.username, email: profile.email, avatar_url: "http://localhost:8000" + profile.avatar_url } })
   }
 
   const value = useMemo(
