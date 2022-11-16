@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import YupPassword from "yup-password"
 import { useFormik } from "formik"
 import { changepassword } from "./api/changepassword"
@@ -52,6 +52,7 @@ export const Profile = () => {
   const [pswdError, setPswdError] = useState(false)
   const [avatarError, setAvatarError] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [profile, setProfile] = useState(user.profile)
 
   const formik = useFormik({
     initialValues: {
@@ -66,10 +67,6 @@ export const Profile = () => {
         case 200:
           setSuccess(true)
           setPswdError(false)
-          break
-        case 400:
-          setSuccess(false)
-          setPswdError(true)
           break
         default:
           setSuccess(false)
@@ -87,6 +84,7 @@ export const Profile = () => {
       case 200:
         const profile = await response.json()
         updateProfile(profile)
+        setProfile(user.profile)
         break
       default:
         setAvatarError(true)
@@ -112,7 +110,7 @@ export const Profile = () => {
             <Stack direction="row" spacing={2}>
               <IconButton variant="outlined" component="label">
                 <Avatar
-                  src={"http://localhost:8000" + user.profile.avatar_url}
+                  src={"http://localhost:8000" + profile.avatar_url}
                   sx={{ width: 80, height: 80 }}
                 />
                 <input
