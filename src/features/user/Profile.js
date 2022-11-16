@@ -50,6 +50,7 @@ const validationSchema = () =>
 export const Profile = () => {
   const { user, updateProfile } = useAuth()
   const [pswdError, setPswdError] = useState(false)
+  const [duplicatePswd, setDuplicatePswd] = useState(false)
   const [avatarError, setAvatarError] = useState(false)
   const [success, setSuccess] = useState(false)
   const [profile, setProfile] = useState(user.profile)
@@ -67,10 +68,17 @@ export const Profile = () => {
         case 200:
           setSuccess(true)
           setPswdError(false)
+          setDuplicatePswd(false)
+          break
+        case 409:
+          setSuccess(false)
+          setPswdError(false)
+          setDuplicatePswd(true)
           break
         default:
           setSuccess(false)
           setPswdError(true)
+          setDuplicatePswd(false)
           break
       }
     },
@@ -196,6 +204,9 @@ export const Profile = () => {
             </CardActions>
             {pswdError && (
               <Alert severity="error">Error al cambiar la contraseña</Alert>
+            )}
+            {duplicatePswd && (
+              <Alert severity="warning">La contraseña nueva es igual a la actual</Alert>
             )}
             {success && (
               <Alert severity="success">Contraseña cambiada con éxito</Alert>
