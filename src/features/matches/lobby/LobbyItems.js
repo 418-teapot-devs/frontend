@@ -59,7 +59,7 @@ export const Players = ({ robots, missing_robots }) => {
     <List>
       <TransitionGroup>
         {Object.values(robots).map((robot) => (
-          <Slide key={robot.robot_id} direction="right">
+          <Slide key={robot.name + robot.username} direction="right">
             <Box>
               <JoinedRobotItem robot={robot} />
             </Box>
@@ -96,9 +96,9 @@ export const MatchDescription = ({ match }) => {
         <Stack spacing={0.5}>
           <Host host={match.host} />
           <Divider />
-          {description.map((field) => {
+          {description.map((field, index) => {
             return (
-              <div>
+              <div key={index}>
                 <Typography variant="overline">{field}</Typography>
                 <Divider />
               </div>
