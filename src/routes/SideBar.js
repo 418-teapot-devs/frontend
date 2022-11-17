@@ -32,14 +32,9 @@ const mainOptions = [
     icon: <SmartToyOutlinedIcon />,
   },
   {
-    title: "Mis partidas",
+    title: "Partidas",
     to: "matches",
     icon: <PlayCircleOutlineOutlinedIcon />,
-  },
-  {
-    title: "Partidas públicas",
-    to: "/",//"matches/public",
-    icon: <PublicIcon />,
   },
   {
     title: "Historial de partidas",

@@ -13,7 +13,7 @@ import { RobotsList } from "./features/robots/RobotsList"
 import { CreateMatch } from "./features/matches/create/CreateMatch" 
 import { PublicMatchesPage } from "./routes/PublicMatchesPage"
 import { StartedMatchesPage } from "./routes/StartedMatchesPage"
-import { MyMatchesPage } from "./routes/MyMatchesPage"
+import { MatchesPage } from "./routes/MatchesPage"
 
 import SimulationManager from "./features/simulation/SimulationManager"
 
@@ -29,10 +29,6 @@ const App = () => {
       ),
       children: [
         {
-          path: "/",
-          element: <PublicMatchesPage/>,
-        },
-        {
           path: "/robots",
           element: <RobotsList />,
         },
@@ -42,7 +38,7 @@ const App = () => {
         },
         {
           path: "/matches",
-          element: <MyMatchesPage />,
+          element: <MatchesPage />,
         },
         {
           path: "/matches/create",
@@ -64,10 +60,6 @@ const App = () => {
           path: "/simulation",
           element: <SimulationManager />,
         },
-        // {
-        //   path: "/matches/public",
-        //   element: <PublicMatchesPage />,
-        // },
         {
           path: "/matches/started",
           element: <StartedMatchesPage />,
