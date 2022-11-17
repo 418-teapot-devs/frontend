@@ -99,9 +99,8 @@ export const Profile = () => {
   }
 
   return (
-    <Grid container spacing={20} justifyContent="center">
-      <Grid item md={6} marginTop={10}>
-        <Card>
+    <Grid container justifyContent="center">
+      <Grid item md={6} marginTop={10} component={Card} xs>
           <CardContent>
             <Box textAlign="center">
               <Typography
@@ -139,9 +138,7 @@ export const Profile = () => {
               </Stack>
             </Stack>
           </CardContent>
-        </Card>
         <form onSubmit={formik.handleSubmit}>
-          <Card>
             <CardContent>
               <Stack spacing={2}>
                 <TextField
@@ -194,11 +191,11 @@ export const Profile = () => {
               </Stack>
             </CardContent>
             <CardActions>
-              <Stack direction="column" spacing={{ xs: 12, md: 1 }}>
-                <Button type="submit" variant="contained" color="primary">
-                  Cambiar contraseña
-                </Button>
-              </Stack>
+            <Box sx={{ m: 1, marginLeft: "auto" }}>
+              <Button type="submit" variant="contained" color="primary" >
+                Cambiar contraseña
+              </Button>
+            </Box>
             </CardActions>
             {pswdError && (
               <Alert severity="error">Error al cambiar la contraseña</Alert>
@@ -212,7 +209,6 @@ export const Profile = () => {
             {avatarError && (
               <Alert severity="error">Error al subir el avatar</Alert>
             )}
-          </Card>
         </form>
       </Grid>
     </Grid>
