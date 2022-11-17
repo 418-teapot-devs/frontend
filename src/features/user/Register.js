@@ -18,6 +18,8 @@ import {
   Stack,
   Alert,
   AlertTitle,
+  LinearProgress
+
 } from "@mui/material"
 
 YupPassword(yup)
@@ -66,6 +68,7 @@ const validationSchema = () =>
 export const Register = () => {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [duplicateUsername, setDuplicateUsername] = useState(false)
   const [duplicateEmail, setDuplicateEmail] = useState(false)
 
@@ -79,7 +82,9 @@ export const Register = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
+      setLoading(true)
       const response = await register(values)
+      setLoading(false)
       switch (response.status) {
         case 201:
           setSuccess(true)
@@ -105,6 +110,9 @@ export const Register = () => {
 
   return (
     <Box>
+     {loading && (<Box sx={{ width: '100%' }}>
+        <LinearProgress />
+      </Box>)}
       <form onSubmit={formik.handleSubmit}>
         <CardContent>
           <Typography
@@ -211,9 +219,14 @@ export const Register = () => {
           </Grid>
         </CardActions>
         {success && (
+          <Box>
           <Alert severity="success">
             <AlertTitle>Se creó el usuario con éxito</AlertTitle>
           </Alert>
+          <Alert severity="info">
+            <AlertTitle>Email de verificación enviado. </AlertTitle>
+          </Alert>
+        </Box>
         )}
         {error && (
           <Alert severity="error">

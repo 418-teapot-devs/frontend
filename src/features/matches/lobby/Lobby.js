@@ -96,7 +96,8 @@ export const Lobby = ({ match }) => {
               Object.keys(match.robots).length >= match.min_players && (
                 <StartButton handleStart={handleStart} />
               )}
-            {user.profile.username !== match.host.username && (
+            {user.profile.username !== match.host.username && 
+              match.state !== "Finished" && (
               <AbandonButton
                 handleAbandon={handleAbandon}
                 error={error}
