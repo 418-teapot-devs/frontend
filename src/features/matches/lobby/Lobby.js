@@ -34,7 +34,7 @@ export const Lobby = ({ match }) => {
 
   const navigate = useNavigate()
 
-  const handleStart = () => {
+  const handleStart = async () => {
     const response = startMatch(user.token, matchId)
     switch (response.status) {
       case 201:
@@ -94,7 +94,7 @@ export const Lobby = ({ match }) => {
             {user.profile.username === match.host.username &&
               match.state === "Lobby" &&
               Object.keys(match.robots).length >= match.min_players && (
-                <StartButton onClick={handleStart} />
+                <StartButton handleStart={handleStart} />
               )}
             {user.profile.username !== match.host.username && 
               match.state !== "Finished" && (
