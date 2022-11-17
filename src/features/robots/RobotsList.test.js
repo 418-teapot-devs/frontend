@@ -22,12 +22,12 @@ test("Render all robots names", async () => {
   })
 })
 
-test("Render all robots win rate and mmr", async () => {
+test("Render all robots win rate and played matches", async () => {
   const { getAllByTestId } = renderWithProviders(
     <RobotsList />
   )
-  expect((await screen.findAllByText(/Win rate: /i)).length).toBe(robotslist.length)
-  expect((await screen.findAllByText(/MMR: /i)).length).toBe(robotslist.length)
+  expect((await screen.findAllByText(/Tasa de victorias:/i)).length).toBe(robotslist.length)
+  expect((await screen.findAllByText(/Partidas jugadas:/i)).length).toBe(robotslist.length)
 })
 
 test("case: failure", async () => {

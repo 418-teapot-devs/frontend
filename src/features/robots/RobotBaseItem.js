@@ -30,11 +30,11 @@ export function RobotBaseItem(props) {
                   </Typography>
                   <Typography variant="caption" margin={0} noWrap={true}>
                     <EmojiEventsIcon sx={{fontSize: 15, color: "#ffc107"}}> 
-                    </EmojiEventsIcon> Win rate: {props.win_rate}
+                    </EmojiEventsIcon> Tasa de victorias: {props.played_matches ? props.won_matches / props.played_matches : 0}
                   </Typography>
                   <Typography variant="caption" margin={0} noWrap={true}>
                     <LocalFireDepartmentIcon sx={{fontSize: 15, color: "#f44336"}}>
-                    </LocalFireDepartmentIcon> MMR: {props.mmr}
+                    </LocalFireDepartmentIcon> Partidas jugadas: {props.played_matches}
                   </Typography>
                 </Stack>
               </Stack>
