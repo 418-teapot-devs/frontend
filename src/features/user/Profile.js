@@ -83,8 +83,6 @@ export const Profile = () => {
     },
   })
 
-  console.log(user.profile.avatar_url)
-
   const handleAvatarChange = async (e) => {
     const avatar = e.currentTarget.files[0]
     const response = await updateavatar(user.token, avatar)
