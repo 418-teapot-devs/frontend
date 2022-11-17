@@ -83,6 +83,8 @@ export const Profile = () => {
     },
   })
 
+  console.log(user.profile.avatar_url)
+
   const handleAvatarChange = async (e) => {
     const avatar = e.currentTarget.files[0]
     const response = await updateavatar(user.token, avatar)
@@ -115,7 +117,7 @@ export const Profile = () => {
             <Stack direction="row" spacing={2}>
               <IconButton variant="outlined" component="label">
                 <Avatar
-                  src={user.profile.avatar_url}
+                  src={"http://localhost:8000" + user.profile.avatar_url + `?hash=${Date.now()}`}
                   sx={{ width: 80, height: 80 }}
                 />
                 <input

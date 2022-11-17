@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
       profile: {
         username: profile.username,
         email: profile.email,
-        avatar_url: "http://localhost:8000" + profile.avatar_url + `?hash=${Date.now()}`,
+        avatar_url: profile.avatar_url,
       },
     })
   }
