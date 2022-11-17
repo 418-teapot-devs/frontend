@@ -2,6 +2,8 @@ import React from "react"
 import { useFormik } from "formik"
 import * as yup from "yup"
 import { RobotsSelect } from "../../robots/RobotsSelect"
+import { Navigate } from "react-router-dom"
+
 
 import {
   Button,
@@ -218,9 +220,7 @@ const validationSchema = () =>
           </Button>
         </CardActions>
         {success && (
-          <Alert severity="success">
-            <AlertTitle>Se creó la partida con éxito</AlertTitle>
-          </Alert>
+          <Navigate to="/matches" />
         )}
         {failure && (
           <Alert severity="error">
