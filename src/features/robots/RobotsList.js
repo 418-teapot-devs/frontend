@@ -13,8 +13,12 @@ import {
   Grid,
   Alert,
 } from "@mui/material"
+import { SuccessMessage } from "../../utils/AlertMessage"
 
 export const RobotsList = (props) => {
+  const params = new URLSearchParams(document.location.search)
+  const upload_success = params.get("upload_success")
+
   const [robots, setRobots] = useState([])
   const [error, setError] = useState(null)
   const { user } = useAuth()
@@ -86,6 +90,9 @@ export const RobotsList = (props) => {
           ))}
         </Grid>
       </CardContent>
+      {upload_success && (
+        <SuccessMessage message="Se creó el robot con éxito" />
+      )}
     </Card>
   )
 }

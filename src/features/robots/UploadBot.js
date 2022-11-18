@@ -24,6 +24,7 @@ import {
   Stack,
   ThemeProvider,
 } from "@mui/material"
+import { useNavigate } from "react-router-dom"
 
 const FILE_SIZE = 4400000
 const SUPPORTED_IMG_FORMATS = ["image/png"]
@@ -64,7 +65,7 @@ export const UploadBot = () => {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
   const [duplicate, setDuplicate] = useState(false)
-
+  const navigate = useNavigate()
   const { user } = useAuth()
 
   const formik = useFormik({
@@ -81,6 +82,7 @@ export const UploadBot = () => {
           setSuccess(true)
           setError(false)
           setDuplicate(false)
+          navigate("/robots?upload_success=True")
           break
         case 409:
           setSuccess(false)

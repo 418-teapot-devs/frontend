@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { useFormik } from "formik"
 import * as yup from "yup"
 import { RobotsSelect } from "../../robots/RobotsSelect"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 import { useAuth } from "../../../hooks/useAuth"
-import { Grid } from "@mui/material"
 
 import { createMatch } from "./createMatch"
 
@@ -71,49 +70,48 @@ const validationSchema = () =>
     robot_id: yup.number().required("Elegir un robot es obligatorio"),
   })
 
-  
-  export const CreateMatch = () => {
-    const { user } = useAuth()
-    const navigate = useNavigate()
-  
-    const [loading, setLoading] = useState(false)
-    const [success, setSucces] = useState(false)
-    const [failure, setFailure] = useState(false)
+export const CreateMatch = () => {
+  const { user } = useAuth()
+  const navigate = useNavigate()
 
-    const onSubmita = async (values) => {
-      setLoading(true)
-      const response = await createMatch(values, user.token)
-      switch (response.status) {
-        case 201:
-          setLoading(false)
-          setSucces(true)
-          setFailure(false)
-          navigate('/matches') 
-          break
-        default:
-          setLoading(false)
-          setSucces(false)
-          setFailure(true)
-          formik.resetForm(formik.initialValues)
-          break
-      }
+  const [loading, setLoading] = useState(false)
+  const [success, setSucces] = useState(false)
+  const [failure, setFailure] = useState(false)
+
+  const onSubmita = async (values) => {
+    setLoading(true)
+    const response = await createMatch(values, user.token)
+    switch (response.status) {
+      case 201:
+        setLoading(false)
+        setSucces(true)
+        setFailure(false)
+        navigate("/matches?create_success=True")
+        break
+      default:
+        setLoading(false)
+        setSucces(false)
+        setFailure(true)
+        formik.resetForm(formik.initialValues)
+        break
     }
-  
-    const formik = useFormik({
-      initialValues: {
-        name: "",
-        min_players: "",
-        max_players: "",
-        games: "",
-        rounds: "",
-        password: "",
-        confirm_password: "",
-        robot_id: "",
-      },
-      validationSchema: validationSchema,
-      onSubmit: onSubmita,
-    })
-    
+  }
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      min_players: "",
+      max_players: "",
+      games: "",
+      rounds: "",
+      password: "",
+      confirm_password: "",
+      robot_id: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: onSubmita,
+  })
+
   return (
     <Card variant="outlined">
       <form onSubmit={formik.handleSubmit}>
@@ -228,9 +226,7 @@ const validationSchema = () =>
                 name: "robot_id",
                 id: "robot-s",
               }}
-              error={
-                formik.touched.robot_id && Boolean(formik.errors.robot_id)
-              }
+              error={formik.touched.robot_id && Boolean(formik.errors.robot_id)}
               helperText={formik.touched.robot_id && formik.errors.robot_id}
             />
           </Stack>
