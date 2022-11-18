@@ -4,6 +4,8 @@ import userEvent from "@testing-library/user-event"
 import { CreateMatch } from "./CreateMatch"
 import { renderWithProviders } from "../../../utils/testUtils"
 
+import { server } from "../../../mocks/server"
+ 
 // Case where all inputs are correct
 test("Should create match", async () => {
   const user = userEvent.setup()

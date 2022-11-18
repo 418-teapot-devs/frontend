@@ -24,7 +24,6 @@ export function RobotBaseItem(props) {
               justifyContent="space-between"
               sx={{ mb: 1 }}
             >
-              {console.log(props)}
               <Stack sx={{ mb: 1}}>
                 <Stack direction="column" alignItems="left">
                   <Typography variant="overline" margin={0} noWrap={true}>
@@ -32,7 +31,7 @@ export function RobotBaseItem(props) {
                   </Typography>
                   <Typography variant="caption" margin={0} noWrap={true}>
                     <EmojiEventsIcon sx={{fontSize: 15, color: "#ffc107"}}> 
-                    </EmojiEventsIcon> Tasa de victorias: {props.played_matches ? ((props.won_matches / props.played_matches) * 100).toFixed(2) + "%" : 0}
+                    </EmojiEventsIcon> Tasa de victorias: {props.played_matches ? ((props.won_matches / props.played_matches) * 100).toFixed(0) + "%" : 0 + "%"}
                   </Typography>
                   <Typography variant="caption" margin={0} noWrap={true}>
                     <TrendingUpIcon sx={{fontSize: 15, color: "#0c83fa"}}> 
