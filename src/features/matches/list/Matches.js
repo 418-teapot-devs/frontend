@@ -59,7 +59,7 @@ export const Matches = (props) => {
           <LinearProgress /> 
         </Box>
       )}
-      <Box alignItems="center" sx={{ margin: 3 }}>
+      <Box alignItems="center" sx={{ margin: 2 }}>
         <Stack direction="row">
           <Typography variant="h5"> {props.title} </Typography>
           <Button
