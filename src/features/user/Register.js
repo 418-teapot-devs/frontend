@@ -96,8 +96,8 @@ export const Register = () => {
           setSuccess(false)
           setError(false)
           const body = await response.json()
-          setDuplicateEmail(body["detail"].toString().includes("E-Mail was taken!"))
-          setDuplicateUsername(body["detail"].toString().includes("Username was taken!"))
+          setDuplicateEmail(body["detail"].toString().includes("E-Mail was taken"))
+          setDuplicateUsername(body["detail"].toString().includes("Username was taken"))
           break
         default:
           setSuccess(false)

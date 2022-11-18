@@ -76,7 +76,7 @@ export const handlers = [
 
   ...join_handlers,
 
-  rest.post("http://127.0.0.1:8000/users/login", async (req, res, ctx) => {
+  rest.post("http://127.0.0.1:8000/users/login/", async (req, res, ctx) => {
     const body = await req.json()
     const response = {
       token: "hola",
@@ -86,7 +86,6 @@ export const handlers = [
         avatar_url: ""
       }
     }
-    console.log(body.username)
     if (body.username === "error")
       return res(ctx.status(401), ctx.delay(150))
     else if (body.username === "server error")
