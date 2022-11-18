@@ -112,7 +112,7 @@ export const CreateMatch = () => {
 
   return (
     <Grid container justifyContent="center">
-      <Grid item xs={12} lg={5}>
+      <Grid item xs={12} md={7} lg={5}>
         <Card variant="outlined" sx={{ width: "100%" }}>
           <form onSubmit={formik.handleSubmit}>
             <CardContent>

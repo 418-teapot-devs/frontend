@@ -1,5 +1,11 @@
 import React from "react"
-import { TableRow, Avatar, AvatarGroup, Tooltip, Button } from "@mui/material"
+import {
+  TableRow,
+  Avatar,
+  AvatarGroup,
+  Tooltip,
+  Button,
+} from "@mui/material"
 import { LockOutlined } from "@mui/icons-material"
 import TableCell from "@mui/material/TableCell"
 
@@ -45,8 +51,8 @@ export const MatchListItem = (props) => {
         {props.match.min_players}-{props.match.max_players}
       </TableCell>
       <TableCell align="right">
-        <Button
-          variant="outlined"
+        <Button 
+          variant="contained"
           fullWidth
           data-testid={"join-button-" + props.match.id}
           onClick={() => props.onClick(props.match)}

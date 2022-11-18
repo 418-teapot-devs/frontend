@@ -2,17 +2,19 @@ import { React, useEffect, useState } from "react"
 import { RobotBaseItem } from "./RobotBaseItem"
 import { getRobots } from "./api/getRobots"
 import { useAuth } from "../../hooks/useAuth"
-import { Link } from "react-router-dom"
 import AddIcon from "@mui/icons-material/Add"
 import {
   Box,
   Button,
   Card,
   CardContent,
+  Link,
   Typography,
   Grid,
   Alert,
+  Fab,
 } from "@mui/material"
+import { useNavigate } from "react-router-dom"
 import { SuccessMessage } from "../../utils/AlertMessage"
 
 export const RobotsList = (props) => {
@@ -22,6 +24,7 @@ export const RobotsList = (props) => {
   const [robots, setRobots] = useState([])
   const [error, setError] = useState(null)
   const { user } = useAuth()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchRobots = async () => {
@@ -46,6 +49,20 @@ export const RobotsList = (props) => {
     <Grid container justifyContent="center">
       <Grid item xs={10} md={9} lg={10}>
         <Card variant="outlined">
+          <Fab
+            data-testid="robots-list-create-robot"
+            variant="extended"
+            onClick={() => navigate("/uploadBot")}
+            color="primary"
+            sx={{
+              position: "fixed",
+              bottom: 16,
+              right: 16,
+            }}
+          >
+            <AddIcon sx={{ mr: 1 }} />
+            Crear Robot
+          </Fab>
           <CardContent>
             <Typography
               gutterBottom
@@ -55,16 +72,6 @@ export const RobotsList = (props) => {
             >
               Mis robots
             </Typography>
-            <Box display="flex" justifyContent="flex-end" sx={{ m: 3 }}>
-              <Button
-                component={Link}
-                to="/uploadbot"
-                variant="contained"
-                startIcon={<AddIcon />}
-              >
-                Nuevo robot
-              </Button>
-            </Box>
             {Boolean(error) && (
               <Alert
                 severity="error"
@@ -86,7 +93,7 @@ export const RobotsList = (props) => {
                 </Box>
               )}
               {robots.map((robot) => (
-                <Grid item xs={12} md={6} lg={3} key={robot.robot_id}>
+                <Grid item xs={12} md={6} lg={3} xl={3} key={robot.robot_id}>
                   <RobotBaseItem {...robot}></RobotBaseItem>
                 </Grid>
               ))}

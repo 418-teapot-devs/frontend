@@ -1,3 +1,49 @@
+import { createTheme } from "@mui/material/styles"
+import { red, grey } from "@mui/material/colors"
+
+// mock all
+// const { worker } = require('./mocks/browser')
+// worker.start()
+
+export const lightModeTheme = createTheme({
+  palette: {
+    mode: "light",
+    primary: {
+      // botones
+      main: "#1976d2",
+    },
+    background: {
+      main: grey[300], // fondo
+      paper: "#fff", // catitas
+      light: grey[100], // cartitas sobrepuestas
+      default: grey[100], // header de tablas
+    },
+  },
+})
+
+export const darkModeTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      // botones
+      main: "#4F8F55",
+    },
+    background: {
+      main: "#000", // fondo
+      paper: grey[900], // catitas
+      light: grey[800], // cartitas sobrepuestas
+      default: grey[800], // header de tablas
+    },
+    error: {
+      main: red[200],
+    },
+    text: {
+      primary: "#fff",
+      secondary: grey[400],
+    },
+  },
+})
+
 export const stringToColor = (string) => {
   let hash = 0
   let i

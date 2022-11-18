@@ -10,7 +10,7 @@ const INITIAL_USER = {
   profile: {
     username: null,
     email: null,
-    avatar: null
+    avatar_url: null
   }
 }
 
@@ -33,12 +33,24 @@ export const AuthProvider = ({ children }) => {
     setUser({ token: null, profile: { username: null, email: null, avatar_url: null } })
     navigate("/login", { replace: true })
   }
+  
+  const updateProfile = async (profile) => {
+    setUser({
+      token: user.token,
+      profile: {
+        username: profile.username,
+        email: profile.email,
+        avatar_url: profile.avatar_url,
+      },
+    })
+  }
 
   const value = useMemo(
     () => ({
       user,
       login,
       logout,
+      updateProfile
     }),
     // TODO: Read more about useMemo and useCallback
     // eslint-disable-next-line

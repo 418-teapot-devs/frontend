@@ -111,12 +111,11 @@ export const UploadBot = () => {
                 >
                   Crear robot
                 </Typography>
-              {console.log()}
               </ThemeProvider>
               <Stack spacing={1}>
                 <Box alignItems="center">
                   <Avatar
-                    src={ URL.createObjectURL(formik.values.avatar) }
+                    src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png" }
                     sx={{ width: 80, height: 80, margin: "auto" }}
                   />
                 </Box>
@@ -216,17 +215,17 @@ export const UploadBot = () => {
               </Button>
             </CardActions>
             {success && (
-              <Alert severity="success">
+              <Alert severity="success" >
                 <AlertTitle>Se subió el robot con éxito</AlertTitle>
               </Alert>
             )}
             {error && (
-              <Alert severity="error">
+              <Alert severity="error" >
                 <AlertTitle>No se pudo subir el robot</AlertTitle>
               </Alert>
             )}
             {duplicate && (
-              <Alert severity="error">
+              <Alert severity="error" >
                 <AlertTitle>Ya cuentas con un robot con ese nombre</AlertTitle>
               </Alert>
             )}
