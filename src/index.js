@@ -4,22 +4,35 @@ import App from "./App"
 import reportWebVitals from "./reportWebVitals"
 import { BrowserRouter } from "react-router-dom"
 import { AuthProvider } from "./hooks/useAuth"
+import { SettingsProvider, useSettings } from "./hooks/useSettings"
 import "./index.css"
+import { ThemeProvider } from "@mui/system"
 import { darkModeTheme, lightModeTheme } from "./utils/theme"
-import { ThemeProvider } from "@mui/material/styles"
 
 const container = document.getElementById("root")
 const root = createRoot(container)
 
+const ThemeComponent = ({ children }) => {
+  const { settings } = useSettings()
+
+  return (
+    <ThemeProvider theme={settings.darkMode ? darkModeTheme : lightModeTheme}>
+      {children}
+    </ThemeProvider>
+  )
+}
+
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={darkModeTheme}>
-      <BrowserRouter>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </BrowserRouter>
-    </ThemeProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <SettingsProvider>
+          <ThemeComponent>
+            <App />
+          </ThemeComponent>
+        </SettingsProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </React.StrictMode>
 )
 

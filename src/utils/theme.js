@@ -1,5 +1,5 @@
-import { ThemeProvider, createTheme } from "@mui/material/styles"
-import { red, grey, blue, deepOrange } from "@mui/material/colors"
+import { createTheme } from "@mui/material/styles"
+import { red, grey } from "@mui/material/colors"
 
 // mock all
 // const { worker } = require('./mocks/browser')
@@ -10,10 +10,10 @@ export const lightModeTheme = createTheme({
     mode: "light",
     primary: {
       // botones
-      main: "#4F8F55",
+      main: "#1976d2",
     },
     background: {
-      main: grey[400], // fondo
+      main: grey[300], // fondo
       paper: "#fff", // catitas
       light: grey[100], // cartitas sobrepuestas
       default: grey[100], // header de tablas

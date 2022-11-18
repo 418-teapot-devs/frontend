@@ -14,11 +14,16 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"
 import PlayCircleOutlineOutlinedIcon from "@mui/icons-material/PlayCircleOutlineOutlined"
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined"
 
-import GridOnOutlinedIcon from '@mui/icons-material/GridOnOutlined';
-import PublicIcon from '@mui/icons-material/Public';
-import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
+import GridOnOutlinedIcon from "@mui/icons-material/GridOnOutlined"
+import PublicIcon from "@mui/icons-material/Public"
+import FactCheckOutlinedIcon from "@mui/icons-material/FactCheckOutlined"
+
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined"
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined"
+
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth"
+import { useSettings } from "../hooks/useSettings"
 
 const mainOptions = [
   {
@@ -44,7 +49,7 @@ const mainOptions = [
   {
     title: "Historial de partidas",
     to: "matches/started",
-    icon: <FactCheckOutlinedIcon/>,
+    icon: <FactCheckOutlinedIcon />,
   },
   {
     title: "Simulación",
@@ -67,7 +72,12 @@ const SideBarItem = (props) => {
   return (
     <ListItem disablePadding>
       <Tooltip title={props.title} placement="right">
-        <ListItemButton sx={{ justifyContent: "center" }} onClick={props.onClick}>{props.icon}</ListItemButton>
+        <ListItemButton
+          sx={{ justifyContent: "center" }}
+          onClick={props.onClick}
+        >
+          {props.icon}
+        </ListItemButton>
       </Tooltip>
     </ListItem>
   )
@@ -75,6 +85,7 @@ const SideBarItem = (props) => {
 
 export const SideBar = () => {
   const { logout } = useAuth()
+  const { settings, toggleDarkMode } = useSettings()
   const navigate = useNavigate()
 
   return (
@@ -98,6 +109,13 @@ export const SideBar = () => {
             ))}
           </List>
           <List>
+            <SideBarItem
+              title={settings.darkMode ? "Light Mode" : "Dark Mode"}
+              onClick={toggleDarkMode}
+              icon={
+                settings.darkMode ? <LightModeOutlinedIcon /> : <DarkModeOutlinedIcon />
+              }
+            />
             {extraOptions.map((option) => (
               <SideBarItem
                 key={option.title}
