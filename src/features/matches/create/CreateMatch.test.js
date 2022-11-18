@@ -1,7 +1,7 @@
 import React from "react"
 import { screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { CreateMatch } from "./api/createMatch"
+import { CreateMatch } from "./CreateMatch"
 import { renderWithProviders } from "../../../utils/testUtils"
 
 // Case where all inputs are correct

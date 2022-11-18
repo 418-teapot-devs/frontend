@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 
 import { useAuth } from "../../../hooks/useAuth"
 
-import { createMatch } from "./createMatch"
+import { createMatch } from "./api/createMatch"
 
 import {
   Button,
