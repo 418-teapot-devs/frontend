@@ -2,12 +2,7 @@ import React from "react"
 import { screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { CreateMatch } from "./CreateMatch"
-import { setupServer } from "msw/node"
 import { renderWithProviders } from "../../../utils/testUtils"
-
-import { server } from "../../../mocks/server"
-import { act } from "react-dom/test-utils"
-
 
 // Case where all inputs are correct
 test("Should create match", async () => {
