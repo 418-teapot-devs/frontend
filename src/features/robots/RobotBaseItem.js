@@ -24,7 +24,6 @@ export function RobotBaseItem(props) {
               justifyContent="space-between"
               sx={{ mb: 1 }}
             >
-              {console.log(props)}
               <Stack sx={{ mb: 1}}>
                 <Stack direction="column" alignItems="left">
                   <Typography variant="overline" margin={0} noWrap={true}>

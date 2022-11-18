@@ -111,15 +111,12 @@ export const UploadBot = () => {
                 >
                   Crear robot
                 </Typography>
+              {console.log()}
               </ThemeProvider>
               <Stack spacing={1}>
                 <Box alignItems="center">
                   <Avatar
-                    src={
-                      formik.values.avatar
-                        ? URL.createObjectURL(formik.values.avatar)
-                        : "avatar.png"
-                    }
+                    src={ URL.createObjectURL(formik.values.avatar) }
                     sx={{ width: 80, height: 80, margin: "auto" }}
                   />
                 </Box>
