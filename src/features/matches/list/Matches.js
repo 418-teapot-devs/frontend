@@ -34,7 +34,6 @@ export const Matches = (props) => {
     const fetchMatches = async () => {
       setLoading(true)
       const response = await getList(props.matchType, user.token)
-      console.log("skfj")
       switch (response.status) {
         case 200:
           const body = await response.json()
