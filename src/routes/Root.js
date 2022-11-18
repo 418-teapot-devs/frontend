@@ -6,7 +6,14 @@ export const Root = () => {
   return (
     <Stack direction="row" sx={{ height: "100%" }}>
       <SideBar />
-      <Grid container sx={{ padding: 1, pl: `calc(${SIDEBAR_WIDTH}px + 16px)`, justifyContent: "center" }}>
+      <Grid
+        container
+        sx={{
+          padding: 1,
+          pl: `calc(${SIDEBAR_WIDTH}px + 16px)`,
+          justifyContent: "center",
+        }}
+      >
         <Outlet />
       </Grid>
     </Stack>

@@ -85,7 +85,7 @@ export const RobotsList = (props) => {
             </Box>
           )}
           {robots.map((robot) => (
-            <Grid item xs={12} md={3} lg={2.5} xl={3} key={robot.robot_id}>
+            <Grid item xs={12} md={3} lg={3} xl={3} key={robot.robot_id}>
               <RobotBaseItem {...robot}></RobotBaseItem>
             </Grid>
           ))}

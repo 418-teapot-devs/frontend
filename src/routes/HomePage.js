@@ -1,5 +1,5 @@
 import React from "react"
-// import { Image } from "mui-image"
+// import { Image } from "mui-image "
 import { Box } from "@mui/system"
 
 export const Home = () => {

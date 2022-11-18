@@ -9,7 +9,7 @@ import { Box } from "@mui/material"
 import { Home } from "./routes/HomePage"
 
 import { UploadBot } from "./features/robots/UploadBot"
-import LobbyContainer from "./features/matches/LobbyContainer"
+import LobbyContainer from "./features/matches/lobby/LobbyContainer"
 import { RobotsList } from "./features/robots/RobotsList"
 
 import { CreateMatch } from "./features/matches/create/CreateMatch"
