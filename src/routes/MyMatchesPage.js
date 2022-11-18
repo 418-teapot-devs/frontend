@@ -15,10 +15,10 @@ export const MyMatchesPage = () => {
       <Fab
         variant="extended" 
         onClick={() => navigate("/matches/create")}
-        color='white'
+        color="primary"
         sx={{
-          position: 'fixed',
-          bottom: 30,
+          position: "fixed",
+          bottom: 16,
           right: 16,
         }}
       >

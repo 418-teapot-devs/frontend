@@ -21,11 +21,11 @@ import { useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth"
 
 const mainOptions = [
-  // {
-  //   title: "Inicio",
-  //   to: "",
-  //   icon: <HomeOutlinedIcon />,
-  // },
+  {
+    title: "Inicio",
+    to: "",
+    icon: <HomeOutlinedIcon />,
+  },
   {
     title: "Robots",
     to: "robots",
@@ -38,7 +38,7 @@ const mainOptions = [
   },
   {
     title: "Partidas públicas",
-    to: "/",//"matches/public",
+    to: "matches/public",
     icon: <PublicIcon />,
   },
   {
@@ -67,7 +67,7 @@ const SideBarItem = (props) => {
   return (
     <ListItem disablePadding>
       <Tooltip title={props.title} placement="right">
-        <ListItemButton onClick={props.onClick}>{props.icon}</ListItemButton>
+        <ListItemButton sx={{ justifyContent: "center" }} onClick={props.onClick}>{props.icon}</ListItemButton>
       </Tooltip>
     </ListItem>
   )

@@ -31,7 +31,7 @@ export const Matches = (props) => {
 
   return(
     <Box alignItems="center">
-      <Stack direction="row">
+      <Stack direction="row" > {/*// FIXME */}
         <Typography variant="h5"> {props.title} </Typography>
         <Button onClick={() => setRefresh(!refresh)} data-testid='refresh-button'>
           <RefreshIcon/>

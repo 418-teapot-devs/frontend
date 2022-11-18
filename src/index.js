@@ -5,22 +5,21 @@ import reportWebVitals from "./reportWebVitals"
 import { BrowserRouter } from "react-router-dom"
 import { AuthProvider } from "./hooks/useAuth"
 import "./index.css"
-
-// mock all
-// const { worker } = require('./mocks/browser')
-// worker.start()
-
+import { darkModeTheme, lightModeTheme } from "./utils/theme"
+import { ThemeProvider } from "@mui/material/styles"
 
 const container = document.getElementById("root")
 const root = createRoot(container)
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </BrowserRouter>
+    <ThemeProvider theme={darkModeTheme}>
+      <BrowserRouter>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>
 )
 

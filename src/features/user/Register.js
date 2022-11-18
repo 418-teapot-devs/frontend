@@ -5,6 +5,7 @@ import * as yup from "yup"
 import { register } from './api/register' // CONNECTION W/BACKEND
 import CameraAltIcon from "@mui/icons-material/CameraAlt"
 import YupPassword from "yup-password"
+import { grey } from '@mui/material/colors';
 
 import {
   Avatar,
@@ -126,7 +127,7 @@ export const Register = () => {
           <Stack spacing={2}>
             <Avatar 
               src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png"}
-              sx={{ width: 80, height: 80, margin: "auto" }}
+              sx={{ width: 80, height: 80, margin: "auto", bgcolor: grey[400] }}
             />
             <Box textAlign="center">
             <Button
