@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useAuth } from "../../../hooks/useAuth"
 import { MatchListItem } from "./MatchListItem"
 import { MatchesList } from "./MatchesList"
@@ -28,36 +28,35 @@ const getList = async (matchType, token) => {
 export const Matches = (props) => {
   const [matches, setMatches] = useState([])
   const { user } = useAuth()
-  const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(false)
-
+  
   const params = new URLSearchParams(document.location.search)
   const created = params.get("create_success")
+  
+  const fetchMatches = useCallback(async () => {
+    setLoading(true)
+    const response = await getList(props.matchType, user.token)
+    switch (response.status) {
+      case 200:
+        const body = await response.json()
+        setMatches(body)
+        setLoading(false)
+        break
+      default:
+        setLoading(false)
+        break
+    }
+  }, [props.matchType, user.token])
 
   useEffect(() => {
-    const fetchMatches = async () => {
-      setLoading(true)
-      const response = await getList(props.matchType, user.token)
-      switch (response.status) {
-        case 200:
-          const body = await response.json()
-          setMatches(body)
-          setLoading(false)
-          break
-        default:
-          setLoading(false)
-          break
-      }
-    }
-
     fetchMatches()
-  }, [user.token, refresh])
+  }, [fetchMatches])
 
   return (
     <Box>
       {loading && (
         <Box sx={{ width: "100%" }}>
-          <LinearProgress />
+          <LinearProgress /> 
         </Box>
       )}
       <Box alignItems="center" sx={{ margin: 3 }}>
@@ -65,7 +64,7 @@ export const Matches = (props) => {
           <Typography variant="h5"> {props.title} </Typography>
           <Button
             onClick={() => {
-              setRefresh(!refresh)
+              fetchMatches()
               setLoading(true)
             }}
             data-testid="refresh-button"

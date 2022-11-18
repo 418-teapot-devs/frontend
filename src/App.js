@@ -11,7 +11,6 @@ import LobbyContainer from "./features/matches/lobby/LobbyContainer"
 import { RobotsList } from "./features/robots/RobotsList"
 
 import { CreateMatch } from "./features/matches/create/CreateMatch" 
-import { PublicMatchesPage } from "./routes/PublicMatchesPage"
 import { StartedMatchesPage } from "./routes/StartedMatchesPage"
 import { MatchesPage } from "./routes/MatchesPage"
 

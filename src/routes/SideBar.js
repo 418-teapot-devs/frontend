@@ -9,13 +9,12 @@ import {
 } from "@mui/material"
 
 import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined"
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
+// import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"
 import PlayCircleOutlineOutlinedIcon from "@mui/icons-material/PlayCircleOutlineOutlined"
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined"
 
 import GridOnOutlinedIcon from '@mui/icons-material/GridOnOutlined';
-import PublicIcon from '@mui/icons-material/Public';
 import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth"

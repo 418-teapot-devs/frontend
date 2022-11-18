@@ -1,4 +1,4 @@
-import { Grid, ToggleButton, Stack } from "@mui/material"
+import { ToggleButton, Stack } from "@mui/material"
 import React, { useState } from "react"
 
 import { CreatedMatches } from "../features/matches/list/CreatedMatches"

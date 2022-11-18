@@ -1,5 +1,5 @@
 import { StartedMatches } from "../features/matches/list/StartedMatches"
-import { Box, Card, Grid } from "@mui/material"
+import { Box, Card } from "@mui/material"
 
 export const StartedMatchesPage = () => {
   return (

@@ -75,23 +75,20 @@ export const CreateMatch = () => {
   const { user } = useAuth()
   const navigate = useNavigate()
 
-  const [loading, setLoading] = useState(false)
-  const [success, setSucces] = useState(false)
+  // const [loading, setLoading] = useState(false)
   const [failure, setFailure] = useState(false)
 
   const onSubmita = async (values) => {
-    setLoading(true)
+    // setLoading(true)
     const response = await createMatch(values, user.token)
     switch (response.status) {
       case 201:
-        setLoading(false)
-        setSucces(true)
+        // setLoading(false)
         setFailure(false)
         navigate("/matches?create_success=True")
         break
       default:
-        setLoading(false)
-        setSucces(false)
+        // setLoading(false)
         setFailure(true)
         formik.resetForm(formik.initialValues)
         break
