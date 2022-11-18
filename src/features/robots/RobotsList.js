@@ -2,22 +2,23 @@ import { React, useEffect, useState } from "react"
 import { RobotBaseItem } from "./RobotBaseItem"
 import { getRobots } from "./api/getRobots"
 import { useAuth } from "../../hooks/useAuth"
-import { Link } from "react-router-dom"
 import AddIcon from "@mui/icons-material/Add"
 import {
   Box,
-  Button,
   Card,
   CardContent,
   Typography,
   Grid,
   Alert,
+  Fab,
 } from "@mui/material"
+import { useNavigate } from "react-router-dom"
 
 export const RobotsList = (props) => {
   const [robots, setRobots] = useState([])
   const [error, setError] = useState(null)
   const { user } = useAuth()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchRobots = async () => {
@@ -40,6 +41,20 @@ export const RobotsList = (props) => {
 
   return (
     <Card variant="outlined" sx={{ width: "75%" }}>
+      <Fab
+        data-testid="robots-list-create-robot"
+        variant="extended"
+        onClick={() => navigate("/uploadBot")}
+        color="primary"
+        sx={{
+          position: "fixed",
+          bottom: 16,
+          right: 16,
+        }}
+      >
+        <AddIcon sx={{ mr: 1 }} />
+        Crear Robot
+      </Fab>
       <CardContent>
         <Typography
           gutterBottom
@@ -49,16 +64,6 @@ export const RobotsList = (props) => {
         >
           Mis robots
         </Typography>
-        <Box display="flex" justifyContent="flex-end" sx={{ m: 3 }}>
-          <Button
-            component={Link}
-            to="/uploadbot"
-            variant="contained"
-            startIcon={<AddIcon />}
-          >
-            Nuevo robot
-          </Button>
-        </Box>
         {Boolean(error) && (
           <Alert
             severity="error"

@@ -17,8 +17,8 @@ export const MyMatchesPage = () => {
         onClick={() => navigate("/matches/create")}
         color="primary"
         sx={{
-          position: 'fixed',
-          bottom: 30,
+          position: "fixed",
+          bottom: 16,
           right: 16,
         }}
       >
