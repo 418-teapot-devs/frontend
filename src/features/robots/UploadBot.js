@@ -6,7 +6,6 @@ import { uploadBot } from "./api/uploadBot" // CONNECTION W/BACKEND
 import AddIcon from "@mui/icons-material/Add"
 import { createTheme } from "@mui/material/styles"
 import CameraAltIcon from "@mui/icons-material/CameraAlt"
-import SmartToyIcon from "@mui/icons-material/SmartToy"
 import { useAuth } from "../../hooks/useAuth"
 
 import {
@@ -106,13 +105,11 @@ export const UploadBot = () => {
               <ThemeProvider theme={theme}>
                 <Typography
                   gutterBottom
-                  variant="overline"
+                  variant="h6"
                   component="div"
                   textAlign="center"
                 >
-                  <SmartToyIcon sx={{ fontSize: 20, color: "#1876D2" }} />
                   Crear robot
-                  <SmartToyIcon sx={{ fontSize: 20, color: "#1876D2" }} />
                 </Typography>
               </ThemeProvider>
               <Stack spacing={1}>
