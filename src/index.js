@@ -9,6 +9,10 @@ import "./index.css"
 import { ThemeProvider } from "@mui/system"
 import { darkModeTheme, lightModeTheme } from "./utils/theme"
 
+// mock all
+// const { worker } = require('./mocks/browser')
+// worker.start()
+
 const container = document.getElementById("root")
 const root = createRoot(container)
 
