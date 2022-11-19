@@ -26,7 +26,7 @@ const CustomStage = ({ children, containerRef, ...props }) => {
       stage.height(STAGE_HEIGHT * scale)
       stage.scale({ x: scale, y: scale })
     }
-  }, [containerRef])
+  }, [containerRef, stageRef])
 
   const handleOnWheel = (e) => {
     e.evt.preventDefault()

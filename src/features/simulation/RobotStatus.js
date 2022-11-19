@@ -1,5 +1,4 @@
 import { Card, CardContent, Typography } from "@mui/material"
-import { grey } from "@mui/material/colors"
 import { Box } from "@mui/system"
 import { useMemo } from "react"
 import { stringToColor } from "../../utils/theme"
