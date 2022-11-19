@@ -24,10 +24,10 @@ export const MatchesPage = () => {
       <Fab
         variant="extended"
         onClick={() => navigate("/matches/create")}
-        color="white"
+        color="primary"
         sx={{
           position: "fixed",
-          bottom: 30,
+          bottom: 16,
           right: 16,
         }}
       >
