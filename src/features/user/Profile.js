@@ -115,7 +115,7 @@ export const Profile = () => {
             <Stack direction="row" spacing={2}>
               <IconButton variant="outlined" component="label">
                 <Avatar
-                  src={"http://localhost:8000" + user.profile.avatar_url + `?hash=${Date.now()}`}
+                  src={"http://localhost:8000" + user.profile.avatar_url}
                   sx={{ width: 80, height: 80 }}
                 />
                 <input
