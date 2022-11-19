@@ -100,14 +100,15 @@ export const Profile = () => {
 
   return (
     <Grid container justifyContent="center">
-      <Grid item md={6} marginTop={10} component={Card} xs>
+      <Grid item xs={12} md={6} lg={6}>
+        <Card variant="outlined">
           <CardContent>
             <Box textAlign="center">
               <Typography
                 gutterBottom
                 variant="h5"
                 component="div"
-                color="#1876D2"
+                textAlign="center"
               >
                 Perfil
               </Typography>
@@ -138,7 +139,7 @@ export const Profile = () => {
               </Stack>
             </Stack>
           </CardContent>
-        <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={formik.handleSubmit}>
             <CardContent>
               <Stack spacing={2}>
                 <TextField
@@ -191,17 +192,19 @@ export const Profile = () => {
               </Stack>
             </CardContent>
             <CardActions>
-            <Box sx={{ m: 1, marginLeft: "auto" }}>
-              <Button type="submit" variant="contained" color="primary" >
-                Cambiar contraseña
-              </Button>
-            </Box>
+              <Box sx={{ m: 1, marginLeft: "auto" }}>
+                <Button type="submit" variant="contained" color="primary">
+                  Cambiar contraseña
+                </Button>
+              </Box>
             </CardActions>
             {pswdError && (
               <Alert severity="error">Error al cambiar la contraseña</Alert>
             )}
             {duplicatePswd && (
-              <Alert severity="warning">La contraseña nueva es igual a la actual</Alert>
+              <Alert severity="warning">
+                La contraseña nueva es igual a la actual
+              </Alert>
             )}
             {success && (
               <Alert severity="success">Contraseña cambiada con éxito</Alert>
@@ -209,7 +212,8 @@ export const Profile = () => {
             {avatarError && (
               <Alert severity="error">Error al subir el avatar</Alert>
             )}
-        </form>
+          </form>
+        </Card>
       </Grid>
     </Grid>
   )
