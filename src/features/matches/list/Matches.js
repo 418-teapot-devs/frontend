@@ -12,7 +12,6 @@ import {
 } from "@mui/material"
 import TableCell from "@mui/material/TableCell"
 import RefreshIcon from "@mui/icons-material/Refresh"
-import { SuccessMessage } from "../../../utils/AlertMessage"
 
 const getList = async (matchType, token) => {
   const endpoint = `http://127.0.0.1:8000/matches/?match_type=${matchType}`
@@ -29,9 +28,6 @@ export const Matches = (props) => {
   const [matches, setMatches] = useState([])
   const { user } = useAuth()
   const [loading, setLoading] = useState(false)
-  
-  const params = new URLSearchParams(document.location.search)
-  const created = params.get("create_success")
   
   const fetchMatches = useCallback(async () => {
     setLoading(true)
@@ -51,7 +47,7 @@ export const Matches = (props) => {
   useEffect(() => {
     fetchMatches()
   }, [fetchMatches])
-
+ 
   return (
     <Box>
       {loading && (
@@ -94,7 +90,6 @@ export const Matches = (props) => {
           })}
         </MatchesList>
       </Box>
-      {created && <SuccessMessage message="La partida se creó con éxito" />}
     </Box>
   )
 }

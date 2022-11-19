@@ -9,9 +9,14 @@ import { Card, Fab } from "@mui/material"
 import AddIcon from "@mui/icons-material/Add"
 import { useNavigate } from "react-router-dom"
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
+import { SuccessMessage } from "../utils/AlertMessage"
+
 
 export const MatchesPage = () => {
   const [alignment, setAlignment] = useState("MyMatches")
+
+  const params = new URLSearchParams(document.location.search)
+  const created = params.get("create_success")
 
   const navigate = useNavigate()
   return (
@@ -41,9 +46,11 @@ export const MatchesPage = () => {
           {alignment === "Public" && <PublicMatches height="100%" />}
         </Card>
       </Stack>
+      {created && <SuccessMessage message="La partida se creó con éxito" />}
     </React.Fragment>
   )
 }
+
 
 const ChooseMatchButton = ({ alignment, setAlignment }) => {
   const handleChange = (event, newAlignment) => {
