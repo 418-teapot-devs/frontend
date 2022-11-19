@@ -6,9 +6,7 @@ import { uploadBot } from "./api/uploadBot" // CONNECTION W/BACKEND
 import AddIcon from "@mui/icons-material/Add"
 import { createTheme } from "@mui/material/styles"
 import CameraAltIcon from "@mui/icons-material/CameraAlt"
-import SmartToyIcon from "@mui/icons-material/SmartToy"
 import { useAuth } from "../../hooks/useAuth"
-import { grey } from '@mui/material/colors';
 
 import {
   Button,
@@ -25,6 +23,7 @@ import {
   Stack,
   ThemeProvider,
 } from "@mui/material"
+import { useNavigate } from "react-router-dom"
 
 const FILE_SIZE = 4400000
 const SUPPORTED_IMG_FORMATS = ["image/png"]
@@ -65,7 +64,7 @@ export const UploadBot = () => {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
   const [duplicate, setDuplicate] = useState(false)
-
+  const navigate = useNavigate()
   const { user } = useAuth()
 
   const formik = useFormik({
@@ -82,6 +81,7 @@ export const UploadBot = () => {
           setSuccess(true)
           setError(false)
           setDuplicate(false)
+          navigate("/robots?upload_success=True")
           break
         case 409:
           setSuccess(false)
@@ -105,24 +105,18 @@ export const UploadBot = () => {
               <ThemeProvider theme={theme}>
                 <Typography
                   gutterBottom
-                  variant="overline"
+                  variant="h6"
                   component="div"
                   textAlign="center"
                 >
-                  <SmartToyIcon sx={{ fontSize: 20, color: "#1876D2" }} />
                   Crear robot
-                  <SmartToyIcon sx={{ fontSize: 20, color: "#1876D2" }} />
                 </Typography>
               </ThemeProvider>
               <Stack spacing={1}>
                 <Box alignItems="center">
                   <Avatar
-                    src={
-                      formik.values.avatar
-                        ? URL.createObjectURL(formik.values.avatar)
-                        : "avatar.png"
-                    }
-                    sx={{ width: 80, height: 80, margin: "auto", bgcolor: grey[400]  }}
+                    src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png" }
+                    sx={{ width: 80, height: 80, margin: "auto" }}
                   />
                 </Box>
                 <Box textAlign="center" sx={{ m: 3 }}>

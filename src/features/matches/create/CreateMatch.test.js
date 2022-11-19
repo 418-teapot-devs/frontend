@@ -1,13 +1,11 @@
 import React from "react"
-import { screen } from "@testing-library/react"
+import { screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { CreateMatch } from "./CreateMatch"
-import { setupServer } from "msw/node"
 import { renderWithProviders } from "../../../utils/testUtils"
 
 import { server } from "../../../mocks/server"
-
-
+ 
 // Case where all inputs are correct
 test("Should create match", async () => {
   const user = userEvent.setup()
@@ -40,9 +38,9 @@ test("Should create match", async () => {
 
   await user.click(screen.getByRole("button", { name: "Crear" }))
 
-  expect(
-    await screen.findByText(/Se creó la partida con éxito/i)
-  ).toBeInTheDocument()
+  await waitFor(() => {
+    expect(window.location.pathname).toBe(`/matches`)
+  })
 })
 
 // Cases where all inputs are incorrect

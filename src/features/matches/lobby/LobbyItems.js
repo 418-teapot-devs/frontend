@@ -84,8 +84,8 @@ const Host = ({ host }) => {
 
 export const MatchDescription = ({ match }) => {
   const description = [
-    `min.jugadores: ${match.min_players}`,
-    `max.jugadores: ${match.max_players}`,
+    `min. jugadores: ${match.min_players}`,
+    `max. jugadores: ${match.max_players}`,
     `juegos: ${match.games}`,
     `rondas: ${match.rounds}`,
   ]
@@ -122,14 +122,26 @@ export const Title = ({ match }) => {
 }
 
 export const InfoMessage = ({ state, missing_robots }) => {
-  switch (state) {
-    case "Lobby":
+  switch (true) {
+    case (state === "Lobby" && missing_robots > 1):
       return (
         <Typography>
           Esperando que se unan {missing_robots} robots...
         </Typography>
       )
-    case "Finished":
+    case (state === "Lobby" && missing_robots === 1):
+      return (
+        <Typography>
+          Esperando que se una 1 robot...
+        </Typography>
+      )
+    case (state === "Lobby" && missing_robots === 0):
+      return (
+        <Typography>
+          Esperando que el creador inicie la partida...
+        </Typography>
+      )
+    case (state === "Finished"):
       return <Typography>Partida finalizada</Typography>
     default:
       return

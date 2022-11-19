@@ -15,7 +15,6 @@ import PlayCircleOutlineOutlinedIcon from "@mui/icons-material/PlayCircleOutline
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined"
 
 import GridOnOutlinedIcon from "@mui/icons-material/GridOnOutlined"
-import PublicIcon from "@mui/icons-material/Public"
 import FactCheckOutlinedIcon from "@mui/icons-material/FactCheckOutlined"
 
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined"
@@ -37,18 +36,13 @@ const mainOptions = [
     icon: <SmartToyOutlinedIcon />,
   },
   {
-    title: "Mis partidas",
+    title: "Partidas",
     to: "matches",
     icon: <PlayCircleOutlineOutlinedIcon />,
   },
   {
-    title: "Partidas públicas",
-    to: "matches/public",
-    icon: <PublicIcon />,
-  },
-  {
     title: "Historial de partidas",
-    to: "matches/started",
+    to: "matches/history",
     icon: <FactCheckOutlinedIcon />,
   },
   {

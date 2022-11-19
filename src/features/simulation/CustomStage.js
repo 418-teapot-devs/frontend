@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react"
+import React, { useCallback, useLayoutEffect } from "react"
 import { Stage } from "react-konva"
 
 const STAGE_WIDTH = 1000
@@ -13,7 +13,7 @@ let isMoving = false
 const CustomStage = ({ children, containerRef, ...props }) => {
   const stageRef = React.useRef(null)
 
-  const fitStageToContainer = () => {
+  const fitStageToContainer = useCallback(() => {
     if (containerRef && containerRef.current) {
       let container = containerRef.current
       let stage = stageRef.current
@@ -26,7 +26,7 @@ const CustomStage = ({ children, containerRef, ...props }) => {
       stage.height(STAGE_HEIGHT * scale)
       stage.scale({ x: scale, y: scale })
     }
-  }
+  }, [containerRef, stageRef])
 
   const handleOnWheel = (e) => {
     e.evt.preventDefault()
@@ -96,7 +96,7 @@ const CustomStage = ({ children, containerRef, ...props }) => {
 
   useLayoutEffect(() => {
     fitStageToContainer()
-  }, [containerRef])
+  })
 
   return (
     <Stage

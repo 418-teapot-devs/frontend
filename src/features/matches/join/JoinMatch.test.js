@@ -1,9 +1,8 @@
 import React from "react"
 import { screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { setupServer } from "msw/node"
 import { renderWithProviders } from "../../../utils/testUtils"
-import { joinmatch_request } from "./api/JoinMatch"
+
 import { server } from "../../../mocks/server"
 
 import { public_matcheslist } from "../../../mocks/data/matcheslist"

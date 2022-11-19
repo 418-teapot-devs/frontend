@@ -34,13 +34,13 @@ export const AuthProvider = ({ children }) => {
     navigate("/login", { replace: true })
   }
   
-  const updateProfile = async (profile) => {
+  const updateProfile = (profile) => {
     setUser({
       token: user.token,
       profile: {
         username: profile.username,
         email: profile.email,
-        avatar_url: profile.avatar_url,
+        avatar_url: profile.avatar_url + `?hash=${Date.now()}`,
       },
     })
   }
