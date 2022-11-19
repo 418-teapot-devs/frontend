@@ -10,8 +10,11 @@ import {
   TextField,
   Typography,
   Stack,
-  Alert,
+  Alert
 } from "@mui/material"
+
+import MuiLink from "@mui/material/Link"
+import { Link } from "react-router-dom"
 
 const validationSchema = yup.object({
   username: yup
@@ -70,6 +73,9 @@ export const LoginForm = ({ onSubmit, loading, error }) => {
               helperText={formik.touched.password && formik.errors.password}
             />
             {Boolean(error) && <Alert severity="error">{error}</Alert>}
+            <MuiLink to="/recover" component={Link}>
+              Olvidé mi contraseña
+            </MuiLink>
           </Stack>
         </CardContent>
         <CardActions sx={{ padding: 2 }}>

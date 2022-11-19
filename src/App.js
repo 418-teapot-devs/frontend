@@ -16,6 +16,7 @@ import { MatchesPage } from "./routes/MatchesPage"
 
 import SimulationManager from "./features/simulation/SimulationManager"
 import { StartedMatchesPage } from "./routes/StartedMatchesPage"
+import RecoverPasswordPage from "./routes/RecoverPasswordPage"
 
 const App = () => {
   const routes = useRoutes([
@@ -68,6 +69,10 @@ const App = () => {
     {
       path: "/register",
       element: <RegisterPage />,
+    },
+    {
+      path: "/recover",
+      element: <RecoverPasswordPage />,
     },
   ])
 
