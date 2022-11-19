@@ -12,7 +12,13 @@ const RobotStatus = ({ name, id, x = "--", y = "--", dmg = 100 }) => {
   return (
     <Card
       variant="outlined"
-      sx={{ minWidth: 200, backgroundColor: dmg === 100 ? grey[100] : "none" }}
+      sx={(theme) => ({
+        minWidth: 300,
+        backgroundColor:
+          dmg === 100
+            ? theme.palette.background.darker
+            : theme.palette.background.default,
+      })}
     >
       <CardContent>
         <Typography>{name}</Typography>
