@@ -17,6 +17,7 @@ export const lightModeTheme = createTheme({
       paper: "#fff", // catitas
       light: grey[100], // cartitas sobrepuestas
       default: grey[100], // header de tablas
+      textEditor: "#fff" // fondo del editor de texto
     },
   },
 })
@@ -33,6 +34,7 @@ export const darkModeTheme = createTheme({
       paper: grey[900], // catitas
       light: grey[800], // cartitas sobrepuestas
       default: grey[800], // header de tablas
+      textEditor: grey[900]
     },
     error: {
       main: red[200],
