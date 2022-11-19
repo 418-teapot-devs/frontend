@@ -45,7 +45,7 @@ export const RobotsList = (props) => {
 
   return (
     <Grid container justifyContent="center">
-      <Grid item xs={10} md={9} lg={10}>
+      <Grid item xs={12} lg={10}>
         <Card variant="outlined">
           <Fab
             data-testid="robots-list-create-robot"
@@ -91,7 +91,7 @@ export const RobotsList = (props) => {
                 </Box>
               )}
               {robots.map((robot) => (
-                <Grid item xs={12} md={6} lg={3} xl={3} key={robot.robot_id}>
+                <Grid item xs={12} md={6} lg={4} xl={3} key={robot.robot_id}>
                   <RobotBaseItem {...robot}></RobotBaseItem>
                 </Grid>
               ))}
