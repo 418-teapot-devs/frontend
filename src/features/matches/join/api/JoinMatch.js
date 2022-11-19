@@ -1,8 +1,4 @@
-
-import { response } from "msw"
-import { Navigate } from "react-router-dom"
-
-// This functions are called in Public Matches 
+// These functions are called in Public Matches 
 
 export const joinmatch_request = async (values, match, token) => {
   return (fetch(`http://127.0.0.1:8000/matches/${match.id}/join/`, {

@@ -6,17 +6,16 @@ import LoginPage from "./routes/LoginPage"
 import RegisterPage from "./routes/RegisterPage"
 import { Profile } from "./features/user/Profile"
 import { Box } from "@mui/material"
-import { Home } from "./routes/HomePage"
 
 import { UploadBot } from "./features/robots/UploadBot"
 import LobbyContainer from "./features/matches/lobby/LobbyContainer"
 import { RobotsList } from "./features/robots/RobotsList"
 
 import { CreateMatch } from "./features/matches/create/CreateMatch"
-import { PublicMatchesPage } from "./routes/PublicMatchesPage"
-import { StartedMatchesPage } from "./routes/StartedMatchesPage"
-import { MyMatchesPage } from "./routes/MyMatchesPage"
+import { MatchesPage } from "./routes/MatchesPage"
+
 import SimulationManager from "./features/simulation/SimulationManager"
+import { StartedMatchesPage } from "./routes/StartedMatchesPage"
 
 const App = () => {
   const routes = useRoutes([
@@ -29,10 +28,6 @@ const App = () => {
       ),
       children: [
         {
-          path: "/",
-          element: <Home />,
-        },
-        {
           path: "/robots",
           element: <RobotsList />,
         },
@@ -42,15 +37,15 @@ const App = () => {
         },
         {
           path: "/matches",
-          element: <MyMatchesPage />,
+          element: <MatchesPage />,
         },
         {
           path: "/matches/create",
           element: <CreateMatch />,
         },
         {
-          path: "/matches/:matchId",
-          element: <LobbyContainer />,
+          path: "/matches/history",
+          element: <StartedMatchesPage />,
         },
         {
           path: "/matches/:matchId",
@@ -63,14 +58,6 @@ const App = () => {
         {
           path: "/simulation",
           element: <SimulationManager />,
-        },
-        {
-          path: "/matches/public",
-          element: <PublicMatchesPage />,
-        },
-        {
-          path: "/matches/started",
-          element: <StartedMatchesPage />,
         },
       ],
     },

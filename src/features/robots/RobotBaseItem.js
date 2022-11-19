@@ -1,11 +1,10 @@
 import React from "react"
-import { Avatar, Box, CardContent, Typography } from "@mui/material"
+import { Avatar, Box, Card, CardContent, Typography } from "@mui/material"
 import { grey } from "@mui/material/colors"
 import { Stack } from "@mui/system"
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
-import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment"
-
-import Card from "@mui/material/Card"
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
 export function RobotBaseItem(props) {
   return (
@@ -29,7 +28,11 @@ export function RobotBaseItem(props) {
                   </Typography>
                   <Typography variant="caption" margin={0} noWrap={true}>
                     <EmojiEventsIcon sx={{fontSize: 15, color: "#ffc107"}}> 
-                    </EmojiEventsIcon> Tasa de victorias: {props.played_matches ? props.won_matches / props.played_matches : 0}
+                    </EmojiEventsIcon> Tasa de victorias: {props.played_matches ? ((props.won_matches / props.played_matches) * 100).toFixed(0) + "%" : 0 + "%"}
+                  </Typography>
+                  <Typography variant="caption" margin={0} noWrap={true}>
+                    <TrendingUpIcon sx={{fontSize: 15, color: "#0c83fa"}}> 
+                    </TrendingUpIcon> MMR: {props.mmr}
                   </Typography>
                   <Typography variant="caption" margin={0} noWrap={true}>
                     <LocalFireDepartmentIcon sx={{fontSize: 15, color: "#f44336"}}>

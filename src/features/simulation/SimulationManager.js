@@ -36,7 +36,10 @@ const SimulationManager = () => {
     <React.Fragment>
       <Backdrop
         open={loading}
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={(theme) => ({
+          zIndex: theme.zIndex.drawer + 1,
+          color: theme.palette.primary,
+        })}
       >
         <CircularProgress color="inherit" />
       </Backdrop>

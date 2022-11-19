@@ -96,16 +96,16 @@ test("Show match data", async () => {
     preloadedState: host_providers,
   })
   const missing_robots = match_lobby.max_players - match_lobby.robots.length
-  const infomessage = "Esperando que se unan " + missing_robots + " robots..."
+  const infomessage = missing_robots > 1 ? "Esperando que se unan " + missing_robots + " robots..." : "Esperando que se una 1 robot..."
   expect(screen.getByText(match_lobby.name)).toBeInTheDocument()
   expect(screen.getByText(infomessage)).toBeInTheDocument()
 
   expect(
-    screen.getByText("min.jugadores: " + match_lobby.min_players)
+    screen.getByText("min. jugadores: " + match_lobby.min_players)
   ).toBeInTheDocument()
 
   expect(
-    screen.getByText("max.jugadores: " + match_lobby.max_players)
+    screen.getByText("max. jugadores: " + match_lobby.max_players)
   ).toBeInTheDocument()
 
   expect(screen.getByText("juegos: " + match_lobby.games)).toBeInTheDocument()

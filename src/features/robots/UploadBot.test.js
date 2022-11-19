@@ -1,6 +1,6 @@
 import { rest } from "msw"
 import { setupServer } from "msw/node"
-import { screen } from "@testing-library/react"
+import { screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
 import { UploadBot } from "./UploadBot"
@@ -50,9 +50,9 @@ test("should upload", async () => {
 
   await user.click(screen.getByRole("button", { name: /Crear/i }))
 
-  expect(
-    await screen.findByText(/Se subió el robot con éxito/i)
-  ).toBeInTheDocument()
+  await waitFor(() => {
+    expect(window.location.pathname).toBe(`/robots`)
+  })
 })
 
 // Incorrect inputs: taken name, no avatar
