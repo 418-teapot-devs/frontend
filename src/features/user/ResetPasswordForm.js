@@ -63,7 +63,7 @@ const ResetPasswordForm = ({ resetToken }) => {
   })
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form data-testid="reset-password-form" onSubmit={formik.handleSubmit}>
       <Card variant="outlined">
         {loading && (
           <Box sx={{ position: "relative" }}>
@@ -115,6 +115,7 @@ const ResetPasswordForm = ({ resetToken }) => {
             )}
             <Grid item xs={12} sm={6}>
               <Button
+                data-testid="reset-password-form-goback"
                 fullWidth
                 variant="outlined"
                 onClick={() => navigate("/login")}

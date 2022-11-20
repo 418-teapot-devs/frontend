@@ -51,7 +51,7 @@ const RecoverPasswordForm = () => {
   })
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form data-testid="recover-password-form" onSubmit={formik.handleSubmit}>
       <Card variant="outlined">
         {loading && (
           <Box sx={{ position: "relative" }}>
@@ -91,6 +91,7 @@ const RecoverPasswordForm = () => {
             )}
             <Grid item xs={12} sm={6}>
               <Button
+                data-testid="recover-password-form-goback"
                 fullWidth
                 variant="outlined"
                 onClick={() => navigate("/login")}

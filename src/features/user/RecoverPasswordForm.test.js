@@ -109,3 +109,17 @@ test("should not send form", async () => {
     ).toBeInTheDocument()
   )
 })
+
+test("should go back", async () => {
+  const user = userEvent.setup()
+
+  renderWithProviders(<RecoverPasswordForm />)
+
+  await waitFor(() =>
+    user.click(screen.getByTestId("recover-password-form-goback"))
+  )
+
+  await waitFor(() => {
+    expect(window.location.pathname).toBe("/login")
+  })
+})

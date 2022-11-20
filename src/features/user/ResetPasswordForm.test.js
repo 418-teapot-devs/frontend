@@ -104,3 +104,17 @@ test("expired resetToken", async () => {
     ).toBeInTheDocument()
   )
 })
+
+test("should go back", async () => {
+  const user = userEvent.setup()
+
+  renderWithProviders(<ResetPasswordForm />)
+
+  await waitFor(() =>
+    user.click(screen.getByTestId("reset-password-form-goback"))
+  )
+
+  await waitFor(() => {
+    expect(window.location.pathname).toBe("/login")
+  })
+})
