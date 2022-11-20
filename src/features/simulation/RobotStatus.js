@@ -10,6 +10,7 @@ const RobotStatus = ({ name, id, x = "--", y = "--", dmg = 100 }) => {
   const color = useMemo(() => stringToColor(name + id), [name, id])
   return (
     <Card
+      data-testid={`simulation-robot-${id}`}
       variant="outlined"
       sx={(theme) => ({
         minWidth: 300,

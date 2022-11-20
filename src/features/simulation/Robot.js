@@ -7,6 +7,7 @@ const Robot = ({ name, id, ...props }) => {
 
   return (
     <Rect
+      data-testid={`simulation-board-robot-${id}`}
       fill={fill}
       offsetX={props.height / 2}
       offsetY={props.width / 2}

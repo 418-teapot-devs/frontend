@@ -53,6 +53,7 @@ const SimulationForm = ({ onSubmit }) => {
                     <Field name="rounds">
                       {({ field }) => (
                         <TextField
+                          data-testid="simulation-form-rounds"
                           fullWidth
                           label="Cantidad de rondas *"
                           type="number"
@@ -73,6 +74,7 @@ const SimulationForm = ({ onSubmit }) => {
                               <Field name={`robots.${index}`}>
                                 {({ field }) => (
                                   <RobotsSelect
+                                    data-testid={`robots-select-${index}`}
                                     value={field.value}
                                     name={field.name}
                                     onChange={field.onChange}
@@ -100,11 +102,15 @@ const SimulationForm = ({ onSubmit }) => {
                   </Stack>
                 </CardContent>
                 <CardActions>
-                  {values.robots.every((robot) => robot !== "") && (
-                    <Button type="submit" fullWidth variant="contained">
-                      Iniciar Simulación
-                    </Button>
-                  )}
+                  <Button
+                    data-testid="simulation-form-start-button"
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    disabled={values.robots.some((robot) => robot === "")}
+                  >
+                    Iniciar Simulación
+                  </Button>
                 </CardActions>
               </Form>
             )}
