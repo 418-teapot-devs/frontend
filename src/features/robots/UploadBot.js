@@ -4,6 +4,7 @@ import * as yup from "yup"
 import { uploadBot } from "./api/uploadBot" // CONNECTION W/BACKEND
 //import { uploadBot } from './api/uploadBot.mock'; // TESTING ONLY
 import AddIcon from "@mui/icons-material/Add"
+import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined"
 import { createTheme } from "@mui/material/styles"
 import CameraAltIcon from "@mui/icons-material/CameraAlt"
 import { useAuth } from "../../hooks/useAuth"
@@ -22,8 +23,10 @@ import {
   Typography,
   Stack,
   ThemeProvider,
+  Divider,
 } from "@mui/material"
 import { useNavigate } from "react-router-dom"
+import { TextEditor } from "./TextEditor"
 
 const FILE_SIZE = 4400000
 const SUPPORTED_IMG_FORMATS = ["image/png"]
@@ -64,8 +67,12 @@ export const UploadBot = () => {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
   const [duplicate, setDuplicate] = useState(false)
+  const [openEditor, setOpenEditor] = useState(false)
   const navigate = useNavigate()
   const { user } = useAuth()
+
+  const [code, setCode] = useState("")
+  const [readOnly, setReadOnly] = useState(false)
 
   const formik = useFormik({
     initialValues: {
@@ -96,9 +103,18 @@ export const UploadBot = () => {
     },
   })
 
+  const createFileFromCode = () => {
+    setReadOnly(true)
+    const codeFile = new Blob([code], {
+      type: "text/plain",
+    })
+    console.log(codeFile)
+    formik.setFieldValue("code", codeFile)
+  }
+
   return (
     <Grid container justifyContent="center" sx={{ marginTop: 4 }}>
-      <Grid item xs={6} md={5} lg={3}>
+      <Grid item xs={10} md={5} lg={4}>
         <Card variant="outlined">
           <form onSubmit={formik.handleSubmit}>
             <CardContent>
@@ -115,7 +131,11 @@ export const UploadBot = () => {
               <Stack spacing={1}>
                 <Box alignItems="center">
                   <Avatar
-                    src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png" }
+                    src={
+                      formik.values.avatar
+                        ? URL.createObjectURL(formik.values.avatar)
+                        : "avatar.png"
+                    }
                     sx={{ width: 80, height: 80, margin: "auto" }}
                   />
                 </Box>
@@ -165,30 +185,83 @@ export const UploadBot = () => {
                     fullWidth
                   />
                 </Box>
-                <Box textAlign="center" sx={{ m: 3 }}>
-                  <Button
-                    variant="outlined"
-                    component="label"
-                    aria-label="code"
-                    startIcon={<AddIcon />}
-                    fullWidth
+                <Divider>
+                  <Typography gutterBottom textAlign="center">
+                    Código *
+                  </Typography>
+                </Divider>
+                {!openEditor && (
+                  <Stack
+                    direction="row"
+                    textAlign="center"
+                    sx={{ m: 3 }}
+                    spacing={1}
                   >
-                    Subir código *
-                    <input
-                      hidden
-                      accept=".py"
-                      id="code"
-                      name="code"
-                      type="file"
-                      onChange={(event) => {
-                        formik.setFieldValue(
-                          "code",
-                          event.currentTarget.files[0]
-                        )
+                    <Button
+                      variant="outlined"
+                      component="label"
+                      aria-label="code"
+                      startIcon={<AddIcon />}
+                      fullWidth
+                    >
+                      Subir archivo
+                      <input
+                        hidden
+                        accept=".py"
+                        id="code"
+                        name="code"
+                        type="file"
+                        onChange={(event) => {
+                          formik.setFieldValue(
+                            "code",
+                            event.currentTarget.files[0]
+                          )
+                        }}
+                      />
+                    </Button>
+                    <Button
+                      fullWidth
+                      variant="outlined"
+                      startIcon={<CreateOutlinedIcon />}
+                      onClick={() => {
+                        formik.setFieldValue("code", null)
+                        setOpenEditor(true)
+                        setReadOnly(false)
                       }}
+                    >
+                      Abrir editor
+                    </Button>
+                  </Stack>
+                )}
+                {openEditor && (
+                  <Stack spacing={1}>
+                    <TextEditor
+                      code={code}
+                      setCode={setCode}
+                      readOnly={readOnly}
                     />
-                  </Button>
-                </Box>
+                    <Stack direction="row" spacing={1}>
+                      <Button
+                        fullWidth
+                        variant="outlined"
+                        disabled={readOnly || code === ""}
+                        onClick={createFileFromCode}
+                      >
+                        Subir Código
+                      </Button>
+                      <Button
+                        fullWidth
+                        variant="outlined"
+                        onClick={() => {
+                          setOpenEditor(false)
+                          setCode("")
+                        }}
+                      >
+                        Cancelar
+                      </Button>
+                    </Stack>
+                  </Stack>
+                )}
                 <Typography
                   gutterBottom
                   variant="subtitle1"
@@ -215,17 +288,17 @@ export const UploadBot = () => {
               </Button>
             </CardActions>
             {success && (
-              <Alert severity="success" >
+              <Alert severity="success">
                 <AlertTitle>Se subió el robot con éxito</AlertTitle>
               </Alert>
             )}
             {error && (
-              <Alert severity="error" >
+              <Alert severity="error">
                 <AlertTitle>No se pudo subir el robot</AlertTitle>
               </Alert>
             )}
             {duplicate && (
-              <Alert severity="error" >
+              <Alert severity="error">
                 <AlertTitle>Ya cuentas con un robot con ese nombre</AlertTitle>
               </Alert>
             )}
