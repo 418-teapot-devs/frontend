@@ -33,7 +33,7 @@ const validationSchema = () =>
       .oneOf([yup.ref("password"), null], "Las contraseñas no coinciden"),
   })
 
-const RecoverPasswordForm = () => {
+const RecoverPasswordForm = ({ resetToken }) => {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState()
@@ -50,7 +50,7 @@ const RecoverPasswordForm = () => {
       setLoading(true)
       setSuccess(false)
 
-      const error = await resetPassword(values.password)
+      const error = await resetPassword(resetToken, values.password)
 
       setLoading(false)
       if (error) {
@@ -124,6 +124,7 @@ const RecoverPasswordForm = () => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Button
+                data-testid="reset-password-form-button"
                 type="submit"
                 fullWidth
                 disabled={loading}
