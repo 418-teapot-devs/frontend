@@ -35,8 +35,6 @@ const RecoverPasswordEmailForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      console.log(values)
-
       setLoading(true)
       setSuccess(false)
 
@@ -70,7 +68,7 @@ const RecoverPasswordEmailForm = () => {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                id="email"
+                data-testid="recover-password-form-email"
                 name="email"
                 label="Email"
                 value={formik.values.email}
@@ -102,6 +100,7 @@ const RecoverPasswordEmailForm = () => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Button
+                data-testid="recover-password-form-email-button"
                 type="submit"
                 fullWidth
                 disabled={loading}
