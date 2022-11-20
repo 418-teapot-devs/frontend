@@ -12,17 +12,28 @@ import {
 import { useFormik } from "formik"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import YupPassword from "yup-password"
 import * as yup from "yup"
-import { recoverEmail } from "./api/recoverEmail"
+import { resetPassword } from "./api/resetPassword"
 
-const validationSchema = yup.object({
-  email: yup
-    .string("Ingrese su email")
-    .email("Debe ingresar un email válido")
-    .required("Debe ingresar un email"),
-})
+YupPassword(yup)
 
-const RecoverPasswordEmailForm = () => {
+const validationSchema = () =>
+  yup.object({
+    password: yup
+      .string()
+      .min(8, "La contraseña debe tener al menos 8 caracteres")
+      .minLowercase(1, "La contraseña debe tener al menos una letra minúscula")
+      .minUppercase(1, "La contraseña debe tener al menos una letra mayúscula")
+      .minNumbers(1, "La contraseña debe tener al menos un número")
+      .required("La nueva contraseña es requerida"),
+    confirm: yup
+      .string()
+      .required("La nueva contraseña es requerida")
+      .oneOf([yup.ref("password"), null], "Las contraseñas no coinciden"),
+  })
+
+const ResetPasswordForm = ({ resetToken }) => {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState()
@@ -31,14 +42,15 @@ const RecoverPasswordEmailForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: "",
+      password: "",
+      confirm: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       setLoading(true)
       setSuccess(false)
 
-      const error = await recoverEmail(values.email)
+      const error = await resetPassword(resetToken, values.password)
 
       setLoading(false)
       if (error) {
@@ -62,19 +74,31 @@ const RecoverPasswordEmailForm = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography variant="h5" gutterBottom>
-                Recuperar Contraseña
+                Cambiar contraseña
               </Typography>
             </Grid>
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                data-testid="recover-password-form-email"
-                name="email"
-                label="Email"
-                value={formik.values.email}
+                name="password"
+                label="Nueva contraseña"
+                value={formik.values.password}
                 onChange={formik.handleChange}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
+                error={
+                  formik.touched.password && Boolean(formik.errors.password)
+                }
+                helperText={formik.touched.password && formik.errors.password}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                name="confirm"
+                label="Confirmar contraseña"
+                value={formik.values.confirm}
+                onChange={formik.handleChange}
+                error={formik.touched.confirm && Boolean(formik.errors.confirm)}
+                helperText={formik.touched.confirm && formik.errors.confirm}
               />
             </Grid>
             {error && (
@@ -85,7 +109,7 @@ const RecoverPasswordEmailForm = () => {
             {success && (
               <Grid item xs={12}>
                 <Alert severity="success">
-                  Se envió un correo al email ingresado
+                  Se realizó el cambio de contraseña
                 </Alert>
               </Grid>
             )}
@@ -100,7 +124,7 @@ const RecoverPasswordEmailForm = () => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Button
-                data-testid="recover-password-form-email-button"
+                data-testid="reset-password-form-button"
                 type="submit"
                 fullWidth
                 disabled={loading}
@@ -116,4 +140,4 @@ const RecoverPasswordEmailForm = () => {
   )
 }
 
-export default RecoverPasswordEmailForm
+export default ResetPasswordForm

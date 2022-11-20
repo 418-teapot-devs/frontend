@@ -8,18 +8,20 @@ import { renderWithProviders } from "../../utils/testUtils"
 import RecoverPasswordForm from "./RecoverPasswordForm"
 
 const handlers = [
-  rest.put(
-    "http://127.0.0.1:8000/users/reset_password/",
-    async (req, res, ctx) => {
-      const token = req.headers.get("token")
+  rest.put("http://127.0.0.1:8000/users/recover/", async (req, res, ctx) => {
+    const email = req.url.searchParams.get("email")
 
-      if (token === "somevalidaresettoken") {
-        return res(ctx.status(200))
-      } else {
-        return res(ctx.status(401))
-      }
+    if (email === "valid@mail.com") {
+      return res(ctx.status(200))
+    } else if (email === "invalid@mail.com") {
+      return res(ctx.status(401))
+    } else {
+      return res(ctx.status(500))
     }
-  ),
+  }),
+  rest.post("http://127.0.0.1:8000/users/reset/", (req, res, ctx) => {
+    return res(ctx.status(201))
+  }),
 ]
 
 const server = setupServer(...handlers)
@@ -31,76 +33,79 @@ afterAll(() => server.close())
 test("should send form", async () => {
   const user = userEvent.setup()
 
-  const { getByTestId } = renderWithProviders(
-    <RecoverPasswordForm resetToken="somevalidaresettoken" />
+  const { getByTestId } = renderWithProviders(<RecoverPasswordForm />)
+
+  await waitFor(() => user.click(screen.getByLabelText("Email")))
+
+  await waitFor(() => user.keyboard("valid@mail.com"))
+
+  await waitFor(() =>
+    user.click(getByTestId("recover-password-form-email-button"))
   )
-
-  await waitFor(() => user.click(screen.getByLabelText("Nueva contraseña")))
-
-  await waitFor(() => user.keyboard("validPassword1"))
-
-  await waitFor(() => user.click(screen.getByLabelText("Confirmar contraseña")))
-
-  await waitFor(() => user.keyboard("validPassword1"))
-
-  await waitFor(() => user.click(getByTestId("reset-password-form-button")))
 
   await waitFor(() =>
     expect(
-      screen.getByText(/Se realizó el cambio de contraseña/i)
+      screen.getByText(/Se envió un correo al email ingresado/i)
     ).toBeInTheDocument()
   )
 })
 
-test("form errors", async () => {
+test("should not send form", async () => {
   const user = userEvent.setup()
 
   const { getByTestId } = renderWithProviders(<RecoverPasswordForm />)
 
-  await waitFor(() => user.click(screen.getByLabelText("Nueva contraseña")))
+  await waitFor(() => user.click(screen.getByLabelText("Email")))
 
-  await waitFor(() => user.keyboard("passinv"))
-
-  await waitFor(() => user.click(screen.getByLabelText("Confirmar contraseña")))
-
-  await waitFor(() => user.keyboard("notequal"))
-
-  await waitFor(() => user.click(getByTestId("reset-password-form-button")))
+  await waitFor(() => user.keyboard("notavalidemailstring"))
 
   await waitFor(() =>
-    expect(
-      screen.getByText(/La contraseña debe tener al menos 8 caracteres/i)
-    ).toBeInTheDocument()
+    user.click(getByTestId("recover-password-form-email-button"))
   )
 
   await waitFor(() =>
     expect(
-      screen.getByText(/Las contraseñas no coinciden/i)
+      screen.getByText(/Debe ingresar un email válido/i)
     ).toBeInTheDocument()
   )
 })
 
-
-test("expired resetToken", async () => {
+test("should not send form", async () => {
   const user = userEvent.setup()
 
-  const { getByTestId } = renderWithProviders(
-    <RecoverPasswordForm resetToken="someinvalidaresettoken" />
+  const { getByTestId } = renderWithProviders(<RecoverPasswordForm />)
+
+  await waitFor(() => user.click(screen.getByLabelText("Email")))
+
+  await waitFor(() => user.keyboard("invalid@mail.com"))
+
+  await waitFor(() =>
+    user.click(getByTestId("recover-password-form-email-button"))
   )
-
-  await waitFor(() => user.click(screen.getByLabelText("Nueva contraseña")))
-
-  await waitFor(() => user.keyboard("validPassword1"))
-
-  await waitFor(() => user.click(screen.getByLabelText("Confirmar contraseña")))
-
-  await waitFor(() => user.keyboard("validPassword1"))
-
-  await waitFor(() => user.click(getByTestId("reset-password-form-button")))
 
   await waitFor(() =>
     expect(
-      screen.getByText(/El token para recuperar contraseña ha expirado.../i)
+      screen.getByText(/El email ingresado no existe/i)
+    ).toBeInTheDocument()
+  )
+})
+
+test("should not send form", async () => {
+  const user = userEvent.setup()
+
+  const { getByTestId } = renderWithProviders(<RecoverPasswordForm />)
+
+  await waitFor(() => user.click(screen.getByLabelText("Email")))
+
+  await waitFor(() => user.keyboard("servererror@mail.com"))
+
+  await waitFor(() =>
+    user.click(getByTestId("recover-password-form-email-button"))
+  )
+
+  await waitFor(() =>
+    expect(
+      screen.getByText(/Error del servidor, intente más tarde/i)
     ).toBeInTheDocument()
   )
 })
