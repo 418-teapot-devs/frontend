@@ -6,10 +6,11 @@ export const resetPassword = async (token, password) => {
         method: "PUT",
         headers: {
           accept: "application/json",
+          "Content-Type": "application/json",
           token: token,
         },
         body: JSON.stringify({
-          password: password,
+          new_password: password,
         }),
       }
     )
@@ -17,10 +18,10 @@ export const resetPassword = async (token, password) => {
     switch (response.status) {
       case 200:
         break
-      case 400:
-        return "La contraseña ingresada no és válida"
       case 401:
         return "El token para recuperar contraseña ha expirado..."
+      case 409:
+        return "La contraseña ingresada es igual a la anterior"
       case 500:
         return "Error del servidor, intente más tarde"
       default:

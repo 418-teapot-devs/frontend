@@ -1,14 +1,15 @@
 export const recoverEmail = async (email) => {
   try {
-    const response = await fetch(
-      "http://127.0.0.1:8000/users/recover/?" +
-        new URLSearchParams({
-          email: email,
-        }),
-      {
-        method: "PUT",
-      }
-    )
+    const response = await fetch("http://127.0.0.1:8000/users/recover/", {
+      method: "PUT",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+      }),
+    })
 
     switch (response.status) {
       case 200:

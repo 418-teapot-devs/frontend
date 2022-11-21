@@ -9,11 +9,11 @@ import RecoverPasswordForm from "./RecoverPasswordForm"
 
 const handlers = [
   rest.put("http://127.0.0.1:8000/users/recover/", async (req, res, ctx) => {
-    const email = req.url.searchParams.get("email")
+    const body = await req.json()
 
-    if (email === "valid@mail.com") {
+    if (body.email === "valid@mail.com") {
       return res(ctx.status(200))
-    } else if (email === "invalid@mail.com") {
+    } else if (body.email === "invalid@mail.com") {
       return res(ctx.status(401))
     } else {
       return res(ctx.status(500))
