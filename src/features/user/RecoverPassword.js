@@ -4,10 +4,10 @@ import RecoverPasswordForm from "./RecoverPasswordForm"
 import ResetPasswordForm from "./ResetPasswordForm"
 
 const RecoverPassword = () => {
-  const [searchParams, _] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   return searchParams.get("token") ? (
-    <ResetPasswordForm />
+    <ResetPasswordForm resetToken={searchParams.get("token")} />
   ) : (
     <RecoverPasswordForm />
   )
