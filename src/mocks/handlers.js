@@ -71,6 +71,17 @@ export const handlers = [
     }
   }),
 
+  rest.post("http://127.0.0.1:8000/robots/", async (req, res, ctx) => {
+    const name = req.url.searchParams.get("name")
+
+    if (name === "error") {
+      return res(ctx.status(500), ctx.delay(150))
+    } else if (name === "takenName") {
+      return res(ctx.status(409), ctx.delay(150))
+    }
+    return res(ctx.status(201), ctx.delay(150))
+  }),
+  
   rest.get("http://127.0.0.1:8000/robots/", async (req, res, ctx) => {
     const token = req.headers.get("token")
     if (token === "error")
@@ -81,7 +92,7 @@ export const handlers = [
   rest.get("http://127.0.0.1:8000/robots/1/", async (req, res, ctx) => {
     return res(ctx.status(200), ctx.delay(150), ctx.json(robotdetailslist[0]))
   }),
-
+  
   rest.put("http://127.0.0.1:8000/robots/1/", async (req, res, ctx) => {
     if (req.body.code === "Forbidden")
       return res(
@@ -143,4 +154,5 @@ export const handlers = [
       return res(ctx.status(201), ctx.delay(150))
     }
   ),
+
 ]

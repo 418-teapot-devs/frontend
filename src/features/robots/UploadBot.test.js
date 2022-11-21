@@ -1,32 +1,13 @@
 import { rest } from "msw"
 import { setupServer } from "msw/node"
-import { screen, waitFor } from "@testing-library/react"
+import { getByText, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
 import { UploadBot } from "./UploadBot"
 import React from "react"
 import { renderWithProviders } from "../../utils/testUtils"
 
-export const handlers = [
-  rest.post("http://127.0.0.1:8000/robots/", async (req, res, ctx) => {
-    const name = req.url.searchParams.get("name")
-
-    if (name === "error") {
-      return res(ctx.status(500), ctx.delay(150))
-    } else if (name === "takenName") {
-      return res(ctx.status(409), ctx.delay(150))
-    }
-    return res(ctx.status(201), ctx.delay(150))
-  }),
-]
-
-const server = setupServer(...handlers)
-
-beforeAll(() => server.listen())
-
-afterEach(() => server.resetHandlers())
-
-afterAll(() => server.close())
+import { server } from "../../mocks/server"
 
 // All inputs are correct
 test("should upload", async () => {
@@ -123,3 +104,21 @@ test("unknown error, should not upload", async () => {
     await screen.findByText(/No se pudo subir el robot/i)
   ).toBeInTheDocument()
 })
+
+// 
+test("Open editor and fail if no code provided", async () => {
+  const user = userEvent.setup()
+  renderWithProviders(<UploadBot />)
+
+  await user.click(screen.getByLabelText("Nombre *"))
+  await user.keyboard("robot")
+
+  await user.click(screen.getByRole("button", { name: /Abrir editor/i }))
+  
+  expect(screen.getByRole("button", { name: /Subir código/i })).toBeDisabled()
+
+
+  await user.click(screen.getByRole("button", { name: /Crear/i }))
+  expect(screen.getByText(/El código de su robot es requerido/i)).toBeInTheDocument()
+})
+

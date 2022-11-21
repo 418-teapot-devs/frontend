@@ -7,7 +7,6 @@ import { Stack } from "@mui/system"
 export const TextEditor = ({ code, setCode, readOnly}) => {
 
   const theme = useTheme()
-
   return (
     <Stack spacing={2}>
       <Card variant={readOnly ? "" : "outlined"}>
@@ -15,7 +14,7 @@ export const TextEditor = ({ code, setCode, readOnly}) => {
           <CodeEditor
             value={code}
             language="py"
-            placeholder="Please enter Python code."
+            placeholder="Ingrese el código Python de su robot"
             onChange={(evn) => setCode(evn.target.value)}
             padding={15}
             readOnly={readOnly}

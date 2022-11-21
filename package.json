@@ -11,6 +11,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
+    "@uiw/react-textarea-code-editor": "^2.0.6",
     "formik": "^2.2.9",
     "konva": "^8.3.13",
     "localforage": "^1.10.0",
@@ -56,5 +57,10 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "jest": {
+      "transformIgnorePatterns": [
+      "react-textarea-code-editor"
+    ]
   }
 }
