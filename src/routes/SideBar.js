@@ -9,7 +9,6 @@ import {
 } from "@mui/material"
 
 import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined"
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"
 import PlayCircleOutlineOutlinedIcon from "@mui/icons-material/PlayCircleOutlineOutlined"
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined"
@@ -25,11 +24,6 @@ import { useAuth } from "../hooks/useAuth"
 import { useSettings } from "../hooks/useSettings"
 
 const mainOptions = [
-  {
-    title: "Inicio",
-    to: "",
-    icon: <HomeOutlinedIcon />,
-  },
   {
     title: "Robots",
     to: "robots",
