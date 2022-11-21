@@ -5,6 +5,7 @@ import { changepassword } from "./api/changepassword"
 import * as yup from "yup"
 import {
   Alert,
+  AlertTitle,
   Avatar,
   Box,
   Button,
@@ -51,6 +52,7 @@ export const Profile = () => {
   const { user, updateProfile } = useAuth()
   const [pswdError, setPswdError] = useState(false)
   const [duplicatePswd, setDuplicatePswd] = useState(false)
+  const [wrongPswd, setWrongPswd] = useState(false)
   const [avatarError, setAvatarError] = useState(false)
   const [success, setSuccess] = useState(false)
 
@@ -68,16 +70,25 @@ export const Profile = () => {
           setSuccess(true)
           setPswdError(false)
           setDuplicatePswd(false)
+          setWrongPswd(false)
+          break
+        case 401:
+          setSuccess(false)
+          setPswdError(false)
+          setDuplicatePswd(false)
+          setWrongPswd(true)
           break
         case 409:
           setSuccess(false)
           setPswdError(false)
           setDuplicatePswd(true)
+          setWrongPswd(false)
           break
         default:
           setSuccess(false)
           setPswdError(true)
           setDuplicatePswd(false)
+          setWrongPswd(false)
           break
       }
     },
@@ -199,18 +210,29 @@ export const Profile = () => {
               </Box>
             </CardActions>
             {pswdError && (
-              <Alert severity="error">Error al cambiar la contraseña</Alert>
+              <Alert severity="error">
+                <AlertTitle>Error al cambiar la contraseña</AlertTitle>
+              </Alert>
             )}
             {duplicatePswd && (
               <Alert severity="warning">
-                La contraseña nueva es igual a la actual
+                <AlertTitle>La contraseña nueva es igual a la actual</AlertTitle>
+              </Alert>
+            )}
+            {wrongPswd && (
+              <Alert severity="error">
+                <AlertTitle>La contraseña actual es incorrecta</AlertTitle>
               </Alert>
             )}
             {success && (
-              <Alert severity="success">Contraseña cambiada con éxito</Alert>
+              <Alert severity="success">
+                <AlertTitle>Contraseña cambiada con éxito</AlertTitle>
+              </Alert>
             )}
             {avatarError && (
-              <Alert severity="error">Error al subir el avatar</Alert>
+              <Alert severity="error">
+                <AlertTitle>Error al subir el avatar</AlertTitle>
+              </Alert>
             )}
           </form>
         </Card>
