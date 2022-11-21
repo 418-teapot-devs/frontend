@@ -29,7 +29,9 @@ export const RobotDetails = () => {
   const [robot, setRobot] = useState(null)
 
   const [error, setError] = useState("")
+  const [errorGet, setErrorGet] = useState("")
   const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
 
   useEffect(() => {
     const getRobotAndCode = async () => {
@@ -40,22 +42,22 @@ export const RobotDetails = () => {
           const body = await response.json()
           setCode(body.code)
           setRobot(body.robot_info)
-          setError(false)
+          setErrorGet(null)
           setLoading(false)
           break
 
         case 404:
           setLoading(false)
-          setError("El robot no existe")
+          setErrorGet("El robot no existe")
           break
 
         case 403:
-          setError("El robot no es tuyo")
+          setErrorGet("El robot no es tuyo")
           break
 
         default:
           setLoading(false)
-          setError("Error desconocido")
+          setErrorGet("Error desconocido")
           break
       }
     }
@@ -72,10 +74,12 @@ export const RobotDetails = () => {
         setError(null)
         setLoading(false)
         setReadOnly(true)
+        setSuccess(true)
         break
 
       case 418:
         setLoading(false)
+        setSuccess(false)
         if (detail.includes("Forbidden functions or imports found in code"))
           setError("El código incluye funiones o imports no autorizados")
         else if (detail.includes("Syntax error")) setError("Error de sintaxis")
@@ -83,24 +87,29 @@ export const RobotDetails = () => {
           detail.includes("Invalid name for method or attribute of robot")
         )
           setError("Nombre de método o atributo de robot inválido")
-        else
+        else if (
+          detail.includes("Code must define exactly one class that inherits from Robot")
+        )
           setError(
             "El código debe definir exactamente una clase que herede de Robot"
           )
+        else
+            setError("Error en el código")
         break
       default:
         setLoading(false)
+        setSuccess(false)
         setError("Error Desconocido")
         break
     }
   }
 
-  if (Boolean(error) || !Boolean(robot)) {
+  if (Boolean(errorGet) || !Boolean(robot)) {
     return (
       <Grid container justifyContent="center">
         <Grid item xs={12} md={8} lg={6}>
           <Alert severity="error">
-            <AlertTitle severity="error">{error}</AlertTitle>
+            <AlertTitle severity="error">{errorGet}</AlertTitle>
           </Alert>
         </Grid>
       </Grid>
@@ -118,7 +127,7 @@ export const RobotDetails = () => {
                 />
                 <Typography variant="h5">{robot.name}</Typography>
                 <Box sx={{ minWidth: "70%", maxWidth: "100%" }}>
-                  {loading &&  <LinearProgress/>}
+                  {loading && <LinearProgress />}
                   <TextEditor
                     code={code}
                     setCode={setCode}
@@ -130,7 +139,10 @@ export const RobotDetails = () => {
                   {readOnly && (
                     <Button
                       sx={{ width: "100%" }}
-                      onClick={() => setReadOnly(!readOnly)}
+                      onClick={() => {
+                        setReadOnly(!readOnly)
+                        setSuccess(false)
+                      }}
                     >
                       Editar
                     </Button>
@@ -147,6 +159,12 @@ export const RobotDetails = () => {
                 </Box>
               </Stack>
             </CardContent>
+            {success && (
+              <Alert severity="success">Se editó el bot con éxito</Alert>
+            )}
+            {error && (
+              <Alert severity="error">{error}</Alert>
+            )}
           </Card>
         </Grid>
       </Grid>
