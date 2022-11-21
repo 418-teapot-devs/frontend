@@ -28,6 +28,10 @@ const App = () => {
       ),
       children: [
         {
+          path: "/",
+          element: <MatchesPage />,
+        },
+        {
           path: "/robots",
           element: <RobotsList />,
         },
