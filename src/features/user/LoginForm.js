@@ -73,12 +73,12 @@ export const LoginForm = ({ onSubmit, loading, error }) => {
               helperText={formik.touched.password && formik.errors.password}
             />
             {Boolean(error) && <Alert severity="error">{error}</Alert>}
-            <MuiLink to="/recover" component={Link}>
+            <MuiLink to="/recover" component={Link} variant="overline">
               Olvidé mi contraseña
             </MuiLink>
           </Stack>
         </CardContent>
-        <CardActions sx={{ padding: 2 }}>
+        <CardActions sx={{ padding: 1 }}>
           <Grid container justifyContent="center">
           <Grid item xs={12} sm={6}>
           <Box textAlign="center">

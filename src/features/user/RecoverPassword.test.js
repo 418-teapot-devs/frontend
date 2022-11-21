@@ -5,7 +5,6 @@ import { renderWithProviders } from "../../utils/testUtils"
 import RecoverPassword from "./RecoverPassword"
 
 test("should show ResetPasswordForm", async () => {
-  // FML
   const window_location = window.location
   delete window.location
   window.location = { search: "?token=somevalidresettoken" }

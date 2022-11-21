@@ -72,7 +72,7 @@ const ResetPasswordForm = ({ resetToken }) => {
         )}
         <CardContent>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid item xs={12} textAlign="center">
               <Typography variant="h5" gutterBottom>
                 Cambiar contraseña
               </Typography>
@@ -82,6 +82,7 @@ const ResetPasswordForm = ({ resetToken }) => {
                 fullWidth
                 name="password"
                 label="Nueva contraseña"
+                type="password"
                 value={formik.values.password}
                 onChange={formik.handleChange}
                 error={
@@ -95,6 +96,7 @@ const ResetPasswordForm = ({ resetToken }) => {
                 fullWidth
                 name="confirm"
                 label="Confirmar contraseña"
+                type="password"
                 value={formik.values.confirm}
                 onChange={formik.handleChange}
                 error={formik.touched.confirm && Boolean(formik.errors.confirm)}
