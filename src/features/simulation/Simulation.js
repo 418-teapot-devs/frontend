@@ -2,7 +2,7 @@ import {
   PauseOutlined,
   PlayArrow,
 } from "@mui/icons-material"
-import { Button, IconButton, Paper, Stack } from "@mui/material"
+import { Button, Paper, Stack } from "@mui/material"
 import Slider, { sliderClasses } from "@mui/material/Slider"
 import React, { useEffect, useRef, useState } from "react"
 import Board from "./Board"
