@@ -54,6 +54,7 @@ export const Profile = () => {
   const [duplicatePswd, setDuplicatePswd] = useState(false)
   const [wrongPswd, setWrongPswd] = useState(false)
   const [avatarError, setAvatarError] = useState(false)
+  const [avatarSuccess, setAvatarSuccess] = useState(false)
   const [success, setSuccess] = useState(false)
 
   const formik = useFormik({
@@ -102,8 +103,11 @@ export const Profile = () => {
       case 200:
         const profile = await response.json()
         updateProfile(profile)
+        setAvatarSuccess(true)
+        setAvatarError(false)
         break
       default:
+        setAvatarSuccess(false)
         setAvatarError(true)
         break
     }
@@ -138,6 +142,7 @@ export const Profile = () => {
                   aria-label="avatar"
                   type="file"
                   onChange={handleAvatarChange}
+                  
                 />
               </IconButton>
               <Stack direction="column">
@@ -216,7 +221,9 @@ export const Profile = () => {
             )}
             {duplicatePswd && (
               <Alert severity="warning">
-                <AlertTitle>La contraseña nueva es igual a la actual</AlertTitle>
+                <AlertTitle>
+                  La contraseña nueva es igual a la actual
+                </AlertTitle>
               </Alert>
             )}
             {wrongPswd && (
@@ -229,12 +236,17 @@ export const Profile = () => {
                 <AlertTitle>Contraseña cambiada con éxito</AlertTitle>
               </Alert>
             )}
-            {avatarError && (
-              <Alert severity="error">
-                <AlertTitle>Error al subir el avatar</AlertTitle>
-              </Alert>
-            )}
           </form>
+          {avatarSuccess && (
+            <Alert severity="success">
+              <AlertTitle>Avatar cambiado con éxito</AlertTitle>
+            </Alert>
+          )}
+          {avatarError && (
+            <Alert severity="error">
+              <AlertTitle>Error al subir el avatar</AlertTitle>
+            </Alert>
+          )}
         </Card>
       </Grid>
     </Grid>

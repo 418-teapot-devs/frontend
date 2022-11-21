@@ -10,8 +10,8 @@ export const renderWithProviders = (
       user: {
         token: "token",
         profile: {
-          username: "LORASS",
-          email: "e@mail.com",
+          username: "username",
+          email: "username@gmail.com",
           avatar: ""
         }
       },

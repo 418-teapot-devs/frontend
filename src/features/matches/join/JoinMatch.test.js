@@ -354,7 +354,7 @@ test("Fail to sumbit form: server error", async () => {
 
 
 
-test("Click join and sumbit form", async () => {
+test("Click join and submit form", async () => {
     
   const { getAllByTestId } = renderWithProviders(<PublicMatches/>)
   await waitFor(()=> {
