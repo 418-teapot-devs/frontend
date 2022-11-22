@@ -33,7 +33,7 @@ export const darkModeTheme = createTheme({
       main: "#000", // fondo
       paper: grey[900], // catitas
       darker: grey[800], // cartitas sobrepuestas
-      default: grey[800], // header de tablas
+      default: grey[900], // header de tablas
       textEditor: grey[900]
     },
     error: {
