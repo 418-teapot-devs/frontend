@@ -1,16 +1,16 @@
 import { Snackbar, Alert } from "@mui/material"
 import React, { useState } from "react"
 
-export const SuccessMessage = ({ message }) => {
-  const [open, setOpen] = useState(true);
+export const AlertMessage = ({ message, severity = "success" }) => {
+  const [open, setOpen] = useState(true)
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
+    if (reason === "clickaway") {
+      return
     }
-  
-    setOpen(false);
-  };
+
+    setOpen(false)
+  }
 
   return (
     <Snackbar
@@ -19,7 +19,7 @@ export const SuccessMessage = ({ message }) => {
       onClose={handleClose}
       anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
     >
-      <Alert severity="success" sx={{ width: "100%" }} onClose={handleClose}>
+      <Alert severity={severity} sx={{ width: "100%" }} onClose={handleClose}>
         {message}
       </Alert>
     </Snackbar>

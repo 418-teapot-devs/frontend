@@ -1,17 +1,23 @@
-import { Alert } from "@mui/material"
 import { Box } from "@mui/system"
 import { useState } from "react"
 import { useAuth } from "../../hooks/useAuth"
+import { AlertMessage } from "../../utils/AlertMessage"
 import { LoginForm } from "./LoginForm"
 
-const VerificationInfo = ({is_verified}) => {
+const VerificationInfo = ({ is_verified }) => {
   if (is_verified) {
-    return <Alert severity="success">Se verificó el usuario con éxito</Alert>
+    return (
+      <AlertMessage
+        severity="success"
+        message="Se verificó el usuario con éxito"
+      />
+    )
   } else {
     return (
-      <Alert severity="error">
-        La verificación no se realizó correctamente
-      </Alert>
+      <AlertMessage
+        severity="error"
+        message="La verificación no se realizó correctamente"
+      />
     )
   }
 }

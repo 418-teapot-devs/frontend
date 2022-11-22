@@ -14,7 +14,7 @@ import {
   Button,
 } from "@mui/material"
 import { useNavigate } from "react-router-dom"
-import { SuccessMessage } from "../../utils/AlertMessage"
+import { AlertMessage } from "../../utils/AlertMessage"
 
 export const RobotsList = (props) => {
   const params = new URLSearchParams(document.location.search)
@@ -110,7 +110,7 @@ export const RobotsList = (props) => {
             </Grid>
           </CardContent>
           {upload_success && (
-            <SuccessMessage message="Se creó el robot con éxito" />
+            <AlertMessage message="Se creó el robot con éxito" />
           )}
         </Card>
       </Grid>
