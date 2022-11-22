@@ -10,7 +10,7 @@ export const lightModeTheme = createTheme({
     mode: "light",
     primary: {
       // botones
-      main: "#1976d2",
+      main: "#4F8F55",
     },
     background: {
       main: grey[300], // fondo
