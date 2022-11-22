@@ -1,5 +1,4 @@
 import { Box } from "@mui/material"
-import useTheme from "@mui/material/styles/useTheme"
 import React, { useRef } from "react"
 import { Layer, Rect } from "react-konva"
 import CustomStage from "./CustomStage"
@@ -7,7 +6,6 @@ import { ExplodingMissile, Missile } from "./Missile"
 import Robot from "./Robot"
 
 const Board = ({ robots, missiles, explodingMissiles }) => {
-  const theme = useTheme()
   const boardContainerRef = useRef(null)
 
   return (
@@ -15,14 +13,14 @@ const Board = ({ robots, missiles, explodingMissiles }) => {
       <CustomStage width={1000} height={1000} containerRef={boardContainerRef}>
         <Layer>
           <Rect
-            x={0}
-            y={0}
-            width={1000}
-            height={1000}
+            x={1}
+            y={1}
+            width={998}
+            height={998}
             cornerRadius={4}
             fill="#1C1C1C"
-            strokeWidth={2}
-            stroke={theme.palette.background.default}
+            strokeWidth={1}
+            stroke="#4C4C4C"
           />
         </Layer>
         <Layer>
