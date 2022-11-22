@@ -11,9 +11,10 @@ import {
   Grid,
   Alert,
   Fab,
+  Button,
 } from "@mui/material"
 import { useNavigate } from "react-router-dom"
-import { SuccessMessage } from "../../utils/AlertMessage"
+import { AlertMessage } from "../../utils/AlertMessage"
 
 export const RobotsList = (props) => {
   const params = new URLSearchParams(document.location.search)
@@ -92,13 +93,24 @@ export const RobotsList = (props) => {
               )}
               {robots.map((robot) => (
                 <Grid item xs={12} md={6} lg={4} xl={3} key={robot.robot_id}>
-                  <RobotBaseItem {...robot}></RobotBaseItem>
+                  <RobotBaseItem {...robot}>
+                    <Box display="flex" m={1} justifyContent="flex-end">
+                      <Button
+                        variant="contained"
+                        onClick={(match) =>
+                          navigate(`/robots/${robot.robot_id}`)
+                        }
+                      >
+                        Ver Código
+                      </Button>
+                    </Box>
+                  </RobotBaseItem>
                 </Grid>
               ))}
             </Grid>
           </CardContent>
           {upload_success && (
-            <SuccessMessage message="Se creó el robot con éxito" />
+            <AlertMessage message="Se creó el robot con éxito" />
           )}
         </Card>
       </Grid>

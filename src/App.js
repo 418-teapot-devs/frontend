@@ -16,6 +16,7 @@ import { MatchesPage } from "./routes/MatchesPage"
 
 import SimulationManager from "./features/simulation/SimulationManager"
 import { StartedMatchesPage } from "./routes/StartedMatchesPage"
+import { RobotDetails } from "./features/robots/RobotDetails"
 import RecoverPasswordPage from "./routes/RecoverPasswordPage"
 
 const App = () => {
@@ -35,6 +36,10 @@ const App = () => {
         {
           path: "/robots",
           element: <RobotsList />,
+        },
+        {
+          path: "/robots/:robotId",
+          element: <RobotDetails />
         },
         {
           path: "/uploadbot",
