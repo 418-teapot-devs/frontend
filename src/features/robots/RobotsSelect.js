@@ -1,8 +1,4 @@
-import {
-  CircularProgress,
-  MenuItem,
-  TextField,
-} from "@mui/material"
+import { CircularProgress, MenuItem, TextField } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useAuth } from "../../hooks/useAuth"
 import { getRobots } from "./api/getRobots"
@@ -35,9 +31,13 @@ export const RobotsSelect = ({ ...props }) => {
   return loading ? (
     <CircularProgress />
   ) : (
-    <TextField select fullWidth {...props}>
+    <TextField data-testid="robots-select" select fullWidth {...props}>
       {robots.map((robot) => (
-        <MenuItem value={robot.robot_id} key={robot.robot_id}>
+        <MenuItem
+          data-testid={`robots-select-${robot.robot_id}`}
+          value={robot.robot_id}
+          key={robot.robot_id}
+        >
           {robot.name}
         </MenuItem>
       ))}

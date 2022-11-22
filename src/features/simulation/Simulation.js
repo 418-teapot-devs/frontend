@@ -1,3 +1,7 @@
+import {
+  PauseOutlined,
+  PlayArrow,
+} from "@mui/icons-material"
 import { Button, Paper, Stack } from "@mui/material"
 import Slider, { sliderClasses } from "@mui/material/Slider"
 import React, { useEffect, useRef, useState } from "react"
@@ -27,9 +31,6 @@ const Simulation = ({ robots, rounds }) => {
 
   const roundMissiles = Object.keys(rounds[round].missiles).map((key) => ({
     ...rounds[round].missiles[key],
-    exploding: rounds[(round + 10) % rounds.length].missiles[key]
-      ? rounds[(round + 10) % rounds.length].missiles[key].exploding
-      : true,
     id: key,
     name: robots[rounds[round].missiles[key].sender_id].name,
   }))
@@ -84,10 +85,10 @@ const Simulation = ({ robots, rounds }) => {
         <Stack
           direction="row"
           spacing={2}
-          sx={{ paddingRight: 2, width: "100%" }}
+          sx={{ paddingRight: 1, width: "100%" }}
         >
           <Button variant="outlined" onClick={() => setPaused(!paused)}>
-            {paused ? "Play" : "Pause"}
+            {paused ? <PlayArrow /> : <PauseOutlined />}
           </Button>
           <Slider
             sx={{

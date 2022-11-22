@@ -13,6 +13,9 @@ import {
   Alert,
 } from "@mui/material"
 
+import MuiLink from "@mui/material/Link"
+import { Link } from "react-router-dom"
+
 const validationSchema = yup.object({
   username: yup
     .string("Ingrese su nombre de usuario")
@@ -70,21 +73,22 @@ export const LoginForm = ({ onSubmit, loading, error }) => {
               helperText={formik.touched.password && formik.errors.password}
             />
             {Boolean(error) && <Alert severity="error">{error}</Alert>}
+            <Box textAlign="center">
+              <MuiLink to="/recover" component={Link} variant="overline">
+                Olvidé mi contraseña
+              </MuiLink>
+            </Box>
           </Stack>
         </CardContent>
-        <CardActions sx={{ padding: 2 }}>
+        <CardActions sx={{ padding: 1 }}>
           <Grid container justifyContent="center">
-          <Grid item xs={12} sm={6}>
-          <Box textAlign="center">
-          <Button
-            type="submit"
-            variant="contained"
-            disabled={loading}
-          >
-            Iniciar Sesión
-          </Button>
-          </Box>
-          </Grid>
+            <Grid item xs={12} sm={6}>
+              <Box textAlign="center">
+                <Button type="submit" variant="contained" disabled={loading}>
+                  Iniciar Sesión
+                </Button>
+              </Box>
+            </Grid>
           </Grid>
         </CardActions>
       </form>

@@ -17,6 +17,7 @@ import { MatchesPage } from "./routes/MatchesPage"
 import SimulationManager from "./features/simulation/SimulationManager"
 import { StartedMatchesPage } from "./routes/StartedMatchesPage"
 import { RobotDetails } from "./features/robots/RobotDetails"
+import RecoverPasswordPage from "./routes/RecoverPasswordPage"
 
 const App = () => {
   const routes = useRoutes([
@@ -28,6 +29,10 @@ const App = () => {
         </ProtectedRoute>
       ),
       children: [
+        {
+          path: "/",
+          element: <MatchesPage />,
+        },
         {
           path: "/robots",
           element: <RobotsList />,
@@ -73,6 +78,10 @@ const App = () => {
     {
       path: "/register",
       element: <RegisterPage />,
+    },
+    {
+      path: "/recover",
+      element: <RecoverPasswordPage />,
     },
   ])
 
