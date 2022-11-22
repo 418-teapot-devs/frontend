@@ -1,9 +1,8 @@
 import React from "react"
 import { screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { setupServer } from "msw/node"
 import { renderWithProviders } from "../../../utils/testUtils"
-import { joinmatch_request } from "./api/JoinMatch"
+
 import { server } from "../../../mocks/server"
 
 import { public_matcheslist } from "../../../mocks/data/matcheslist"
@@ -355,7 +354,7 @@ test("Fail to sumbit form: server error", async () => {
 
 
 
-test("Click join and sumbit form", async () => {
+test("Click join and submit form", async () => {
     
   const { getAllByTestId } = renderWithProviders(<PublicMatches/>)
   await waitFor(()=> {

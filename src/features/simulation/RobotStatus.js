@@ -1,5 +1,4 @@
 import { Card, CardContent, Typography } from "@mui/material"
-import { grey } from "@mui/material/colors"
 import { Box } from "@mui/system"
 import { useMemo } from "react"
 import { stringToColor } from "../../utils/theme"
@@ -11,8 +10,15 @@ const RobotStatus = ({ name, id, x = "--", y = "--", dmg = 100 }) => {
   const color = useMemo(() => stringToColor(name + id), [name, id])
   return (
     <Card
+      data-testid={`simulation-robot-${id}`}
       variant="outlined"
-      sx={{ minWidth: 200, backgroundColor: dmg === 100 ? grey[100] : "none" }}
+      sx={(theme) => ({
+        minWidth: 300,
+        backgroundColor:
+          dmg === 100
+            ? theme.palette.background.darker
+            : theme.palette.background.default,
+      })}
     >
       <CardContent>
         <Typography>{name}</Typography>

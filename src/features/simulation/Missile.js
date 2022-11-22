@@ -10,17 +10,18 @@ export const Missile = ({ name, sender_id, exploding, ...props }) => {
 
 export const ExplodingMissile = ({ exploding, ...props }) => {
   const missileRef = useRef(null)
-  const fill = "red"
 
   useEffect(() => {
     if (exploding) {
       const missile = missileRef.current
       missile.to({
         opacity: 0,
-        duration: 0.5,
+        scaleX: 2,
+        scaleY: 2,
+        duration: 0.3
       })
     }
   }, [exploding])
 
-  return <Circle ref={missileRef} fill={fill} {...props} />
+  return <Circle ref={missileRef} fill={"#b71c1c"} {...props} />
 }

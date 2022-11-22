@@ -2,7 +2,7 @@
 export const login = async (username, password) => {
   let token, error, profile
   try {
-    const response = await fetch("http://127.0.0.1:8000/users/login", {
+    const response = await fetch("http://127.0.0.1:8000/users/login/", {
       method: "POST",
       headers: {
         accept: "application/json",
@@ -22,6 +22,9 @@ export const login = async (username, password) => {
         break
       case 401:
         error = "El usuario no existe o la contraseña es inválida"
+        break
+      case 403:
+        error = "El usuario no está verificado."
         break
       case 500:
         error = "Error del servidor, intente más tarde"

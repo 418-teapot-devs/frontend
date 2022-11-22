@@ -1,10 +1,11 @@
-import { React, useState } from "react"
+import { React, useMemo, useState } from "react"
 import { useFormik } from "formik"
 import * as yup from "yup"
 //import { register } from "./api/register.mock" // TESTING ONLY
-import { register } from './api/register' // CONNECTION W/BACKEND
+import { register } from "./api/register" // CONNECTION W/BACKEND
 import CameraAltIcon from "@mui/icons-material/CameraAlt"
 import YupPassword from "yup-password"
+import { grey } from "@mui/material/colors"
 
 import {
   Avatar,
@@ -18,6 +19,7 @@ import {
   Stack,
   Alert,
   AlertTitle,
+  LinearProgress,
 } from "@mui/material"
 
 YupPassword(yup)
@@ -66,6 +68,7 @@ const validationSchema = () =>
 export const Register = () => {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [duplicateUsername, setDuplicateUsername] = useState(false)
   const [duplicateEmail, setDuplicateEmail] = useState(false)
 
@@ -79,7 +82,9 @@ export const Register = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
+      setLoading(true)
       const response = await register(values)
+      setLoading(false)
       switch (response.status) {
         case 201:
           setSuccess(true)
@@ -91,8 +96,12 @@ export const Register = () => {
           setSuccess(false)
           setError(false)
           const body = await response.json()
-          setDuplicateEmail(body["detail"].toString().includes("E-Mail was taken!"))
-          setDuplicateUsername(body["detail"].toString().includes("Username was taken!"))
+          setDuplicateEmail(
+            body["detail"].toString().includes("E-Mail was taken")
+          )
+          setDuplicateUsername(
+            body["detail"].toString().includes("Username was taken")
+          )
           break
         default:
           setSuccess(false)
@@ -103,8 +112,21 @@ export const Register = () => {
     },
   })
 
+  const avatar = useMemo(
+    () =>
+      formik.values.avatar
+        ? URL.createObjectURL(formik.values.avatar)
+        : "avatar.png",
+    [formik.values.avatar]
+  )
+
   return (
     <Box>
+      {loading && (
+        <Box sx={{ width: "100%" }}>
+          <LinearProgress />
+        </Box>
+      )}
       <form onSubmit={formik.handleSubmit}>
         <CardContent>
           <Typography
@@ -116,29 +138,29 @@ export const Register = () => {
             Registrarse
           </Typography>
           <Stack spacing={2}>
-            <Avatar 
-              src={formik.values.avatar ? URL.createObjectURL(formik.values.avatar) : "avatar.png"}
-              sx={{ width: 80, height: 80, margin: "auto" }}
+            <Avatar
+              src={avatar}
+              sx={{ width: 80, height: 80, margin: "auto", bgcolor: grey[400] }}
             />
             <Box textAlign="center">
-            <Button
-              variant="outlined"
-              component="label"
-              startIcon={<CameraAltIcon />}
-            >
-              Subir avatar
-              <input
-                hidden
-                accept="image/*"
-                id="avatar"
-                name="avatar"
-                aria-label="avatar"
-                type="file"
-                onChange={(event) => {
-                  formik.setFieldValue("avatar", event.currentTarget.files[0])
-                }}
-              />
-            </Button>
+              <Button
+                variant="outlined"
+                component="label"
+                startIcon={<CameraAltIcon />}
+              >
+                Subir avatar
+                <input
+                  hidden
+                  accept="image/*"
+                  id="avatar"
+                  name="avatar"
+                  aria-label="avatar"
+                  type="file"
+                  onChange={(event) => {
+                    formik.setFieldValue("avatar", event.currentTarget.files[0])
+                  }}
+                />
+              </Button>
             </Box>
             <Typography
               gutterBottom
@@ -201,19 +223,24 @@ export const Register = () => {
         </CardContent>
         <CardActions sx={{ padding: 2 }}>
           <Grid container justifyContent="center">
-          <Grid item xs={12} sm={6}>
-          <Box textAlign="center">
-          <Button type="submit" variant="contained">
-            Registrarse
-          </Button>
-          </Box>
-          </Grid>
+            <Grid item xs={12} sm={6}>
+              <Box textAlign="center">
+                <Button type="submit" variant="contained">
+                  Registrarse
+                </Button>
+              </Box>
+            </Grid>
           </Grid>
         </CardActions>
         {success && (
-          <Alert severity="success">
-            <AlertTitle>Se creó el usuario con éxito</AlertTitle>
-          </Alert>
+          <Box>
+            <Alert severity="success">
+              <AlertTitle>Se creó el usuario con éxito</AlertTitle>
+            </Alert>
+            <Alert severity="info">
+              <AlertTitle>Email de verificación enviado. </AlertTitle>
+            </Alert>
+          </Box>
         )}
         {error && (
           <Alert severity="error">

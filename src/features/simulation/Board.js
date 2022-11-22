@@ -9,16 +9,18 @@ const Board = ({ robots, missiles, explodingMissiles }) => {
   const boardContainerRef = useRef(null)
 
   return (
-    <Box ref={boardContainerRef}>
+    <Box ref={boardContainerRef} data-testid="simulation-board">
       <CustomStage width={1000} height={1000} containerRef={boardContainerRef}>
         <Layer>
           <Rect
-            x={0}
-            y={0}
-            width={1000}
-            height={1000}
-            fill="#1c1c1c"
+            x={1}
+            y={1}
+            width={998}
+            height={998}
             cornerRadius={4}
+            fill="#1C1C1C"
+            strokeWidth={1}
+            stroke="#4C4C4C"
           />
         </Layer>
         <Layer>

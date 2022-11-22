@@ -4,21 +4,37 @@ import App from "./App"
 import reportWebVitals from "./reportWebVitals"
 import { BrowserRouter } from "react-router-dom"
 import { AuthProvider } from "./hooks/useAuth"
+import { SettingsProvider, useSettings } from "./hooks/useSettings"
 import "./index.css"
+import { ThemeProvider } from "@mui/system"
+import { darkModeTheme, lightModeTheme } from "./utils/theme"
 
 // mock all
 // const { worker } = require('./mocks/browser')
 // worker.start()
 
-
 const container = document.getElementById("root")
 const root = createRoot(container)
+
+const ThemeComponent = ({ children }) => {
+  const { settings } = useSettings()
+
+  return (
+    <ThemeProvider theme={settings.darkMode ? darkModeTheme : lightModeTheme}>
+      {children}
+    </ThemeProvider>
+  )
+}
 
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <SettingsProvider>
+          <ThemeComponent>
+            <App />
+          </ThemeComponent>
+        </SettingsProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

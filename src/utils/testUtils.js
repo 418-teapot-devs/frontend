@@ -9,6 +9,11 @@ export const renderWithProviders = (
     preloadedState = {
       user: {
         token: "token",
+        profile: {
+          username: "username",
+          email: "username@gmail.com",
+          avatar: ""
+        }
       },
       login: jest.fn(),
       logout: jest.fn(),
